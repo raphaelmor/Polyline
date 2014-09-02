@@ -39,6 +39,7 @@ public class Polyline {
     }
     
 // MARK: - Private Methods
+// MARK: - Encoding
     
     private func encodePoints(locations : Array<CLLocation>) -> String {
         var previousCoordinate = CLLocationCoordinate2DMake(0.0, 0.0)
@@ -86,5 +87,32 @@ public class Polyline {
         } while (intValue != 0)
         
         return returnString
+    }
+    
+// MARK: - Decoding
+    
+    private func decodeSingleValue(value : String) -> Double {
+        
+        var scalarArray = [] + value.unicodeScalars
+        let lastValue = Int32(scalarArray.last!.value)
+        
+        var fiveBitComponents = scalarArray.map { (scalar : UnicodeScalar) -> Int32 in
+            var value = Int32(scalar.value - 63)
+            if value != lastValue {
+                return value ^ 0x20
+            } else {
+                return value
+            }
+        }
+        
+        var thirtyTwoBitNumber = fiveBitComponents.reverse().reduce(0) { ($0 << 5 ) | $1 }
+        // check if number is negative
+        if (thirtyTwoBitNumber & 0x1) == 0x1 {
+            thirtyTwoBitNumber = ~(thirtyTwoBitNumber >> 1)
+        } else {
+            thirtyTwoBitNumber = thirtyTwoBitNumber >> 1
+        }
+        
+        return Double(thirtyTwoBitNumber)/1e5
     }
 }
