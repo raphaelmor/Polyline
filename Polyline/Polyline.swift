@@ -28,13 +28,14 @@ import CoreLocation
 //https://developers.google.com/maps/documentation/utilities/polylinealgorithm
 public class Polyline {
     
-    public let encodedPolyline : String
+    public lazy var encodedPolyline : String = {
+        let temporaryPolyline = self.encodePoints(self.locations)
+        return temporaryPolyline
+    }()
     public let locations : Array<CLLocation>
     
     public init(fromLocationArray locations : Array<CLLocation>) {
         self.locations = locations
-        self.encodedPolyline = ""
-        self.encodedPolyline = self.encodePoints(self.locations)
     }
     
 // MARK: - Private Methods
@@ -47,14 +48,15 @@ public class Polyline {
             let coordinatesDifference = CLLocationCoordinate2DMake(location.coordinate.latitude - previousCoordinate.latitude, location.coordinate.longitude - previousCoordinate.longitude)
             
             encodedPolyline += encodeCoordinate(coordinatesDifference)
-            previousCoordinate = location.coordinate
             
+            previousCoordinate = location.coordinate
         }
+        
         return encodedPolyline
     }
     
     private func encodeCoordinate(locationCoordinate : CLLocationCoordinate2D) -> String {
-        var latitudeString = encodeSingleValue(locationCoordinate.latitude)
+        var latitudeString  = encodeSingleValue(locationCoordinate.latitude)
         var longitudeString = encodeSingleValue(locationCoordinate.longitude)
         
         return latitudeString + longitudeString

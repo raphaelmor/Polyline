@@ -65,8 +65,8 @@
 			isa = PBXGroup;
 			children = (
 				207F640319B5DF7E005261FA /* Polyline.h */,
-				207F640119B5DF7E005261FA /* Supporting Files */,
 				207F641A19B5E10C005261FA /* Polyline.swift */,
+				207F640119B5DF7E005261FA /* Supporting Files */,
 			);
 			path = Polyline;
 			sourceTree = "<group>";
