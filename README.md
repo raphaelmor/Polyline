@@ -11,12 +11,15 @@ Polyline encoder / decoder in Swift
 - Complete Documentation
 
 ### Planned for 1.0.0
-
+- Convert to `MKPolyline`
 - Example project
 
+### Planned for future releases 
+- Convert to `GMSPolyline`
+- Distribute as a [CocoaPod](http://cocoapods.org)
+- Filter locations available at a specific level
 
 ## Requirements
-
 - Xcode 6 Beta 7
 - iOS 7.0+ / Mac OS X 10.9+
 
