@@ -9,9 +9,7 @@
 /* Begin PBXBuildFile section */
 		207F640419B5DF7E005261FA /* Polyline.h in Headers */ = {isa = PBXBuildFile; fileRef = 207F640319B5DF7E005261FA /* Polyline.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		207F640E19B5DF7E005261FA /* PolylineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207F640D19B5DF7E005261FA /* PolylineTests.swift */; };
-		207F641919B5E05A005261FA /* LICENCE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 207F641819B5E05A005261FA /* LICENCE.txt */; };
 		207F641B19B5E10C005261FA /* Polyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207F641A19B5E10C005261FA /* Polyline.swift */; };
-		207F641D19B5EDC3005261FA /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 207F641C19B5EDC3005261FA /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -188,7 +186,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				207F641919B5E05A005261FA /* LICENCE.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,7 +203,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				207F641D19B5EDC3005261FA /* README.md in Sources */,
 				207F641B19B5E10C005261FA /* Polyline.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -389,6 +385,7 @@
 				207F641319B5DF7E005261FA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		207F641419B5DF7E005261FA /* Build configuration list for PBXNativeTarget "PolylineTests" */ = {
 			isa = XCConfigurationList;
@@ -397,6 +394,7 @@
 				207F641619B5DF7E005261FA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

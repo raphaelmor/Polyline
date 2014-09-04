@@ -21,27 +21,44 @@
 // SOFTWARE.
 
 import Foundation
-
 import CoreLocation
 
-
-//https://developers.google.com/maps/documentation/utilities/polylinealgorithm
+/// This class can be used for :
+/// * Encoding an Array<CLLocation> to a polyline String
+/// * Decoding a polyline String to an Array<CLLocation>
+///
+/// it is based on google's algorithm that can be found here :
+/// https://developers.google.com/maps/documentation/utilities/polylinealgorithm
 public class Polyline {
+
+    /// The encoded polyline
+    public let encodedPolyline : String = ""
+    /// The array of location
+    public let locations : Array<CLLocation>? = nil
     
-    public lazy var encodedPolyline : String = {
-        let temporaryPolyline = self.encodePoints(self.locations)
-        return temporaryPolyline
-    }()
-    public let locations : Array<CLLocation>
-    
+    /// This designated init encodes an Array<CLLocation> to a String
+    ///
+    /// :param: locations The Array of CLLocation that you want to encode
     public init(fromLocationArray locations : Array<CLLocation>) {
         self.locations = locations
+        self.encodedPolyline = encodeLocations(locations)
+    }
+
+    /// This designated init decodes a polyline String to an Array<CLLocation>
+    ///
+    /// :param: polyline The polyline that you want to decode
+    public init(fromPolyline polyline : String) {
+        self.encodedPolyline = polyline
+        var decodedPoints = decodePolyline(polyline)
+        if !decodedPoints.failed {
+            self.locations = decodedPoints.value
+        }
     }
     
-// MARK: - Private Methods
-// MARK: - Encoding
+    // MARK: - Private Methods
+    // MARK: - Encoding
     
-    private func encodePoints(locations : Array<CLLocation>) -> String {
+    private func encodeLocations(locations : Array<CLLocation>) -> String {
         var previousCoordinate = CLLocationCoordinate2DMake(0.0, 0.0)
         var encodedPolyline = ""
         
@@ -89,19 +106,64 @@ public class Polyline {
         return returnString
     }
     
-// MARK: - Decoding
+    // MARK: - Decoding
+
+    private func decodePolyline(encodedPolyline : String) -> Result<Array<CLLocation>> {
+        
+        var remainingPolyline = encodedPolyline.unicodeScalars
+        var decodedPoints = [CLLocation]()
+        
+        var lat = 0.0, lon = 0.0
+        
+        while countElements(remainingPolyline) > 0 {
+            println("remaining polyline : \(remainingPolyline)")
+            
+            var result = decodeNextValue(&remainingPolyline)
+            if result.failed {
+                return .Failure
+            }
+            lat += result.value!
+            
+            result = decodeNextValue(&remainingPolyline)
+            if result.failed {
+                return .Failure
+            }
+            lon += result.value!
+            
+            decodedPoints.append(CLLocation(latitude: lat, longitude: lon))
+        }
+        
+        return .Success(decodedPoints)
+    }
+    
+    private func decodeNextValue(inout remainingPolyline : String.UnicodeScalarView) -> Result<Double> {
+        var currentIndex = remainingPolyline.startIndex
+        
+        while currentIndex != remainingPolyline.endIndex {
+            var currentCharacterValue = Int32(remainingPolyline[currentIndex].value)
+            if isSeparator(currentCharacterValue) {
+                var extractedScalars = remainingPolyline[remainingPolyline.startIndex...currentIndex]
+                remainingPolyline = remainingPolyline[currentIndex.successor()..<remainingPolyline.endIndex]
+                
+                return .Success(decodeSingleValue(String(extractedScalars)))
+            }
+            
+            currentIndex = currentIndex.successor()
+        }
+        
+        return .Failure
+    }
     
     private func decodeSingleValue(value : String) -> Double {
-        
         var scalarArray = [] + value.unicodeScalars
         let lastValue = Int32(scalarArray.last!.value)
         
         var fiveBitComponents = scalarArray.map { (scalar : UnicodeScalar) -> Int32 in
-            var value = Int32(scalar.value - 63)
+            var value = Int32(scalar.value)
             if value != lastValue {
-                return value ^ 0x20
+                return (value - 63) ^ 0x20
             } else {
-                return value
+                return value - 63
             }
         }
         
@@ -114,5 +176,31 @@ public class Polyline {
         }
         
         return Double(thirtyTwoBitNumber)/1e5
+    }
+    
+    private func isSeparator(value : Int32) -> Bool {
+        return (value - 63) & 0x20 != 0x20
+    }
+}
+
+private enum Result<T> {
+    case Success(T)
+    case Failure
+    var failed: Bool {
+        switch self {
+        case .Failure:
+            return true
+        default:
+            return false
+            }
+    }
+    var value: T? {
+        switch self {
+        case .Success(let result):
+            return result
+            
+        default:
+            return nil
+            }
     }
 }
