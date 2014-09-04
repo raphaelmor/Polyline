@@ -30,33 +30,53 @@ import CoreLocation
 /// it is based on google's algorithm that can be found here :
 /// https://developers.google.com/maps/documentation/utilities/polylinealgorithm
 public class Polyline {
-
+    
     /// The encoded polyline
     public let encodedPolyline : String = ""
     /// The array of location
-    public let locations : Array<CLLocation>? = nil
+    public let locations : Array<CLLocation>?
+    
+    /// The encoded levels
+    public let encodedLevels : String?
+    /// The array of levels
+    public let levels : Array<UInt32>?
     
     /// This designated init encodes an Array<CLLocation> to a String
     ///
-    /// :param: locations The Array of CLLocation that you want to encode
-    public init(fromLocationArray locations : Array<CLLocation>) {
+    /// :param: locations The array of locations that you want to encode
+    /// :param: levels The optional array of levels  that you want to encode
+    public init(locations: Array<CLLocation>, levels: Array<UInt32>? = nil) {
         self.locations = locations
+        self.levels = levels
+        
         self.encodedPolyline = encodeLocations(locations)
-    }
-
-    /// This designated init decodes a polyline String to an Array<CLLocation>
-    ///
-    /// :param: polyline The polyline that you want to decode
-    public init(fromPolyline polyline : String) {
-        self.encodedPolyline = polyline
-        var decodedPoints = decodePolyline(polyline)
-        if !decodedPoints.failed {
-            self.locations = decodedPoints.value
+        if let levelsToEncode = levels {
+            self.encodedLevels = encodeLevels(levelsToEncode)
         }
     }
     
-    // MARK: - Private Methods
-    // MARK: - Encoding
+    /// This designated init decodes a polyline String to an Array<CLLocation>
+    ///
+    /// :param: encodedPolyline The polyline that you want to decode
+    /// :param: encodedLevels The levels that you want to decode
+    public init(encodedPolyline: String, encodedLevels: String? = nil) {
+        self.encodedPolyline = encodedPolyline
+        self.encodedLevels   = encodedLevels
+        
+        var decodedLocations    = self.decodePolyline(encodedPolyline)
+        if !decodedLocations.failed {
+            self.locations = decodedLocations.value
+        }
+        if let levelsToDecode = encodedLevels {
+            var decodedLevels    = decodeLevels(levelsToDecode)
+            if !decodedLevels.failed {
+                self.levels = decodedLevels.value
+            }
+        }
+    }
+    
+    // MARK: - Private methods
+    // MARK: - Encoding locations
     
     private func encodeLocations(locations : Array<CLLocation>) -> String {
         var previousCoordinate = CLLocationCoordinate2DMake(0.0, 0.0)
@@ -74,14 +94,13 @@ public class Polyline {
     }
     
     private func encodeCoordinate(locationCoordinate : CLLocationCoordinate2D) -> String {
-        var latitudeString  = encodeSingleValue(locationCoordinate.latitude)
-        var longitudeString = encodeSingleValue(locationCoordinate.longitude)
+        var latitudeString  = encodeSingleCoordinate(locationCoordinate.latitude)
+        var longitudeString = encodeSingleCoordinate(locationCoordinate.longitude)
         
         return latitudeString + longitudeString
     }
     
-    private func encodeSingleValue(value : Double) -> String {
-        
+    private func encodeSingleCoordinate(value : Double) -> String {
         let e5Value = value * 1e5
         var intValue = Int(round(e5Value))
         intValue = intValue << 1
@@ -106,68 +125,38 @@ public class Polyline {
         return returnString
     }
     
-    // MARK: - Decoding
-
+    // MARK: - Decoding locations
+    
     private func decodePolyline(encodedPolyline : String) -> Result<Array<CLLocation>> {
         
         var remainingPolyline = encodedPolyline.unicodeScalars
-        var decodedPoints = [CLLocation]()
+        var decodedLocations = [CLLocation]()
         
         var lat = 0.0, lon = 0.0
         
         while countElements(remainingPolyline) > 0 {
-            println("remaining polyline : \(remainingPolyline)")
-            
-            var result = decodeNextValue(&remainingPolyline)
+            var result = extractNextChunk(&remainingPolyline)
             if result.failed {
                 return .Failure
             }
-            lat += result.value!
+            lat += decodeSingleCoordinate(result.value!)
             
-            result = decodeNextValue(&remainingPolyline)
+            result = extractNextChunk(&remainingPolyline)
             if result.failed {
                 return .Failure
             }
-            lon += result.value!
+            lon += decodeSingleCoordinate(result.value!)
             
-            decodedPoints.append(CLLocation(latitude: lat, longitude: lon))
+            decodedLocations.append(CLLocation(latitude: lat, longitude: lon))
         }
         
-        return .Success(decodedPoints)
+        return .Success(decodedLocations)
     }
     
-    private func decodeNextValue(inout remainingPolyline : String.UnicodeScalarView) -> Result<Double> {
-        var currentIndex = remainingPolyline.startIndex
-        
-        while currentIndex != remainingPolyline.endIndex {
-            var currentCharacterValue = Int32(remainingPolyline[currentIndex].value)
-            if isSeparator(currentCharacterValue) {
-                var extractedScalars = remainingPolyline[remainingPolyline.startIndex...currentIndex]
-                remainingPolyline = remainingPolyline[currentIndex.successor()..<remainingPolyline.endIndex]
-                
-                return .Success(decodeSingleValue(String(extractedScalars)))
-            }
-            
-            currentIndex = currentIndex.successor()
-        }
-        
-        return .Failure
-    }
-    
-    private func decodeSingleValue(value : String) -> Double {
+    private func decodeSingleCoordinate(value : String) -> Double {
         var scalarArray = [] + value.unicodeScalars
-        let lastValue = Int32(scalarArray.last!.value)
         
-        var fiveBitComponents = scalarArray.map { (scalar : UnicodeScalar) -> Int32 in
-            var value = Int32(scalar.value)
-            if value != lastValue {
-                return (value - 63) ^ 0x20
-            } else {
-                return value - 63
-            }
-        }
-        
-        var thirtyTwoBitNumber = fiveBitComponents.reverse().reduce(0) { ($0 << 5 ) | $1 }
+        var thirtyTwoBitNumber = agregateScalarArray(scalarArray)
         // check if number is negative
         if (thirtyTwoBitNumber & 0x1) == 0x1 {
             thirtyTwoBitNumber = ~(thirtyTwoBitNumber >> 1)
@@ -178,8 +167,96 @@ public class Polyline {
         return Double(thirtyTwoBitNumber)/1e5
     }
     
+    // MARK: - Encoding levels
+    
+    private func encodeLevels(levels : Array<UInt32>) -> String {
+        return levels.reduce("") {
+            $0 + self.encodeLevel($1)
+        }
+    }
+    
+    private func encodeLevel(level : UInt32) -> String {
+        var value = Int(level)
+        var fiveBitComponent = 0
+        var returnString = ""
+        
+        do {
+            fiveBitComponent = value & 0x1F
+            
+            if value > 0x20 {
+                fiveBitComponent |= 0x20
+            }
+            
+            fiveBitComponent += 63
+            
+            returnString.append(UnicodeScalar(fiveBitComponent))
+            value = value >> 5
+        } while (value != 0)
+        
+        return returnString
+    }
+    
+    // MARK: - Decoding levels
+    private func decodeLevels(encodedLevels : String) -> Result<Array<UInt32>> {
+        var remainingLevels = encodedLevels.unicodeScalars
+        var decodedLevels = [UInt32]()
+        
+        while countElements(remainingLevels) > 0 {
+            var result = extractNextChunk(&remainingLevels)
+            if result.failed {
+                return .Failure
+            }else{
+                let level = decodeLevel(result.value!)
+                decodedLevels.append(UInt32(level))
+            }
+        }
+        
+        return .Success(decodedLevels)
+    }
+    
+    func decodeLevel(encodedLevel : String) -> UInt32 {
+        var scalarArray = [] + encodedLevel.unicodeScalars
+        
+        return UInt32(agregateScalarArray(scalarArray))
+    }
+    
+    // MARK: - Helper methods
+    
     private func isSeparator(value : Int32) -> Bool {
         return (value - 63) & 0x20 != 0x20
+    }
+    
+    private func agregateScalarArray(scalars : [UnicodeScalar]) -> Int32 {
+        let lastValue = Int32(scalars.last!.value)
+        
+        var fiveBitComponents = scalars.map { (scalar : UnicodeScalar) -> Int32 in
+            var value = Int32(scalar.value)
+            if value != lastValue {
+                return (value - 63) ^ 0x20
+            } else {
+                return value - 63
+            }
+        }
+        
+        return fiveBitComponents.reverse().reduce(0) { ($0 << 5 ) | $1 }
+    }
+    
+    private func extractNextChunk(inout encodedString : String.UnicodeScalarView) -> Result<String> {
+        var currentIndex = encodedString.startIndex
+        
+        while currentIndex != encodedString.endIndex {
+            var currentCharacterValue = Int32(encodedString[currentIndex].value)
+            if isSeparator(currentCharacterValue) {
+                var extractedScalars = encodedString[encodedString.startIndex...currentIndex]
+                encodedString = encodedString[currentIndex.successor()..<encodedString.endIndex]
+                
+                return .Success(String(extractedScalars))
+            }
+            
+            currentIndex = currentIndex.successor()
+        }
+        
+        return .Failure
     }
 }
 
