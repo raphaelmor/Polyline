@@ -25,6 +25,8 @@ import XCTest
 
 import Polyline
 
+private let COORD_EPSILON : Double = 0.00001
+
 class PolylineTests: XCTestCase {
     
     // MARK: - Encoding locations
@@ -80,12 +82,12 @@ class PolylineTests: XCTestCase {
         if let resultArray = sut.locations {
             
             XCTAssertEqual(countElements(resultArray), 3)
-            XCTAssertEqualWithAccuracy(resultArray[0].coordinate.latitude, 38.5, 0.00001)
-            XCTAssertEqualWithAccuracy(resultArray[0].coordinate.longitude, -120.2, 0.00001)
-            XCTAssertEqualWithAccuracy(resultArray[1].coordinate.latitude, 40.7, 0.00001)
-            XCTAssertEqualWithAccuracy(resultArray[1].coordinate.longitude, -120.95, 0.00001)
-            XCTAssertEqualWithAccuracy(resultArray[2].coordinate.latitude, 43.252, 0.00001)
-            XCTAssertEqualWithAccuracy(resultArray[2].coordinate.longitude, -126.453, 0.00001)
+            XCTAssertEqualWithAccuracy(resultArray[0].coordinate.latitude, 38.5, COORD_EPSILON)
+            XCTAssertEqualWithAccuracy(resultArray[0].coordinate.longitude, -120.2, COORD_EPSILON)
+            XCTAssertEqualWithAccuracy(resultArray[1].coordinate.latitude, 40.7, COORD_EPSILON)
+            XCTAssertEqualWithAccuracy(resultArray[1].coordinate.longitude, -120.95, COORD_EPSILON)
+            XCTAssertEqualWithAccuracy(resultArray[2].coordinate.latitude, 43.252, COORD_EPSILON)
+            XCTAssertEqualWithAccuracy(resultArray[2].coordinate.longitude, -126.453, COORD_EPSILON)
         } else {
             XCTFail()
         }
@@ -97,12 +99,12 @@ class PolylineTests: XCTestCase {
         if let resultArray = sut.locations {
             
             XCTAssertEqual(countElements(resultArray), 3)
-            XCTAssertEqualWithAccuracy(resultArray[0].coordinate.latitude, 48.8832, 0.00001)
-            XCTAssertEqualWithAccuracy(resultArray[0].coordinate.longitude, 2.23761, 0.00001)
-            XCTAssertEqualWithAccuracy(resultArray[1].coordinate.latitude, 48.82747, 0.00001)
-            XCTAssertEqualWithAccuracy(resultArray[1].coordinate.longitude, 2.23694, 0.00001)
-            XCTAssertEqualWithAccuracy(resultArray[2].coordinate.latitude, 48.87303, 0.00001)
-            XCTAssertEqualWithAccuracy(resultArray[2].coordinate.longitude, 2.40154, 0.00001)
+            XCTAssertEqualWithAccuracy(resultArray[0].coordinate.latitude, 48.8832,  COORD_EPSILON)
+            XCTAssertEqualWithAccuracy(resultArray[0].coordinate.longitude, 2.23761, COORD_EPSILON)
+            XCTAssertEqualWithAccuracy(resultArray[1].coordinate.latitude, 48.82747, COORD_EPSILON)
+            XCTAssertEqualWithAccuracy(resultArray[1].coordinate.longitude, 2.23694, COORD_EPSILON)
+            XCTAssertEqualWithAccuracy(resultArray[2].coordinate.latitude, 48.87303, COORD_EPSILON)
+            XCTAssertEqualWithAccuracy(resultArray[2].coordinate.longitude, 2.40154, COORD_EPSILON)
         }else {
             XCTFail()
         }
