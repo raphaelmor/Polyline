@@ -54,6 +54,16 @@ class PolylineTests: XCTestCase {
         XCTAssertEqual(sut.encodedPolyline,"_p~iF~ps|U_ulLnnqC_mqNvxq`@")
     }
     
+    // Github issue 1
+    func testSmallNegativeDifferencesShouldBeEncodedProperly() {
+        var locations = [CLLocation(latitude: 37.32721043, longitude: 122.02685069),
+            CLLocation(latitude: 37.32727259, longitude: 122.02685280),
+            CLLocation(latitude: 37.32733398, longitude: 122.02684998)]
+        
+        let sut = Polyline(locations: locations)
+        XCTAssertEqual(sut.encodedPolyline, "anybFyjxgVK?K?")
+    }
+    
     // MARK: - Decoding locations
     
     func testEmptyPolylineShouldBeEmptyLocationArray() {

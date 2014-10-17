@@ -101,11 +101,11 @@ public class Polyline {
     }
     
     private func encodeSingleCoordinate(value : Double) -> String {
-        let e5Value = value * 1e5
-        var intValue = Int(round(e5Value))
+        let roundedE5Value = round(value * 1e5)
+        var intValue = Int(roundedE5Value)
         intValue = intValue << 1
         
-        if value < 0 {
+        if roundedE5Value < 0 {
             intValue = ~intValue
         }
         var fiveBitComponent = 0
