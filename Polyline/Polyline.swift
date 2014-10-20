@@ -79,41 +79,51 @@ public class Polyline {
     // MARK: - Encoding locations
     
     private func encodeLocations(locations : Array<CLLocation>) -> String {
-        var previousCoordinate = CLLocationCoordinate2DMake(0.0, 0.0)
+
+        var previousCoordinate = IntCoordinates(0, 0)
         var encodedPolyline = ""
         
         for location in locations {
-            let coordinatesDifference = CLLocationCoordinate2DMake(location.coordinate.latitude - previousCoordinate.latitude, location.coordinate.longitude - previousCoordinate.longitude)
+            
+            let intLatitude = Int(round(location.coordinate.latitude * 1e5))
+            let intLongitude = Int(round(location.coordinate.longitude * 1e5))
+            
+            let coordinatesDifference = IntCoordinates(intLatitude - previousCoordinate.latitude, intLongitude - previousCoordinate.longitude)
             
             encodedPolyline += encodeCoordinate(coordinatesDifference)
             
-            previousCoordinate = location.coordinate
+            previousCoordinate.latitude = intLatitude
+            previousCoordinate.longitude = intLongitude
         }
         
         return encodedPolyline
     }
     
-    private func encodeCoordinate(locationCoordinate : CLLocationCoordinate2D) -> String {
+    private func encodeCoordinate(locationCoordinate : IntCoordinates) -> String {
+    
         var latitudeString  = encodeSingleCoordinate(locationCoordinate.latitude)
         var longitudeString = encodeSingleCoordinate(locationCoordinate.longitude)
         
         return latitudeString + longitudeString
     }
     
-    private func encodeSingleCoordinate(value : Double) -> String {
-        let roundedE5Value = round(value * 1e5)
-        var intValue = Int(roundedE5Value)
-        intValue = intValue << 1
+    private func encodeSingleCoordinate(value : Int) -> String {
+
+        var intValue = value
         
-        if roundedE5Value < 0 {
+        if intValue < 0 {
+            intValue = intValue << 1
             intValue = ~intValue
+        } else {
+            intValue = intValue << 1
         }
+
         var fiveBitComponent = 0
         var returnString = ""
         
         do {
             fiveBitComponent = intValue & 0x1F
-            if intValue > 0x20 {
+            if intValue >= 0x20 {
                 fiveBitComponent |= 0x20
             }
             fiveBitComponent += 63
@@ -259,6 +269,10 @@ public class Polyline {
         return .Failure
     }
 }
+
+// MARK: - Private
+
+typealias IntCoordinates = (latitude: Int, longitude: Int)
 
 private enum Result<T> {
     case Success(T)
