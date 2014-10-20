@@ -29,6 +29,8 @@ import CoreLocation
 ///
 /// it is based on google's algorithm that can be found here :
 /// https://developers.google.com/maps/documentation/utilities/polylinealgorithm
+/// it is aims to produce the same results as google's iOS sdk not as the online
+/// tool which is fuzzy when it comes to rounding values
 public class Polyline {
     
     /// The encoded polyline
@@ -46,10 +48,12 @@ public class Polyline {
     /// :param: locations The array of locations that you want to encode
     /// :param: levels The optional array of levels  that you want to encode
     public init(locations: Array<CLLocation>, levels: Array<UInt32>? = nil) {
+        
         self.locations = locations
         self.levels = levels
         
         self.encodedPolyline = encodeLocations(locations)
+        
         if let levelsToEncode = levels {
             self.encodedLevels = encodeLevels(levelsToEncode)
         }
@@ -60,15 +64,19 @@ public class Polyline {
     /// :param: encodedPolyline The polyline that you want to decode
     /// :param: encodedLevels The levels that you want to decode
     public init(encodedPolyline: String, encodedLevels: String? = nil) {
+        
         self.encodedPolyline = encodedPolyline
         self.encodedLevels   = encodedLevels
         
         var decodedLocations    = self.decodePolyline(encodedPolyline)
+        
         if !decodedLocations.failed {
             self.locations = decodedLocations.value
         }
+        
         if let levelsToDecode = encodedLevels {
             var decodedLevels    = decodeLevels(levelsToDecode)
+            
             if !decodedLevels.failed {
                 self.levels = decodedLevels.value
             }
@@ -79,27 +87,25 @@ public class Polyline {
     // MARK: - Encoding locations
     
     private func encodeLocations(locations : Array<CLLocation>) -> String {
-
-        var previousCoordinate = IntCoordinates(0, 0)
+        
+        var previousCoordinate = IntegerCoordinates(0, 0)
         var encodedPolyline = ""
         
         for location in locations {
-            
             let intLatitude = Int(round(location.coordinate.latitude * 1e5))
             let intLongitude = Int(round(location.coordinate.longitude * 1e5))
             
-            let coordinatesDifference = IntCoordinates(intLatitude - previousCoordinate.latitude, intLongitude - previousCoordinate.longitude)
+            let coordinatesDifference = (intLatitude - previousCoordinate.latitude, intLongitude - previousCoordinate.longitude)
             
             encodedPolyline += encodeCoordinate(coordinatesDifference)
             
-            previousCoordinate.latitude = intLatitude
-            previousCoordinate.longitude = intLongitude
+            previousCoordinate = (intLatitude,intLongitude)
         }
         
         return encodedPolyline
     }
     
-    private func encodeCoordinate(locationCoordinate : IntCoordinates) -> String {
+    private func encodeCoordinate(locationCoordinate : IntegerCoordinates) -> String {
     
         var latitudeString  = encodeSingleCoordinate(locationCoordinate.latitude)
         var longitudeString = encodeSingleCoordinate(locationCoordinate.longitude)
@@ -118,22 +124,9 @@ public class Polyline {
             intValue = intValue << 1
         }
 
-        var fiveBitComponent = 0
-        var returnString = ""
-        
-        do {
-            fiveBitComponent = intValue & 0x1F
-            if intValue >= 0x20 {
-                fiveBitComponent |= 0x20
-            }
-            fiveBitComponent += 63
-            
-            returnString.append(UnicodeScalar(fiveBitComponent))
-            intValue = intValue >> 5
-        } while (intValue != 0)
-        
-        return returnString
+        return encodeFiveBitComponents(intValue)
     }
+    
     
     // MARK: - Decoding locations
     
@@ -186,24 +179,8 @@ public class Polyline {
     }
     
     private func encodeLevel(level : UInt32) -> String {
-        var value = Int(level)
-        var fiveBitComponent = 0
-        var returnString = ""
         
-        do {
-            fiveBitComponent = value & 0x1F
-            
-            if value > 0x20 {
-                fiveBitComponent |= 0x20
-            }
-            
-            fiveBitComponent += 63
-            
-            returnString.append(UnicodeScalar(fiveBitComponent))
-            value = value >> 5
-        } while (value != 0)
-        
-        return returnString
+       return encodeFiveBitComponents(Int(level))
     }
     
     // MARK: - Decoding levels
@@ -268,11 +245,34 @@ public class Polyline {
         
         return .Failure
     }
+    
+    private func encodeFiveBitComponents(value: Int) -> String {
+
+        var remainingComponents = value
+        
+        var fiveBitComponent = 0
+        var returnString = ""
+        
+        do {
+            fiveBitComponent = remainingComponents & 0x1F
+            
+            if remainingComponents >= 0x20 {
+                fiveBitComponent |= 0x20
+            }
+            
+            fiveBitComponent += 63
+            
+            returnString.append(UnicodeScalar(fiveBitComponent))
+            remainingComponents = remainingComponents >> 5
+        } while (remainingComponents != 0)
+        
+        return returnString
+    }
 }
 
 // MARK: - Private
 
-typealias IntCoordinates = (latitude: Int, longitude: Int)
+typealias IntegerCoordinates = (latitude: Int, longitude: Int)
 
 private enum Result<T> {
     case Success(T)
