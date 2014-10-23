@@ -35,24 +35,44 @@ public class Polyline {
     
     /// The encoded polyline
     public let encodedPolyline : String = ""
+    
+    /// The array of coordinates
+    public var coordinates : Array<CLLocationCoordinate2D>?
+
+    
     /// The array of location
-    public let locations : Array<CLLocation>?
+    public var locations : Array<CLLocation>? {
+        get {
+            if let coordinates = self.coordinates {
+                return toLocations(coordinates)
+            } else {
+                return nil
+            }
+        }
+        set(newLocations) {
+            if let locations = newLocations {
+                coordinates = toCoordinates(locations)
+            } else {
+                coordinates = nil
+            }
+        }
+    }
     
     /// The encoded levels
-    public let encodedLevels : String?
+    public let encodedLevels : String = ""
     /// The array of levels
     public let levels : Array<UInt32>?
     
-    /// This designated init encodes an Array<CLLocation> to a String
+    /// This designated init encodes an Array<CLLocationCoordinate2D> to a String
     ///
-    /// :param: locations The array of locations that you want to encode
+    /// :param: coordinates The array of CLLocationCoordinate2D that you want to encode
     /// :param: levels The optional array of levels  that you want to encode
-    public init(locations: Array<CLLocation>, levels: Array<UInt32>? = nil) {
+    public init(coordinates: Array<CLLocationCoordinate2D>, levels: Array<UInt32>? = nil) {
         
-        self.locations = locations
+        self.coordinates = coordinates
         self.levels = levels
         
-        self.encodedPolyline = encodeLocations(locations)
+        self.encodedPolyline = encodeCoordinates()
         
         if let levelsToEncode = levels {
             self.encodedLevels = encodeLevels(levelsToEncode)
@@ -63,19 +83,21 @@ public class Polyline {
     ///
     /// :param: encodedPolyline The polyline that you want to decode
     /// :param: encodedLevels The levels that you want to decode
-    public init(encodedPolyline: String, encodedLevels: String? = nil) {
+    public init(encodedPolyline:String, encodedLevels:String? = nil) {
         
         self.encodedPolyline = encodedPolyline
-        self.encodedLevels   = encodedLevels
+        if let levels = encodedLevels {
+            self.encodedLevels = levels
+        }
         
-        var decodedLocations    = self.decodePolyline(encodedPolyline)
+        var decodedCoordinates = self.decodePolyline(encodedPolyline)
         
-        if !decodedLocations.failed {
-            self.locations = decodedLocations.value
+        if !decodedCoordinates.failed {
+            self.coordinates = decodedCoordinates.value
         }
         
         if let levelsToDecode = encodedLevels {
-            var decodedLevels    = decodeLevels(levelsToDecode)
+            var decodedLevels = decodeLevels(levelsToDecode)
             
             if !decodedLevels.failed {
                 self.levels = decodedLevels.value
@@ -83,17 +105,31 @@ public class Polyline {
         }
     }
     
-    // MARK: - Private methods
-    // MARK: - Encoding locations
+    /// This convenience init encodes an Array<CLLocation> to a String
+    ///
+    /// :param: locations The array of CLLocation that you want to encode
+    /// :param: levels The optional array of levels  that you want to encode
+    convenience public init(locations: Array<CLLocation>, levels: Array<UInt32>? = nil) {
+        
+        let coordinates = toCoordinates(locations)
+        self.init(coordinates: coordinates, levels: levels)
+    }
     
-    private func encodeLocations(locations : Array<CLLocation>) -> String {
+    // MARK:- Private methods
+    // MARK:- Encoding locations
+    
+    private func encodeCoordinates() -> String {
         
         var previousCoordinate = IntegerCoordinates(0, 0)
         var encodedPolyline = ""
         
-        for location in locations {
-            let intLatitude = Int(round(location.coordinate.latitude * 1e5))
-            let intLongitude = Int(round(location.coordinate.longitude * 1e5))
+        if self.coordinates == nil {
+            return ""
+        }
+        
+        for coordinate in self.coordinates! {
+            let intLatitude  = Int(round(coordinate.latitude * 1e5))
+            let intLongitude = Int(round(coordinate.longitude * 1e5))
             
             let coordinatesDifference = (intLatitude - previousCoordinate.latitude, intLongitude - previousCoordinate.longitude)
             
@@ -105,7 +141,7 @@ public class Polyline {
         return encodedPolyline
     }
     
-    private func encodeCoordinate(locationCoordinate : IntegerCoordinates) -> String {
+    private func encodeCoordinate(locationCoordinate: IntegerCoordinates) -> String {
     
         var latitudeString  = encodeSingleCoordinate(locationCoordinate.latitude)
         var longitudeString = encodeSingleCoordinate(locationCoordinate.longitude)
@@ -113,7 +149,7 @@ public class Polyline {
         return latitudeString + longitudeString
     }
     
-    private func encodeSingleCoordinate(value : Int) -> String {
+    private func encodeSingleCoordinate(value: Int) -> String {
 
         var intValue = value
         
@@ -128,14 +164,15 @@ public class Polyline {
     }
     
     
-    // MARK: - Decoding locations
+    // MARK:- Decoding locations
     
-    private func decodePolyline(encodedPolyline : String) -> Result<Array<CLLocation>> {
+    private func decodePolyline(encodedPolyline: String) -> Result<Array<CLLocationCoordinate2D>> {
         
         var remainingPolyline = encodedPolyline.unicodeScalars
-        var decodedLocations = [CLLocation]()
+        var decodedCoordinates = [CLLocationCoordinate2D]()
         
-        var lat = 0.0, lon = 0.0
+        var lat = 0.0
+        var lon = 0.0
         
         while countElements(remainingPolyline) > 0 {
             var result = extractNextChunk(&remainingPolyline)
@@ -150,13 +187,13 @@ public class Polyline {
             }
             lon += decodeSingleCoordinate(result.value!)
             
-            decodedLocations.append(CLLocation(latitude: lat, longitude: lon))
+            decodedCoordinates.append(CLLocationCoordinate2D(latitude: lat, longitude: lon))
         }
         
-        return .Success(decodedLocations)
+        return .Success(decodedCoordinates)
     }
     
-    private func decodeSingleCoordinate(value : String) -> Double {
+    private func decodeSingleCoordinate(value: String) -> Double {
         var scalarArray = [] + value.unicodeScalars
         
         var thirtyTwoBitNumber = agregateScalarArray(scalarArray)
@@ -170,23 +207,23 @@ public class Polyline {
         return Double(thirtyTwoBitNumber)/1e5
     }
     
-    // MARK: - Encoding levels
+    // MARK:- Encoding levels
     
-    private func encodeLevels(levels : Array<UInt32>) -> String {
+    private func encodeLevels(levels: Array<UInt32>) -> String {
         return levels.reduce("") {
             $0 + self.encodeLevel($1)
         }
     }
     
-    private func encodeLevel(level : UInt32) -> String {
+    private func encodeLevel(level: UInt32) -> String {
         
        return encodeFiveBitComponents(Int(level))
     }
     
-    // MARK: - Decoding levels
-    private func decodeLevels(encodedLevels : String) -> Result<Array<UInt32>> {
+    // MARK:- Decoding levels
+    private func decodeLevels(encodedLevels: String) -> Result<Array<UInt32>> {
         var remainingLevels = encodedLevels.unicodeScalars
-        var decodedLevels = [UInt32]()
+        var decodedLevels   = [UInt32]()
         
         while countElements(remainingLevels) > 0 {
             var result = extractNextChunk(&remainingLevels)
@@ -194,29 +231,29 @@ public class Polyline {
                 return .Failure
             }else{
                 let level = decodeLevel(result.value!)
-                decodedLevels.append(UInt32(level))
+                decodedLevels.append(level)
             }
         }
         
         return .Success(decodedLevels)
     }
     
-    func decodeLevel(encodedLevel : String) -> UInt32 {
+    func decodeLevel(encodedLevel: String) -> UInt32 {
         var scalarArray = [] + encodedLevel.unicodeScalars
         
         return UInt32(agregateScalarArray(scalarArray))
     }
     
-    // MARK: - Helper methods
+    // MARK:- Helper methods
     
-    private func isSeparator(value : Int32) -> Bool {
+    private func isSeparator(value: Int32) -> Bool {
         return (value - 63) & 0x20 != 0x20
     }
     
-    private func agregateScalarArray(scalars : [UnicodeScalar]) -> Int32 {
+    private func agregateScalarArray(scalars: [UnicodeScalar]) -> Int32 {
         let lastValue = Int32(scalars.last!.value)
         
-        var fiveBitComponents = scalars.map { (scalar : UnicodeScalar) -> Int32 in
+        var fiveBitComponents : [Int32] = scalars.map { scalar in
             var value = Int32(scalar.value)
             if value != lastValue {
                 return (value - 63) ^ 0x20
@@ -228,7 +265,7 @@ public class Polyline {
         return fiveBitComponents.reverse().reduce(0) { ($0 << 5 ) | $1 }
     }
     
-    private func extractNextChunk(inout encodedString : String.UnicodeScalarView) -> Result<String> {
+    private func extractNextChunk(inout encodedString: String.UnicodeScalarView) -> Result<String> {
         var currentIndex = encodedString.startIndex
         
         while currentIndex != encodedString.endIndex {
@@ -270,28 +307,38 @@ public class Polyline {
     }
 }
 
-// MARK: - Private
+// MARK:- Private
 
 typealias IntegerCoordinates = (latitude: Int, longitude: Int)
 
 private enum Result<T> {
     case Success(T)
     case Failure
-    var failed: Bool {
-        switch self {
-        case .Failure:
-            return true
-        default:
-            return false
+        var failed: Bool {
+            switch self {
+            case .Failure :
+                return true
+            default :
+                return false
             }
-    }
-    var value: T? {
+        }
+    var value:T? {
         switch self {
         case .Success(let result):
             return result
             
         default:
             return nil
-            }
+        }
+    }
+}
+
+private func toCoordinates(locations:[CLLocation]) -> [CLLocationCoordinate2D] {
+    return locations.map {location in location.coordinate}
+}
+
+private func toLocations(coordinates:[CLLocationCoordinate2D]) -> [CLLocation] {
+    return coordinates.map { coordinate in
+        CLLocation(latitude:coordinate.latitude, longitude:coordinate.longitude)
     }
 }
