@@ -4,13 +4,15 @@ Polyline encoder / decoder in Swift
 
 ## Features
 
-- Encode a CLLocation array to a polyline
-- Decode a polyline to an Array of CLLocation
+- Encode a `CLLocationCoordinate2D` array to a polyline
+- Decode a polyline to an Array of `CLLocationCoordinate2D`
+- Encode a `CLLocation` array to a polyline
+- Decode a polyline to an Array of `CLLocation`
 - Encode/Decode associated levels (optional)
 - 100% Unit Test Coverage
 - Complete Documentation
 
-### Planned for 1.0.0
+### Planned for 1.0.0 Release
 
 - Convert to `MKPolyline`
 - Example project
@@ -29,7 +31,7 @@ Polyline encoder / decoder in Swift
 
 ## Requirements
 
-- Xcode 6 Beta 7
+- Xcode 6.0.1
 - iOS 7.0+ / Mac OS X 10.9+
 
 ---
@@ -69,14 +71,14 @@ let encodedLevels : String = polyline.encodedLevels
 
 ### Polyline Decoding
 
-You can decode to `CLLocationCoordinate2D` (recomended) :
+You can decode to `CLLocationCoordinate2D` (recommended) :
 
 ```swift
 let polyline = Polyline(encodedPolyline: "qkqtFbn_Vui`Xu`l]")
 let decodedCoordinates : Array<CLLocationCoordinate2D>? = polyline.coordinates
 ```
 
-You can also decode to `CLLocation` (recomended) :
+You can also decode to `CLLocation` :
 
 ```swift
 let polyline = Polyline(encodedPolyline: "qkqtFbn_Vui`Xu`l]")
