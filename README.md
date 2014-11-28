@@ -102,14 +102,14 @@ You can decode to `CLLocationCoordinate2D` (recommended) :
 
 ```swift
 let polyline = Polyline(encodedPolyline: "qkqtFbn_Vui`Xu`l]")
-let decodedCoordinates : Array<CLLocationCoordinate2D>? = polyline.coordinates
+let decodedCoordinates : Array<CLLocationCoordinate2D> = polyline.coordinates
 ```
 
 You can also decode to `CLLocation` :
 
 ```swift
 let polyline = Polyline(encodedPolyline: "qkqtFbn_Vui`Xu`l]")
-let decodedLocations : Array<CLLocation>? = polyline.locations
+let decodedLocations : Array<CLLocation> = polyline.locations
 ```
 
 You can decode levels too :
