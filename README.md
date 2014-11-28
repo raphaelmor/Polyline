@@ -13,6 +13,7 @@ Polyline encoder / decoder in Swift
 - Encode/Decode associated levels (optional)
 - 100% Unit Test Coverage
 - Complete Documentation
+- Continuous integration with [Travis CI](http://travis-ci.org)
 
 ### Planned for 1.0.0 Release
 
@@ -27,7 +28,6 @@ Polyline encoder / decoder in Swift
 ### Planned when support is available :
 
 - Distribute as a [CocoaPod](http://cocoapods.org)
-- Continuous integration with [Travis CI](http://travis-ci.org)
 - Code Coverage with [Coveralls](https://coveralls.io)
 
 
