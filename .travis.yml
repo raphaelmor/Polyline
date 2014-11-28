@@ -1,0 +1,6 @@
+language: objective-c
+before_script:
+  - export LANG=en_US.UTF-8
+script:
+  - xctool -project Polyline.xcodeproj -scheme Polyline -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+  - xctool test -project Polyline.xcodeproj -scheme Polyline -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
