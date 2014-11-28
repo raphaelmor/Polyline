@@ -1,5 +1,7 @@
 ![Polyline: Polyline encoding/decoding in Swift](https://raw.githubusercontent.com/raphaelmor/Polyline/assets/polyline.png)
 
+[![Build Status](https://travis-ci.org/raphaelmor/Polyline.svg?branch=master)](https://travis-ci.org/raphaelmor/Polyline)
+
 Polyline encoder / decoder in Swift
 
 ## Features
