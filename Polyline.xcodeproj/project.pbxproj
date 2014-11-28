@@ -10,7 +10,22 @@
 		207F640419B5DF7E005261FA /* Polyline.h in Headers */ = {isa = PBXBuildFile; fileRef = 207F640319B5DF7E005261FA /* Polyline.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		207F640E19B5DF7E005261FA /* PolylineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207F640D19B5DF7E005261FA /* PolylineTests.swift */; };
 		207F641B19B5E10C005261FA /* Polyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207F641A19B5E10C005261FA /* Polyline.swift */; };
+		64E1F8751A285A76002F25D3 /* Polyline.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 207F63FE19B5DF7E005261FA /* Polyline.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		64E1F8741A285A66002F25D3 /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				64E1F8751A285A76002F25D3 /* Polyline.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		207F63FE19B5DF7E005261FA /* Polyline.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Polyline.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -136,6 +151,7 @@
 				207F640519B5DF7E005261FA /* Sources */,
 				207F640619B5DF7E005261FA /* Frameworks */,
 				207F640719B5DF7E005261FA /* Resources */,
+				64E1F8741A285A66002F25D3 /* Copy Frameworks */,
 			);
 			buildRules = (
 			);
