@@ -1,6 +1,10 @@
-![Polyline: Polyline encoding/decoding in Swift](https://raw.githubusercontent.com/raphaelmor/Polyline/assets/polyline.png)
+<p align="center" >
+  <img src="https://raw.githubusercontent.com/raphaelmor/Polyline/assets/polyline.png" title="Polyline logo" float=left>
+</p>
 
 [![Build Status](https://travis-ci.org/raphaelmor/Polyline.svg?branch=master)](https://travis-ci.org/raphaelmor/Polyline)
+[![Release](https://img.shields.io/github/release/raphaelmor/Polyline.svg)]()
+[![Licence](http://img.shields.io/badge/Licence-MIT-lightgrey.svg)](https://github.com/raphaelmor/Polyline/blob/master/LICENCE.txt)
 
 Polyline encoder / decoder in Swift
 
