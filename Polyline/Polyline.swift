@@ -149,43 +149,100 @@ public struct Polyline {
 	
 	private func decodePolyline(encodedPolyline: String) -> Result<Array<CLLocationCoordinate2D>> {
 		
-		var remainingPolyline = encodedPolyline.unicodeScalars
-		var decodedCoordinates = [CLLocationCoordinate2D]()
-		
-		var lat = 0.0
-		var lon = 0.0
-		
-		while countElements(remainingPolyline) > 0 {
-			let latResult = extractNextChunk(&remainingPolyline)
-			if latResult.failed {
-				return .Failure
-			}
-			lat += decodeSingleCoordinate(latResult.value!)
-			
-			let lonResult = extractNextChunk(&remainingPolyline)
-			if lonResult.failed {
-				return .Failure
-			}
-			lon += decodeSingleCoordinate(lonResult.value!)
-			
-			decodedCoordinates.append(CLLocationCoordinate2D(latitude: lat, longitude: lon))
-		}
-		
-		return .Success(decodedCoordinates)
-	}
+        let data = encodedPolyline.dataUsingEncoding(NSUTF8StringEncoding)!
+        let byteArray = unsafeBitCast(data.bytes, UnsafePointer<Int8>.self)
+        let length = Int(data.length)
+        var position = Int(0)
+        
+        var decodedCoordinates = [CLLocationCoordinate2D]()
+        
+        var lat = 0.0
+        var lon = 0.0
+        
+        while position < length {
+
+            lat += decodeSingleCoordinate(byteArray, length: length, position: &position)
+            lon += decodeSingleCoordinate(byteArray, length: length, position: &position)
+            
+            decodedCoordinates.append(CLLocationCoordinate2D(latitude: lat, longitude: lon))
+        }
+        
+        return .Success(decodedCoordinates)
+    }
 	
-	private func decodeSingleCoordinate(value: String) -> Double {
-		let scalarArray = [] + value.unicodeScalars
+    private func decodeSingleCoordinate(byteArray: UnsafePointer<Int8>, length: Int, inout position: Int ) -> Double {
 		
-		var thirtyTwoBitNumber = agregateScalarArray(scalarArray)
-		// check if number is negative
-		if (thirtyTwoBitNumber & 0x1) == 0x1 {
-			thirtyTwoBitNumber = ~(thirtyTwoBitNumber >> 1)
-		} else {
-			thirtyTwoBitNumber = thirtyTwoBitNumber >> 1
-		}
-		
-		return Double(thirtyTwoBitNumber)/1e5
+        var value : Int32 = 0
+        
+        if position >= length {
+            return 0.0
+        }
+        
+        var firstComponent: Int32 = 0
+        var secondComponent: Int32 = 0
+        var thirdComponent: Int32 = 0
+        var fourthComponent: Int32 = 0
+        var fifthComponent: Int32 = 0
+        var sixthComponent: Int32 = 0
+        
+       
+        var currentChar = byteArray[position] - 63
+        position++;
+        let operand = Int8(0x1F)
+        
+        firstComponent = Int32(currentChar & operand)
+        
+        if (((currentChar & 0x20) == 0x20) && (position < length)) {
+            currentChar = byteArray[position]-63;
+            position++;
+            secondComponent = Int32(currentChar & operand)
+        }
+        
+        if (((currentChar & 0x20) == 0x20) && (position < length)) {
+            currentChar = byteArray[position]-63;
+            position++;
+            thirdComponent = Int32(currentChar & operand)
+        }
+        
+        if (((currentChar & 0x20) == 0x20) && (position < length)) {
+            currentChar = byteArray[position]-63;
+            position++;
+            fourthComponent = Int32(currentChar & operand)
+        }
+        
+        if (((currentChar & 0x20) == 0x20) && (position < length)) {
+            currentChar = byteArray[position]-63;
+            position++;
+            fifthComponent = Int32(currentChar & operand)
+        }
+        
+        if (((currentChar & 0x20) == 0x20) && (position < length)) {
+            currentChar = byteArray[position]-63;
+            position++;
+            sixthComponent = Int32(currentChar & operand)
+        }
+        
+        value |= sixthComponent
+        value = value << 5
+        value |= fifthComponent
+        value = value << 5
+        value |= fourthComponent
+        value = value << 5
+        value |= thirdComponent
+        value = value << 5
+        value |= secondComponent
+        value = value << 5
+        value |= firstComponent
+        
+        if ( (value & 0x01) == 0x01) {
+            // le nombre codé est negatif :
+            value = ~(value>>1);
+        } else {
+            value = value>>1;
+        }
+        
+        return Double(value) / 100000.0;
+        
 	}
 	
 	// MARK:- Encoding levels
