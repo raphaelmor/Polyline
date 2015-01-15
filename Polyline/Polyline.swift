@@ -162,8 +162,13 @@ public struct Polyline {
         
         while position < length {
 
-            lat += decodeSingleCoordinate(byteArray, length: length, position: &position)
-            lon += decodeSingleCoordinate(byteArray, length: length, position: &position)
+			let resultingLat = decodeSingleCoordinate(byteArray, length: length, position: &position)
+			if resultingLat.failed { return .Failure }
+            lat += resultingLat.value!
+			
+			let resultingLon = decodeSingleCoordinate(byteArray, length: length, position: &position)
+			if resultingLat.failed { return .Failure }
+            lon += resultingLon.value!
             
             decodedCoordinates.append(CLLocationCoordinate2D(latitude: lat, longitude: lon))
         }
@@ -171,75 +176,39 @@ public struct Polyline {
         return .Success(decodedCoordinates)
     }
 	
-    private func decodeSingleCoordinate(byteArray: UnsafePointer<Int8>, length: Int, inout position: Int ) -> Double {
+    private func decodeSingleCoordinate(byteArray: UnsafePointer<Int8>, length: Int, inout position: Int ) -> Result<Double> {
 		
-        var value : Int32 = 0
-        
         if position >= length {
-            return 0.0
+            return Result.Failure
         }
-        
-        var firstComponent: Int32 = 0
-        var secondComponent: Int32 = 0
-        var thirdComponent: Int32 = 0
-        var fourthComponent: Int32 = 0
-        var fifthComponent: Int32 = 0
-        var sixthComponent: Int32 = 0
-        
+		
         let bitMask = Int8(0x1F)
-        
-        
-       
-        var currentChar = byteArray[position] - 63
-        firstComponent = Int32(currentChar & bitMask)
-        position++;
-        
-        if (((currentChar & 0x20) == 0x20) && (position < length)) {
-            currentChar = byteArray[position]-63;
-            position++;
-            secondComponent = Int32(currentChar & bitMask)
-        }
-        
-        if (((currentChar & 0x20) == 0x20) && (position < length)) {
-            currentChar = byteArray[position]-63;
-            position++;
-            thirdComponent = Int32(currentChar & bitMask)
-        }
-        
-        if (((currentChar & 0x20) == 0x20) && (position < length)) {
-            currentChar = byteArray[position]-63;
-            position++;
-            fourthComponent = Int32(currentChar & bitMask)
-        }
-        
-        if (((currentChar & 0x20) == 0x20) && (position < length)) {
-            currentChar = byteArray[position]-63;
-            position++;
-            fifthComponent = Int32(currentChar & bitMask)
-        }
-        
-        if (((currentChar & 0x20) == 0x20) && (position < length)) {
-            currentChar = byteArray[position]-63;
-            position++;
-            sixthComponent = Int32(currentChar & bitMask)
-        }
-        
-        value |= firstComponent
-        value |= (secondComponent << (5 * 1))
-        value |= (thirdComponent << (5 * 2))
-        value |= (fourthComponent << (5 * 3))
-        value |= (fifthComponent << (5 * 4))
-        value |= (sixthComponent << (5 * 5))
-                
-        if ( (value & 0x01) == 0x01) {
-            // le nombre codé est negatif :
-            value = ~(value>>1);
+		
+		var coordinate : Int32 = 0
+		
+		var currentChar : Int8
+		var componentCounter : Int32 = 0
+		var component: Int32 = 0
+		
+		do {
+			currentChar = byteArray[position] - 63
+			component = Int32(currentChar & bitMask)
+			coordinate |= (component << (5*componentCounter))
+			position++
+			componentCounter++
+		} while ((currentChar & 0x20) == 0x20) && (position < length) && (componentCounter < 6)
+		
+		if (componentCounter == 6) && ((currentChar & 0x20) == 0x20) {
+			return Result.Failure
+		}
+		
+        if (coordinate & 0x01) == 0x01 {
+            coordinate = ~(coordinate >> 1)
         } else {
-            value = value>>1;
+            coordinate = coordinate >> 1
         }
         
-        return Double(value) / 100000.0;
-        
+        return Result.Success(Double(coordinate) / 100000.0)
 	}
 	
 	// MARK:- Encoding levels
