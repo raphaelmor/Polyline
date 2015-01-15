@@ -150,6 +150,7 @@ public struct Polyline {
 	private func decodePolyline(encodedPolyline: String) -> Result<Array<CLLocationCoordinate2D>> {
 		
         let data = encodedPolyline.dataUsingEncoding(NSUTF8StringEncoding)!
+        
         let byteArray = unsafeBitCast(data.bytes, UnsafePointer<Int8>.self)
         let length = Int(data.length)
         var position = Int(0)
@@ -185,55 +186,51 @@ public struct Polyline {
         var fifthComponent: Int32 = 0
         var sixthComponent: Int32 = 0
         
+        let bitMask = Int8(0x1F)
+        
+        
        
         var currentChar = byteArray[position] - 63
+        firstComponent = Int32(currentChar & bitMask)
         position++;
-        let operand = Int8(0x1F)
-        
-        firstComponent = Int32(currentChar & operand)
         
         if (((currentChar & 0x20) == 0x20) && (position < length)) {
             currentChar = byteArray[position]-63;
             position++;
-            secondComponent = Int32(currentChar & operand)
+            secondComponent = Int32(currentChar & bitMask)
         }
         
         if (((currentChar & 0x20) == 0x20) && (position < length)) {
             currentChar = byteArray[position]-63;
             position++;
-            thirdComponent = Int32(currentChar & operand)
+            thirdComponent = Int32(currentChar & bitMask)
         }
         
         if (((currentChar & 0x20) == 0x20) && (position < length)) {
             currentChar = byteArray[position]-63;
             position++;
-            fourthComponent = Int32(currentChar & operand)
+            fourthComponent = Int32(currentChar & bitMask)
         }
         
         if (((currentChar & 0x20) == 0x20) && (position < length)) {
             currentChar = byteArray[position]-63;
             position++;
-            fifthComponent = Int32(currentChar & operand)
+            fifthComponent = Int32(currentChar & bitMask)
         }
         
         if (((currentChar & 0x20) == 0x20) && (position < length)) {
             currentChar = byteArray[position]-63;
             position++;
-            sixthComponent = Int32(currentChar & operand)
+            sixthComponent = Int32(currentChar & bitMask)
         }
         
-        value |= sixthComponent
-        value = value << 5
-        value |= fifthComponent
-        value = value << 5
-        value |= fourthComponent
-        value = value << 5
-        value |= thirdComponent
-        value = value << 5
-        value |= secondComponent
-        value = value << 5
         value |= firstComponent
-        
+        value |= (secondComponent << (5 * 1))
+        value |= (thirdComponent << (5 * 2))
+        value |= (fourthComponent << (5 * 3))
+        value |= (fifthComponent << (5 * 4))
+        value |= (sixthComponent << (5 * 5))
+                
         if ( (value & 0x01) == 0x01) {
             // le nombre codé est negatif :
             value = ~(value>>1);
