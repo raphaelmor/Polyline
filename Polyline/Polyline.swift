@@ -149,43 +149,66 @@ public struct Polyline {
 	
 	private func decodePolyline(encodedPolyline: String) -> Result<Array<CLLocationCoordinate2D>> {
 		
-		var remainingPolyline = encodedPolyline.unicodeScalars
-		var decodedCoordinates = [CLLocationCoordinate2D]()
-		
-		var lat = 0.0
-		var lon = 0.0
-		
-		while countElements(remainingPolyline) > 0 {
-			let latResult = extractNextChunk(&remainingPolyline)
-			if latResult.failed {
-				return .Failure
-			}
-			lat += decodeSingleCoordinate(latResult.value!)
+        let data = encodedPolyline.dataUsingEncoding(NSUTF8StringEncoding)!
+        
+        let byteArray = unsafeBitCast(data.bytes, UnsafePointer<Int8>.self)
+        let length = Int(data.length)
+        var position = Int(0)
+        
+        var decodedCoordinates = [CLLocationCoordinate2D]()
+        
+        var lat = 0.0
+        var lon = 0.0
+        
+        while position < length {
+
+			let resultingLat = decodeSingleCoordinate(byteArray, length: length, position: &position)
+			if resultingLat.failed { return .Failure }
+            lat += resultingLat.value!
 			
-			let lonResult = extractNextChunk(&remainingPolyline)
-			if lonResult.failed {
-				return .Failure
-			}
-			lon += decodeSingleCoordinate(lonResult.value!)
-			
-			decodedCoordinates.append(CLLocationCoordinate2D(latitude: lat, longitude: lon))
-		}
-		
-		return .Success(decodedCoordinates)
-	}
+			let resultingLon = decodeSingleCoordinate(byteArray, length: length, position: &position)
+			if resultingLat.failed { return .Failure }
+            lon += resultingLon.value!
+            
+            decodedCoordinates.append(CLLocationCoordinate2D(latitude: lat, longitude: lon))
+        }
+        
+        return .Success(decodedCoordinates)
+    }
 	
-	private func decodeSingleCoordinate(value: String) -> Double {
-		let scalarArray = [] + value.unicodeScalars
+    private func decodeSingleCoordinate(byteArray: UnsafePointer<Int8>, length: Int, inout position: Int ) -> Result<Double> {
 		
-		var thirtyTwoBitNumber = agregateScalarArray(scalarArray)
-		// check if number is negative
-		if (thirtyTwoBitNumber & 0x1) == 0x1 {
-			thirtyTwoBitNumber = ~(thirtyTwoBitNumber >> 1)
-		} else {
-			thirtyTwoBitNumber = thirtyTwoBitNumber >> 1
+        if position >= length {
+            return Result.Failure
+        }
+		
+        let bitMask = Int8(0x1F)
+		
+		var coordinate : Int32 = 0
+		
+		var currentChar : Int8
+		var componentCounter : Int32 = 0
+		var component: Int32 = 0
+		
+		do {
+			currentChar = byteArray[position] - 63
+			component = Int32(currentChar & bitMask)
+			coordinate |= (component << (5*componentCounter))
+			position++
+			componentCounter++
+		} while ((currentChar & 0x20) == 0x20) && (position < length) && (componentCounter < 6)
+		
+		if (componentCounter == 6) && ((currentChar & 0x20) == 0x20) {
+			return Result.Failure
 		}
 		
-		return Double(thirtyTwoBitNumber)/1e5
+        if (coordinate & 0x01) == 0x01 {
+            coordinate = ~(coordinate >> 1)
+        } else {
+            coordinate = coordinate >> 1
+        }
+        
+        return Result.Success(Double(coordinate) / 100000.0)
 	}
 	
 	// MARK:- Encoding levels
