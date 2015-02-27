@@ -25,9 +25,9 @@ import XCTest
 
 import Polyline
 
-private let COORD_EPSILON : Double = 0.00001
+private let COORD_EPSILON: Double = 0.00001
 
-class FunctionalPolylineTests:XCTestCase {
+class FunctionalPolylineTests : XCTestCase {
     
     // MARK:- Encoding Coordinates
     

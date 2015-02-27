@@ -77,7 +77,7 @@ public struct Polyline {
 		self.encodedPolyline = encodedPolyline
 		coordinates = []
 		
-        if let decodedCoordinates : [CLLocationCoordinate2D] = decodePolyline(encodedPolyline) {
+        if let decodedCoordinates: [CLLocationCoordinate2D] = decodePolyline(encodedPolyline) {
 			coordinates = decodedCoordinates
 		}
 		
@@ -281,10 +281,10 @@ private func decodeSingleCoordinate(#byteArray: UnsafePointer<Int8>, #length: In
     
     let bitMask = Int8(0x1F)
     
-    var coordinate : Int32 = 0
+    var coordinate: Int32 = 0
     
-    var currentChar : Int8
-    var componentCounter : Int32 = 0
+    var currentChar: Int8
+    var componentCounter: Int32 = 0
     var component: Int32 = 0
     
     do {

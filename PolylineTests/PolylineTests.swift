@@ -25,7 +25,7 @@ import XCTest
 
 import Polyline
 
-private let COORD_EPSILON : Double = 0.00001
+private let COORD_EPSILON: Double = 0.00001
 
 class PolylineTests:XCTestCase {
 	
@@ -252,7 +252,7 @@ class PolylineTests:XCTestCase {
 			CLLocationCoordinate2D(latitude: 44.3377999, longitude: 1.2112933)]
 		
 		let polyline = Polyline(coordinates: coordinates)
-		let encodedPolyline : String = polyline.encodedPolyline
+		let encodedPolyline: String = polyline.encodedPolyline
 		XCTAssertEqual(polyline.encodedPolyline, "qkqtFbn_Vui`Xu`l]")
 	}
 	
@@ -261,7 +261,7 @@ class PolylineTests:XCTestCase {
 			CLLocation(latitude: 44.3377999, longitude: 1.2112933)!]
 		
 		let polyline = Polyline(locations: locations)
-		let encodedPolyline : String = polyline.encodedPolyline
+		let encodedPolyline: String = polyline.encodedPolyline
 		XCTAssertEqual(polyline.encodedPolyline, "qkqtFbn_Vui`Xu`l]")
 	}
 	
@@ -269,29 +269,29 @@ class PolylineTests:XCTestCase {
 		let coordinates = [CLLocationCoordinate2D(latitude: 40.2349727, longitude: -3.7707443),
 			CLLocationCoordinate2D(latitude: 44.3377999, longitude: 1.2112933)]
 		
-		let levels : [UInt32] = [0,1,2,255]
+		let levels: [UInt32] = [0,1,2,255]
 		
 		let polyline = Polyline(coordinates: coordinates, levels: levels)
-		let encodedLevels : String = polyline.encodedLevels
+		let encodedLevels: String = polyline.encodedLevels
 	}
 	
 	func testPolylineDecodingToCoordinate() {
 		let polyline = Polyline(encodedPolyline: "qkqtFbn_Vui`Xu`l]")
-		let decodedCoordinates : Array<CLLocationCoordinate2D> = polyline.coordinates
+		let decodedCoordinates: Array<CLLocationCoordinate2D> = polyline.coordinates
 		
 		XCTAssertEqual(2, decodedCoordinates.count)
 	}
 	
 	func testPolylineDecodingToLocations() {
 		let polyline = Polyline(encodedPolyline: "qkqtFbn_Vui`Xu`l]")
-		let decodedLocations : Array<CLLocation> = polyline.locations
+		let decodedLocations: Array<CLLocation> = polyline.locations
 		
 		XCTAssertEqual(2, decodedLocations.count)
 	}
 	
 	func testLevelDecoding() {
 		let polyline = Polyline(encodedPolyline: "qkqtFbn_Vui`Xu`l]", encodedLevels: "BA")
-		let decodedLevels : Array<UInt32>? = polyline.levels
+		let decodedLevels: Array<UInt32>? = polyline.levels
 		
 		XCTAssertEqual(2, decodedLevels!.count)
 	}
