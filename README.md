@@ -26,6 +26,7 @@ Polyline encoder / decoder in Swift
 - 100% Unit Test Coverage
 - Complete Documentation
 - Continuous integration with [Travis CI](http://travis-ci.org)
+- CocoaPod available
 
 ### Planned for future releases 
 
@@ -35,8 +36,6 @@ Polyline encoder / decoder in Swift
 - Filter locations available at a specific level
 
 ### Planned when support is available :
-
-- Distribute as a [CocoaPod](http://cocoapods.org)
 - Code Coverage with [Coveralls](https://coveralls.io)
 
 
@@ -49,10 +48,17 @@ Polyline encoder / decoder in Swift
 
 
 ## Integration
-CocoaPods is not fully supported for Swift yet. To use this library in your project you can use Carthage, and/or integrate it manually :
+To use this library in your project you can use CocoaPods, Carthage, and/or integrate it manually :
+
+### CocoaPods (Beta)
+You can integrate Polyline in your `Podfile` like this:
+
+```
+pod 'Polyline', '~> 1.0'
+```
 
 ### Carthage
-You can integrate Polyline in your Cartfile like this :
+You can integrate Polyline in your `Cartfile` like this:
 
 ```
 github "raphaelmor/Polyline" ~> 1.0.0
