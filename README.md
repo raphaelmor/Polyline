@@ -82,6 +82,15 @@ let polyline = Polyline(coordinates: coordinates)
 let encodedPolyline : String = polyline.encodedPolyline
 ```
 
+Or for a functional approach :
+
+```swift
+let coordinates = [CLLocationCoordinate2D(latitude: 40.2349727, longitude: -3.7707443),
+CLLocationCoordinate2D(latitude: 44.3377999, longitude: 1.2112933)]
+
+let encodedPolyline : String = encodeCoordinates(coordinates)
+```
+
 Using `CLLocation` :
 
 ```swift
@@ -92,15 +101,32 @@ let polyline = Polyline(locations: locations)
 let encodedPolyline : String = polyline.encodedPolyline
 ```
 
-You can specify levels too : 
+Or for a functional approach :
+
+```swift
+let locations = [CLLocation(latitude: 40.2349727, longitude: -3.7707443),
+CLLocation(latitude: 44.3377999, longitude: 1.2112933)]
+
+let encodedPolyline : String = encodeLocations(locations)
+```
+
+You can encode levels too : 
 
 ```swift
 let levels : [UInt32] = [0,1,2,255]
 
 let polyline = Polyline(coordinates: coordinates, levels: levels)
 let encodedLevels : String = polyline.encodedLevels
-
 ```
+
+Or for a functional approach :
+
+```swift
+let levels : [UInt32] = [0,1,2,255]
+
+let encodedLevels : String = encodedLevels(levels)
+```
+
 
 ### Polyline Decoding
 

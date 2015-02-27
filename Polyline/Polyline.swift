@@ -1,6 +1,6 @@
 // Polyline.swift
 //
-// Copyright (c) 2014 Raphaël Mor
+// Copyright (c) 2015 Raphaël Mor
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,6 +22,8 @@
 
 import Foundation
 import CoreLocation
+
+// MARK: - Public Classes -
 
 /// This class can be used for :
 /// * Encoding an Array<CLLocation> to a polyline String
@@ -48,6 +50,8 @@ public struct Polyline {
 		return toLocations(coordinates)
 	}
 	
+    // MARK: - Public Methods -
+    
 	/// This designated init encodes an Array<CLLocationCoordinate2D> to a String
 	///
 	/// :param: coordinates The array of CLLocationCoordinate2D that you want to encode
@@ -57,7 +61,7 @@ public struct Polyline {
 		self.coordinates = coordinates
 		self.levels = levels
 		
-		encodedPolyline = encodeCoordinates()
+		encodedPolyline = encodeCoordinates(coordinates)
 		
 		if let levelsToEncode = levels {
 			encodedLevels = encodeLevels(levelsToEncode)
@@ -100,52 +104,9 @@ public struct Polyline {
 		self.init(coordinates: coordinates, levels: levels)
 	}
 	
-	// MARK:- Private methods
-	// MARK:- Encoding locations
+	// MARK:- Private methods -
 	
-	private func encodeCoordinates() -> String {
-		
-		var previousCoordinate = IntegerCoordinates(0, 0)
-		var encodedPolyline = ""
-		
-		for coordinate in coordinates {
-			let intLatitude  = Int(round(coordinate.latitude * 1e5))
-			let intLongitude = Int(round(coordinate.longitude * 1e5))
-			
-			let coordinatesDifference = (intLatitude - previousCoordinate.latitude, intLongitude - previousCoordinate.longitude)
-			
-			encodedPolyline += encodeCoordinate(coordinatesDifference)
-			
-			previousCoordinate = (intLatitude,intLongitude)
-		}
-		
-		return encodedPolyline
-	}
-	
-	private func encodeCoordinate(locationCoordinate: IntegerCoordinates) -> String {
-		
-		let latitudeString  = encodeSingleCoordinate(locationCoordinate.latitude)
-		let longitudeString = encodeSingleCoordinate(locationCoordinate.longitude)
-		
-		return latitudeString + longitudeString
-	}
-	
-	private func encodeSingleCoordinate(value: Int) -> String {
-		
-		var intValue = value
-		
-		if intValue < 0 {
-			intValue = intValue << 1
-			intValue = ~intValue
-		} else {
-			intValue = intValue << 1
-		}
-		
-		return encodeFiveBitComponents(intValue)
-	}
-	
-	
-	// MARK:- Decoding locations
+	// MARK: Decoding locations
 	
 	private func decodePolyline(encodedPolyline: String) -> Result<Array<CLLocationCoordinate2D>> {
 		
@@ -211,19 +172,7 @@ public struct Polyline {
         return Result.Success(Double(coordinate) / 100000.0)
 	}
 	
-	// MARK:- Encoding levels
-	
-	private func encodeLevels(levels: Array<UInt32>) -> String {
-		return levels.reduce("") {
-			$0 + self.encodeLevel($1)
-		}
-	}
-	
-	private func encodeLevel(level: UInt32) -> String {
-		return encodeFiveBitComponents(Int(level))
-	}
-	
-	// MARK:- Decoding levels
+	// MARK: Decoding levels
 	private func decodeLevels(encodedLevels: String) -> Result<Array<UInt32>> {
 		var remainingLevels = encodedLevels.unicodeScalars
 		var decodedLevels   = [UInt32]()
@@ -247,7 +196,7 @@ public struct Polyline {
 		return UInt32(agregateScalarArray(scalarArray))
 	}
 	
-	// MARK:- Helper methods
+	// MARK: Helper methods
 	
 	private func isSeparator(value: Int32) -> Bool {
 		return (value - 63) & 0x20 != 0x20
@@ -285,33 +234,111 @@ public struct Polyline {
 		
 		return .Failure
 	}
-	
-	private func encodeFiveBitComponents(value: Int) -> String {
-		var remainingComponents = value
-		
-		var fiveBitComponent = 0
-		var returnString = ""
-		
-		do {
-			fiveBitComponent = remainingComponents & 0x1F
-			
-			if remainingComponents >= 0x20 {
-				fiveBitComponent |= 0x20
-			}
-			
-			fiveBitComponent += 63
-			
-			returnString.append(UnicodeScalar(fiveBitComponent))
-			remainingComponents = remainingComponents >> 5
-		} while (remainingComponents != 0)
-		
-		return returnString
-	}
 }
 
-// MARK:- Private
+// MARK: - Public Functions -
 
-typealias IntegerCoordinates = (latitude: Int, longitude: Int)
+/// This function encodes an Array<CLLocationCoordinate2D> to a String
+///
+/// :param: coordinates The array of CLLocationCoordinate2D that you want to encode
+///
+/// :returns: A String representing the encoded Polyline
+public func encodeCoordinates(coordinates: Array<CLLocationCoordinate2D>) -> String {
+    
+    var previousCoordinate = IntegerCoordinates(0, 0)
+    var encodedPolyline = ""
+    
+    for coordinate in coordinates {
+        let intLatitude  = Int(round(coordinate.latitude * 1e5))
+        let intLongitude = Int(round(coordinate.longitude * 1e5))
+        
+        let coordinatesDifference = (intLatitude - previousCoordinate.latitude, intLongitude - previousCoordinate.longitude)
+        
+        encodedPolyline += encodeCoordinate(coordinatesDifference)
+        
+        previousCoordinate = (intLatitude,intLongitude)
+    }
+    
+    return encodedPolyline
+}
+
+/// This function encodes an Array<CLLocationCoordinate2D> to a String
+///
+/// :param: coordinates The array of CLLocationCoordinate2D that you want to encode
+///
+/// :returns: A String representing the encoded Polyline
+public func encodeLocations(locations: Array<CLLocation>) -> String {
+    
+    return encodeCoordinates(toCoordinates(locations))
+}
+
+/// This function encodes an Array<UInt32> to a String
+///
+/// :param: levels The array of UInt32 levels that you want to encode
+///
+/// :returns: A String representing the encoded Levels
+public func encodeLevels(levels: Array<UInt32>) -> String {
+    return levels.reduce("") {
+        $0 + encodeLevel($1)
+    }
+}
+
+
+// MARK: - Private -
+
+// MARK: Encode Coordinate
+
+private func encodeCoordinate(locationCoordinate: IntegerCoordinates) -> String {
+    
+    let latitudeString  = encodeSingleComponent(locationCoordinate.latitude)
+    let longitudeString = encodeSingleComponent(locationCoordinate.longitude)
+    
+    return latitudeString + longitudeString
+}
+
+private func encodeSingleComponent(value: Int) -> String {
+    
+    var intValue = value
+    
+    if intValue < 0 {
+        intValue = intValue << 1
+        intValue = ~intValue
+    } else {
+        intValue = intValue << 1
+    }
+    
+    return encodeFiveBitComponents(intValue)
+}
+
+// MARK: Encode Levels
+
+private func encodeLevel(level: UInt32) -> String {
+    return encodeFiveBitComponents(Int(level))
+}
+
+// MARK: Utilities
+
+private func encodeFiveBitComponents(value: Int) -> String {
+    var remainingComponents = value
+    
+    var fiveBitComponent = 0
+    var returnString = ""
+    
+    do {
+        fiveBitComponent = remainingComponents & 0x1F
+        
+        if remainingComponents >= 0x20 {
+            fiveBitComponent |= 0x20
+        }
+        
+        fiveBitComponent += 63
+        
+        returnString.append(UnicodeScalar(fiveBitComponent))
+        remainingComponents = remainingComponents >> 5
+    } while (remainingComponents != 0)
+    
+    return returnString
+}
 
 private enum Result<T> {
 	case Success(T)
@@ -343,3 +370,5 @@ private func toLocations(coordinates: [CLLocationCoordinate2D]) -> [CLLocation] 
 		CLLocation(latitude:coordinate.latitude, longitude:coordinate.longitude)
 	}
 }
+
+private typealias IntegerCoordinates = (latitude: Int, longitude: Int)
