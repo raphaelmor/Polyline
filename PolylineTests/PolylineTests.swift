@@ -29,10 +29,10 @@ private let COORD_EPSILON : Double = 0.00001
 
 class PolylineTests:XCTestCase {
 	
-	// MARK:- Encoding locations
+	// MARK:- Encoding Coordinates
 	
 	func testEmptyArrayShouldBeEmptyString() {
-		let sut = Polyline(locations: [])
+		let sut = Polyline(coordinates: [])
 		XCTAssertEqual(sut.encodedPolyline, "")
 	}
 	
@@ -115,7 +115,7 @@ class PolylineTests:XCTestCase {
 		XCTAssertEqual(sut.encodedPolyline, "AA@@")
 	}
 	
-	// MARK:- Decoding locations
+	// MARK:- Decoding Coordinates
 	
 	func testEmptyPolylineShouldBeEmptyLocationArray() {
 		let sut = Polyline(encodedPolyline: "")
@@ -179,7 +179,7 @@ class PolylineTests:XCTestCase {
 		if let resultArray = sut.levels {
 			XCTAssertEqual(countElements(resultArray), 0)
 		} else {
-			XCTFail("location array should not be nil for empty string")
+			XCTFail("Level array should not be nil for empty string")
 		}
 	}
 	
@@ -187,7 +187,7 @@ class PolylineTests:XCTestCase {
 		let sut = Polyline(encodedPolyline: "", encodedLevels: "invalidLevelString")
 		
 		if let resultArray = sut.levels {
-			XCTFail("level array should be nil for invalid string")
+			XCTFail("Level array should be nil for invalid string")
 		} else {
 			//Success
 		}
@@ -205,11 +205,11 @@ class PolylineTests:XCTestCase {
 			XCTAssertEqual(resultArray[4], UInt32(255))
 			
 		} else {
-			XCTFail()
+            XCTFail("Valid Levels should be decoded properly")
 		}
 	}
 	
-	// MARK:- Encoding coordinates
+	// MARK:- Encoding Locations
 	func testLocationsArrayShouldBeEncodedProperly() {
 		let locations = [CLLocation(latitude: 0.00001, longitude: 0.00001)!,
 			CLLocation(latitude: 0.00000, longitude: 0.00000)!]

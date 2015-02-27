@@ -137,6 +137,12 @@ let polyline = Polyline(encodedPolyline: "qkqtFbn_Vui`Xu`l]")
 let decodedCoordinates : Array<CLLocationCoordinate2D> = polyline.coordinates
 ```
 
+Or for a functional approach :
+
+```swift
+let coordinates : [CLLocationCoordinate2D] = decodePolyline("qkqtFbn_Vui`Xu`l]")
+```
+
 You can also decode to `CLLocation` :
 
 ```swift
@@ -144,11 +150,23 @@ let polyline = Polyline(encodedPolyline: "qkqtFbn_Vui`Xu`l]")
 let decodedLocations : Array<CLLocation> = polyline.locations
 ```
 
+Or for a functional approach :
+
+```swift
+let locations : [CLLocation] = decodePolyline("qkqtFbn_Vui`Xu`l]")
+```
+
 You can decode levels too :
 
 ```swift
 let polyline = Polyline(encodedPolyline: "qkqtFbn_Vui`Xu`l]", encodedLevels: "BA")
 let decodedLevels : Array<UInt32>? = polyline.levels
+```
+
+Or for a functional approach :
+
+```swift
+let levels = decodeLevels("BA")
 ```
         
 ## Notes

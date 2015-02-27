@@ -77,19 +77,15 @@ public struct Polyline {
 		self.encodedPolyline = encodedPolyline
 		coordinates = []
 		
-		let decodedCoordinates = decodePolyline(encodedPolyline)
-		
-		if !decodedCoordinates.failed {
-			coordinates = decodedCoordinates.value!
+        if let decodedCoordinates : [CLLocationCoordinate2D] = decodePolyline(encodedPolyline) {
+			coordinates = decodedCoordinates
 		}
 		
 		if let levelsToDecode = encodedLevels {
 			self.encodedLevels = levelsToDecode
 			
-			let decodedLevels = decodeLevels(levelsToDecode)
-			
-			if !decodedLevels.failed {
-				levels = decodedLevels.value
+            if let decodedLevels = decodeLevels(levelsToDecode) {
+				levels = decodedLevels
 			}
 		}
 	}
@@ -102,137 +98,6 @@ public struct Polyline {
 		
 		let coordinates = toCoordinates(locations)
 		self.init(coordinates: coordinates, levels: levels)
-	}
-	
-	// MARK:- Private methods -
-	
-	// MARK: Decoding locations
-	
-	private func decodePolyline(encodedPolyline: String) -> Result<Array<CLLocationCoordinate2D>> {
-		
-        let data = encodedPolyline.dataUsingEncoding(NSUTF8StringEncoding)!
-        
-        let byteArray = unsafeBitCast(data.bytes, UnsafePointer<Int8>.self)
-        let length = Int(data.length)
-        var position = Int(0)
-        
-        var decodedCoordinates = [CLLocationCoordinate2D]()
-        
-        var lat = 0.0
-        var lon = 0.0
-        
-        while position < length {
-
-			let resultingLat = decodeSingleCoordinate(byteArray, length: length, position: &position)
-			if resultingLat.failed { return .Failure }
-            lat += resultingLat.value!
-			
-			let resultingLon = decodeSingleCoordinate(byteArray, length: length, position: &position)
-			if resultingLat.failed { return .Failure }
-            lon += resultingLon.value!
-            
-            decodedCoordinates.append(CLLocationCoordinate2D(latitude: lat, longitude: lon))
-        }
-        
-        return .Success(decodedCoordinates)
-    }
-	
-    private func decodeSingleCoordinate(byteArray: UnsafePointer<Int8>, length: Int, inout position: Int ) -> Result<Double> {
-		
-        if position >= length {
-            return Result.Failure
-        }
-		
-        let bitMask = Int8(0x1F)
-		
-		var coordinate : Int32 = 0
-		
-		var currentChar : Int8
-		var componentCounter : Int32 = 0
-		var component: Int32 = 0
-		
-		do {
-			currentChar = byteArray[position] - 63
-			component = Int32(currentChar & bitMask)
-			coordinate |= (component << (5*componentCounter))
-			position++
-			componentCounter++
-		} while ((currentChar & 0x20) == 0x20) && (position < length) && (componentCounter < 6)
-		
-		if (componentCounter == 6) && ((currentChar & 0x20) == 0x20) {
-			return Result.Failure
-		}
-		
-        if (coordinate & 0x01) == 0x01 {
-            coordinate = ~(coordinate >> 1)
-        } else {
-            coordinate = coordinate >> 1
-        }
-        
-        return Result.Success(Double(coordinate) / 100000.0)
-	}
-	
-	// MARK: Decoding levels
-	private func decodeLevels(encodedLevels: String) -> Result<Array<UInt32>> {
-		var remainingLevels = encodedLevels.unicodeScalars
-		var decodedLevels   = [UInt32]()
-		
-		while countElements(remainingLevels) > 0 {
-			var result = extractNextChunk(&remainingLevels)
-			if result.failed {
-				return .Failure
-			}else{
-				let level = decodeLevel(result.value!)
-				decodedLevels.append(level)
-			}
-		}
-		
-		return .Success(decodedLevels)
-	}
-	
-	private func decodeLevel(encodedLevel: String) -> UInt32 {
-		let scalarArray = [] + encodedLevel.unicodeScalars
-		
-		return UInt32(agregateScalarArray(scalarArray))
-	}
-	
-	// MARK: Helper methods
-	
-	private func isSeparator(value: Int32) -> Bool {
-		return (value - 63) & 0x20 != 0x20
-	}
-	
-	private func agregateScalarArray(scalars: [UnicodeScalar]) -> Int32 {
-		let lastValue = Int32(scalars.last!.value)
-		
-		var fiveBitComponents: [Int32] = scalars.map { scalar in
-			var value = Int32(scalar.value)
-			if value != lastValue {
-				return (value - 63) ^ 0x20
-			} else {
-				return value - 63
-			}
-		}
-		
-		return fiveBitComponents.reverse().reduce(0) { ($0 << 5 ) | $1 }
-	}
-	
-	private func extractNextChunk(inout encodedString: String.UnicodeScalarView) -> Result<String> {
-		var currentIndex = encodedString.startIndex
-		
-		while currentIndex != encodedString.endIndex {
-			let currentCharacterValue = Int32(encodedString[currentIndex].value)
-			if isSeparator(currentCharacterValue) {
-				let extractedScalars = encodedString[encodedString.startIndex...currentIndex]
-				encodedString = encodedString[currentIndex.successor()..<encodedString.endIndex]
-				
-				return .Success(String(extractedScalars))
-			}
-			
-			currentIndex = currentIndex.successor()
-		}
-		
-		return .Failure
 	}
 }
 
@@ -283,6 +148,72 @@ public func encodeLevels(levels: Array<UInt32>) -> String {
     }
 }
 
+/// This function decodes a String to an [CLLocationCoordinate2D]
+///
+/// :param: encodedPolyline String representing the encoded Polyline
+///
+/// :returns: A [CLLocationCoordinate2D] representing the decoded polyline if valid, nil otherwise
+public func decodePolyline(encodedPolyline: String) -> [CLLocationCoordinate2D]? {
+    
+    let data = encodedPolyline.dataUsingEncoding(NSUTF8StringEncoding)!
+    
+    let byteArray = unsafeBitCast(data.bytes, UnsafePointer<Int8>.self)
+    let length = Int(data.length)
+    var position = Int(0)
+    
+    var decodedCoordinates = [CLLocationCoordinate2D]()
+    
+    var lat = 0.0
+    var lon = 0.0
+    
+    while position < length {
+        
+        let resultingLat = decodeSingleCoordinate(byteArray: byteArray, length: length, position: &position)
+        if resultingLat.failed { return nil }
+        lat += resultingLat.value!
+        
+        let resultingLon = decodeSingleCoordinate(byteArray: byteArray, length: length, position: &position)
+        if resultingLat.failed { return nil }
+        lon += resultingLon.value!
+        
+        decodedCoordinates.append(CLLocationCoordinate2D(latitude: lat, longitude: lon))
+    }
+    
+    return decodedCoordinates
+}
+
+/// This function decodes a String to an [CLLocation]
+///
+/// :param: encodedPolyline String representing the encoded Polyline
+///
+/// :returns: A [CLLocation] representing the decoded polyline if valid, nil otherwise
+public func decodePolyline(encodedPolyline: String) -> [CLLocation]? {
+    
+    return decodePolyline(encodedPolyline).map(toLocations)
+}
+
+/// This function decodes a String to an Array<UInt32>
+///
+/// :param: encodedLevels The String representing the levels to decode
+///
+/// :returns: A [UInt32] representing the decoded Levels if the String is valid, nil otherwise
+public func decodeLevels(encodedLevels: String) -> [UInt32]? {
+    var remainingLevels = encodedLevels.unicodeScalars
+    var decodedLevels   = [UInt32]()
+    
+    while countElements(remainingLevels) > 0 {
+        var result = extractNextChunk(&remainingLevels)
+        if result.failed {
+            return nil
+        }else{
+            let level = decodeLevel(result.value!)
+            decodedLevels.append(level)
+        }
+    }
+    
+    return decodedLevels
+}
+
 
 // MARK: - Private -
 
@@ -316,8 +247,6 @@ private func encodeLevel(level: UInt32) -> String {
     return encodeFiveBitComponents(Int(level))
 }
 
-// MARK: Utilities
-
 private func encodeFiveBitComponents(value: Int) -> String {
     var remainingComponents = value
     
@@ -340,35 +269,121 @@ private func encodeFiveBitComponents(value: Int) -> String {
     return returnString
 }
 
+// MARK: Decode Coordinate
+
+// We use a byte array (UnsafePointer<Int8>) here for performance reasons. Check with swift 1.2 if we can 
+// go back to using [Int8]
+private func decodeSingleCoordinate(#byteArray: UnsafePointer<Int8>, #length: Int, inout #position: Int ) -> Result<Double> {
+    
+    if position >= length {
+        return Result.Failure
+    }
+    
+    let bitMask = Int8(0x1F)
+    
+    var coordinate : Int32 = 0
+    
+    var currentChar : Int8
+    var componentCounter : Int32 = 0
+    var component: Int32 = 0
+    
+    do {
+        currentChar = byteArray[position] - 63
+        component = Int32(currentChar & bitMask)
+        coordinate |= (component << (5*componentCounter))
+        position++
+        componentCounter++
+    } while ((currentChar & 0x20) == 0x20) && (position < length) && (componentCounter < 6)
+    
+    if (componentCounter == 6) && ((currentChar & 0x20) == 0x20) {
+        return Result.Failure
+    }
+    
+    if (coordinate & 0x01) == 0x01 {
+        coordinate = ~(coordinate >> 1)
+    } else {
+        coordinate = coordinate >> 1
+    }
+    
+    return Result.Success(Double(coordinate) / 100000.0)
+}
+
+// MARK: Decode Levels
+
+private func extractNextChunk(inout encodedString: String.UnicodeScalarView) -> Result<String> {
+    var currentIndex = encodedString.startIndex
+    
+    while currentIndex != encodedString.endIndex {
+        let currentCharacterValue = Int32(encodedString[currentIndex].value)
+        if isSeparator(currentCharacterValue) {
+            let extractedScalars = encodedString[encodedString.startIndex...currentIndex]
+            encodedString = encodedString[currentIndex.successor()..<encodedString.endIndex]
+            
+            return .Success(String(extractedScalars))
+        }
+        
+        currentIndex = currentIndex.successor()
+    }
+    
+    return .Failure
+}
+
+private func decodeLevel(encodedLevel: String) -> UInt32 {
+    let scalarArray = [] + encodedLevel.unicodeScalars
+    
+    return UInt32(agregateScalarArray(scalarArray))
+}
+
+private func agregateScalarArray(scalars: [UnicodeScalar]) -> Int32 {
+    let lastValue = Int32(scalars.last!.value)
+    
+    var fiveBitComponents: [Int32] = scalars.map { scalar in
+        var value = Int32(scalar.value)
+        if value != lastValue {
+            return (value - 63) ^ 0x20
+        } else {
+            return value - 63
+        }
+    }
+    
+    return fiveBitComponents.reverse().reduce(0) { ($0 << 5 ) | $1 }
+}
+
+// MARK: Utilities
+
 private enum Result<T> {
-	case Success(T)
-	case Failure
-	var failed: Bool {
-		switch self {
-		case .Failure :
-			return true
-		default :
-			return false
-		}
-	}
-	var value: T? {
-		switch self {
-		case .Success(let result):
-			return result
-		default:
-			return nil
-		}
-	}
+    case Success(T)
+    case Failure
+    var failed: Bool {
+        switch self {
+        case .Failure :
+            return true
+        default :
+            return false
+        }
+    }
+    var value: T? {
+        switch self {
+        case .Success(let result):
+            return result
+        default:
+            return nil
+        }
+    }
 }
 
 private func toCoordinates(locations: [CLLocation]) -> [CLLocationCoordinate2D] {
-	return locations.map {location in location.coordinate}
+    return locations.map {location in location.coordinate}
 }
 
 private func toLocations(coordinates: [CLLocationCoordinate2D]) -> [CLLocation] {
-	return coordinates.map { coordinate in
-		CLLocation(latitude:coordinate.latitude, longitude:coordinate.longitude)
-	}
+    return coordinates.map { coordinate in
+        CLLocation(latitude:coordinate.latitude, longitude:coordinate.longitude)
+    }
+}
+
+private func isSeparator(value: Int32) -> Bool {
+    return (value - 63) & 0x20 != 0x20
 }
 
 private typealias IntegerCoordinates = (latitude: Int, longitude: Int)
