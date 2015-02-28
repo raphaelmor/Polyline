@@ -95,7 +95,6 @@ let polyline = Polyline(locations: locations)
 let encodedPolyline: String = polyline.encodedPolyline
 
 // Or for a functional approach :
-
 let encodedPolyline: String = encodeLocations(locations)
 ```
 
@@ -108,7 +107,6 @@ let polyline = Polyline(coordinates: coordinates, levels: levels)
 let encodedLevels: String = polyline.encodedLevels
 
 // Or for a functional approach :
-
 let encodedLevels: String = encodedLevels(levels)
 ```
 
@@ -122,7 +120,6 @@ let polyline = Polyline(encodedPolyline: "qkqtFbn_Vui`Xu`l]")
 let decodedCoordinates: [CLLocationCoordinate2D] = polyline.coordinates
 
 // Or for a functional approach :
-
 let coordinates: [CLLocationCoordinate2D]? = decodePolyline("qkqtFbn_Vui`Xu`l]")
 ```
 
@@ -133,7 +130,6 @@ let polyline = Polyline(encodedPolyline: "qkqtFbn_Vui`Xu`l]")
 let decodedLocations: [CLLocation] = polyline.locations
 
 // Or for a functional approach :
-
 let locations: [CLLocation]? = decodePolyline("qkqtFbn_Vui`Xu`l]")
 ```
 
@@ -144,7 +140,6 @@ let polyline = Polyline(encodedPolyline: "qkqtFbn_Vui`Xu`l]", encodedLevels: "BA
 let decodedLevels: [UInt32]? = polyline.levels
 
 // Or for a functional approach :
-
 let levels: [UInt32]? = decodeLevels("BA")
 ```
         
