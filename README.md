@@ -138,7 +138,7 @@ let decodedCoordinates: [CLLocationCoordinate2D] = polyline.coordinates
 Or for a functional approach :
 
 ```swift
-let coordinates: [CLLocationCoordinate2D] = decodePolyline("qkqtFbn_Vui`Xu`l]")
+let coordinates: [CLLocationCoordinate2D]? = decodePolyline("qkqtFbn_Vui`Xu`l]")
 ```
 
 You can also decode to `CLLocation` :
