@@ -156,4 +156,4 @@ This codes tries to adhere to the [GitHub Swift Style Guide](https://github.com/
 
 ## License
 
-Polyline is released under an MIT license. See LICENSE for more information.
+Polyline is released under an MIT license. See `LICENSE.txt` for more information.
