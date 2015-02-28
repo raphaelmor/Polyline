@@ -79,7 +79,16 @@ let coordinates = [CLLocationCoordinate2D(latitude: 40.2349727, longitude: -3.77
 CLLocationCoordinate2D(latitude: 44.3377999, longitude: 1.2112933)]
 
 let polyline = Polyline(coordinates: coordinates)
-let encodedPolyline : String = polyline.encodedPolyline
+let encodedPolyline: String = polyline.encodedPolyline
+```
+
+Or for a functional approach :
+
+```swift
+let coordinates = [CLLocationCoordinate2D(latitude: 40.2349727, longitude: -3.7707443),
+CLLocationCoordinate2D(latitude: 44.3377999, longitude: 1.2112933)]
+
+let encodedPolyline: String = encodeCoordinates(coordinates)
 ```
 
 Using `CLLocation` :
@@ -89,18 +98,33 @@ let locations = [CLLocation(latitude: 40.2349727, longitude: -3.7707443),
 CLLocation(latitude: 44.3377999, longitude: 1.2112933)]
 
 let polyline = Polyline(locations: locations)
-let encodedPolyline : String = polyline.encodedPolyline
+let encodedPolyline: String = polyline.encodedPolyline
 ```
 
-You can specify levels too : 
+Or for a functional approach :
 
 ```swift
-let levels : [UInt32] = [0,1,2,255]
+let locations = [CLLocation(latitude: 40.2349727, longitude: -3.7707443),
+CLLocation(latitude: 44.3377999, longitude: 1.2112933)]
+
+let encodedPolyline: String = encodeLocations(locations)
+```
+
+You can encode levels too : 
+
+```swift
+let levels: [UInt32] = [0,1,2,255]
 
 let polyline = Polyline(coordinates: coordinates, levels: levels)
-let encodedLevels : String = polyline.encodedLevels
-
+let encodedLevels: String = polyline.encodedLevels
 ```
+
+Or for a functional approach :
+
+```swift
+let encodedLevels: String = encodedLevels([0,1,2,255])
+```
+
 
 ### Polyline Decoding
 
@@ -108,21 +132,39 @@ You can decode to `CLLocationCoordinate2D` (recommended) :
 
 ```swift
 let polyline = Polyline(encodedPolyline: "qkqtFbn_Vui`Xu`l]")
-let decodedCoordinates : Array<CLLocationCoordinate2D> = polyline.coordinates
+let decodedCoordinates: Array<CLLocationCoordinate2D> = polyline.coordinates
+```
+
+Or for a functional approach :
+
+```swift
+let coordinates: [CLLocationCoordinate2D] = decodePolyline("qkqtFbn_Vui`Xu`l]")
 ```
 
 You can also decode to `CLLocation` :
 
 ```swift
 let polyline = Polyline(encodedPolyline: "qkqtFbn_Vui`Xu`l]")
-let decodedLocations : Array<CLLocation> = polyline.locations
+let decodedLocations: Array<CLLocation> = polyline.locations
+```
+
+Or for a functional approach :
+
+```swift
+let locations: [CLLocation]? = decodePolyline("qkqtFbn_Vui`Xu`l]")
 ```
 
 You can decode levels too :
 
 ```swift
 let polyline = Polyline(encodedPolyline: "qkqtFbn_Vui`Xu`l]", encodedLevels: "BA")
-let decodedLevels : Array<UInt32>? = polyline.levels
+let decodedLevels: Array<UInt32>? = polyline.levels
+```
+
+Or for a functional approach :
+
+```swift
+let levels: [UInt32]? = decodeLevels("BA")
 ```
         
 ## Notes

@@ -10,6 +10,7 @@
 		207F640419B5DF7E005261FA /* Polyline.h in Headers */ = {isa = PBXBuildFile; fileRef = 207F640319B5DF7E005261FA /* Polyline.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		207F640E19B5DF7E005261FA /* PolylineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207F640D19B5DF7E005261FA /* PolylineTests.swift */; };
 		207F641B19B5E10C005261FA /* Polyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207F641A19B5E10C005261FA /* Polyline.swift */; };
+		28DD887E1AA1280C001CC005 /* FunctionalPolylineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DD887D1AA1280C001CC005 /* FunctionalPolylineTests.swift */; };
 		64E1F8751A285A76002F25D3 /* Polyline.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 207F63FE19B5DF7E005261FA /* Polyline.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -34,9 +35,10 @@
 		207F640919B5DF7E005261FA /* PolylineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolylineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		207F640C19B5DF7E005261FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		207F640D19B5DF7E005261FA /* PolylineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolylineTests.swift; sourceTree = "<group>"; };
-		207F641819B5E05A005261FA /* LICENCE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENCE.txt; sourceTree = "<group>"; };
+		207F641819B5E05A005261FA /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		207F641A19B5E10C005261FA /* Polyline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Polyline.swift; sourceTree = "<group>"; };
 		207F641C19B5EDC3005261FA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		28DD887D1AA1280C001CC005 /* FunctionalPolylineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionalPolylineTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				207F641C19B5EDC3005261FA /* README.md */,
-				207F641819B5E05A005261FA /* LICENCE.txt */,
+				207F641819B5E05A005261FA /* LICENSE.txt */,
 				207F640019B5DF7E005261FA /* Polyline */,
 				207F640A19B5DF7E005261FA /* PolylineTests */,
 				207F63FF19B5DF7E005261FA /* Products */,
@@ -99,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				207F640D19B5DF7E005261FA /* PolylineTests.swift */,
+				28DD887D1AA1280C001CC005 /* FunctionalPolylineTests.swift */,
 				207F640B19B5DF7E005261FA /* Supporting Files */,
 			);
 			path = PolylineTests;
@@ -227,6 +230,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28DD887E1AA1280C001CC005 /* FunctionalPolylineTests.swift in Sources */,
 				207F640E19B5DF7E005261FA /* PolylineTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

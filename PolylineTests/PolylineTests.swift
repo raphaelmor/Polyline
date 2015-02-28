@@ -1,6 +1,6 @@
 // PolylineTests.swift
 //
-// Copyright (c) 2014 Raphaël Mor
+// Copyright (c) 2015 Raphaël Mor
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -25,14 +25,14 @@ import XCTest
 
 import Polyline
 
-private let COORD_EPSILON : Double = 0.00001
+private let COORD_EPSILON: Double = 0.00001
 
 class PolylineTests:XCTestCase {
 	
-	// MARK:- Encoding locations
+	// MARK:- Encoding Coordinates
 	
 	func testEmptyArrayShouldBeEmptyString() {
-		let sut = Polyline(locations: [])
+		let sut = Polyline(coordinates: [])
 		XCTAssertEqual(sut.encodedPolyline, "")
 	}
 	
@@ -115,7 +115,7 @@ class PolylineTests:XCTestCase {
 		XCTAssertEqual(sut.encodedPolyline, "AA@@")
 	}
 	
-	// MARK:- Decoding locations
+	// MARK:- Decoding Coordinates
 	
 	func testEmptyPolylineShouldBeEmptyLocationArray() {
 		let sut = Polyline(encodedPolyline: "")
@@ -179,7 +179,7 @@ class PolylineTests:XCTestCase {
 		if let resultArray = sut.levels {
 			XCTAssertEqual(countElements(resultArray), 0)
 		} else {
-			XCTFail("location array should not be nil for empty string")
+			XCTFail("Level array should not be nil for empty string")
 		}
 	}
 	
@@ -187,7 +187,7 @@ class PolylineTests:XCTestCase {
 		let sut = Polyline(encodedPolyline: "", encodedLevels: "invalidLevelString")
 		
 		if let resultArray = sut.levels {
-			XCTFail("level array should be nil for invalid string")
+			XCTFail("Level array should be nil for invalid string")
 		} else {
 			//Success
 		}
@@ -205,11 +205,11 @@ class PolylineTests:XCTestCase {
 			XCTAssertEqual(resultArray[4], UInt32(255))
 			
 		} else {
-			XCTFail()
+            XCTFail("Valid Levels should be decoded properly")
 		}
 	}
 	
-	// MARK:- Encoding coordinates
+	// MARK:- Encoding Locations
 	func testLocationsArrayShouldBeEncodedProperly() {
 		let locations = [CLLocation(latitude: 0.00001, longitude: 0.00001)!,
 			CLLocation(latitude: 0.00000, longitude: 0.00000)!]
@@ -252,7 +252,7 @@ class PolylineTests:XCTestCase {
 			CLLocationCoordinate2D(latitude: 44.3377999, longitude: 1.2112933)]
 		
 		let polyline = Polyline(coordinates: coordinates)
-		let encodedPolyline : String = polyline.encodedPolyline
+		let encodedPolyline: String = polyline.encodedPolyline
 		XCTAssertEqual(polyline.encodedPolyline, "qkqtFbn_Vui`Xu`l]")
 	}
 	
@@ -261,7 +261,7 @@ class PolylineTests:XCTestCase {
 			CLLocation(latitude: 44.3377999, longitude: 1.2112933)!]
 		
 		let polyline = Polyline(locations: locations)
-		let encodedPolyline : String = polyline.encodedPolyline
+		let encodedPolyline: String = polyline.encodedPolyline
 		XCTAssertEqual(polyline.encodedPolyline, "qkqtFbn_Vui`Xu`l]")
 	}
 	
@@ -269,29 +269,29 @@ class PolylineTests:XCTestCase {
 		let coordinates = [CLLocationCoordinate2D(latitude: 40.2349727, longitude: -3.7707443),
 			CLLocationCoordinate2D(latitude: 44.3377999, longitude: 1.2112933)]
 		
-		let levels : [UInt32] = [0,1,2,255]
+		let levels: [UInt32] = [0,1,2,255]
 		
 		let polyline = Polyline(coordinates: coordinates, levels: levels)
-		let encodedLevels : String = polyline.encodedLevels
+		let encodedLevels: String = polyline.encodedLevels
 	}
 	
 	func testPolylineDecodingToCoordinate() {
 		let polyline = Polyline(encodedPolyline: "qkqtFbn_Vui`Xu`l]")
-		let decodedCoordinates : Array<CLLocationCoordinate2D> = polyline.coordinates
+		let decodedCoordinates: Array<CLLocationCoordinate2D> = polyline.coordinates
 		
 		XCTAssertEqual(2, decodedCoordinates.count)
 	}
 	
 	func testPolylineDecodingToLocations() {
 		let polyline = Polyline(encodedPolyline: "qkqtFbn_Vui`Xu`l]")
-		let decodedLocations : Array<CLLocation> = polyline.locations
+		let decodedLocations: Array<CLLocation> = polyline.locations
 		
 		XCTAssertEqual(2, decodedLocations.count)
 	}
 	
 	func testLevelDecoding() {
 		let polyline = Polyline(encodedPolyline: "qkqtFbn_Vui`Xu`l]", encodedLevels: "BA")
-		let decodedLevels : Array<UInt32>? = polyline.levels
+		let decodedLevels: Array<UInt32>? = polyline.levels
 		
 		XCTAssertEqual(2, decodedLevels!.count)
 	}
