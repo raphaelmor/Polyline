@@ -277,21 +277,21 @@ class PolylineTests:XCTestCase {
 	
 	func testPolylineDecodingToCoordinate() {
 		let polyline = Polyline(encodedPolyline: "qkqtFbn_Vui`Xu`l]")
-		let decodedCoordinates: Array<CLLocationCoordinate2D> = polyline.coordinates
+		let decodedCoordinates: [CLLocationCoordinate2D] = polyline.coordinates
 		
 		XCTAssertEqual(2, decodedCoordinates.count)
 	}
 	
 	func testPolylineDecodingToLocations() {
 		let polyline = Polyline(encodedPolyline: "qkqtFbn_Vui`Xu`l]")
-		let decodedLocations: Array<CLLocation> = polyline.locations
+		let decodedLocations: [CLLocation] = polyline.locations
 		
 		XCTAssertEqual(2, decodedLocations.count)
 	}
 	
 	func testLevelDecoding() {
 		let polyline = Polyline(encodedPolyline: "qkqtFbn_Vui`Xu`l]", encodedLevels: "BA")
-		let decodedLevels: Array<UInt32>? = polyline.levels
+		let decodedLevels: [UInt32]? = polyline.levels
 		
 		XCTAssertEqual(2, decodedLevels!.count)
 	}

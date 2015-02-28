@@ -26,8 +26,9 @@ import CoreLocation
 // MARK: - Public Classes -
 
 /// This class can be used for :
-/// * Encoding an Array<CLLocation> to a polyline String
-/// * Decoding a polyline String to an Array<CLLocation>
+/// * Encoding an [CLLocation] or a [CLLocationCoordinate2D] to a polyline String
+/// * Decoding a polyline String to an [CLLocation] or a [CLLocationCoordinate2D] 
+/// * Encoding / Decoding associated levels
 ///
 /// it is based on google's algorithm that can be found here :
 /// https://developers.google.com/maps/documentation/utilities/polylinealgorithm
@@ -36,27 +37,27 @@ import CoreLocation
 public struct Polyline {
 	
 	/// The array of coordinates
-	public let coordinates: Array<CLLocationCoordinate2D>
+	public let coordinates: [CLLocationCoordinate2D]
 	/// The encoded polyline
 	public let encodedPolyline: String = ""
 	
 	/// The array of levels
-	public let levels: Array<UInt32>?
+	public let levels: [UInt32]?
 	// The encoded levels
 	public let encodedLevels: String = ""
 	
 	/// The array of location
-	public var locations: Array<CLLocation> {
+	public var locations: [CLLocation] {
 		return toLocations(coordinates)
 	}
 	
     // MARK: - Public Methods -
     
-	/// This designated init encodes an Array<CLLocationCoordinate2D> to a String
+	/// This designated init encodes an [CLLocationCoordinate2D] to a String
 	///
 	/// :param: coordinates The array of CLLocationCoordinate2D that you want to encode
 	/// :param: levels The optional array of levels  that you want to encode
-	public init(coordinates: Array<CLLocationCoordinate2D>, levels: Array<UInt32>? = nil) {
+	public init(coordinates: [CLLocationCoordinate2D], levels: [UInt32]? = nil) {
 		
 		self.coordinates = coordinates
 		self.levels = levels
@@ -68,7 +69,7 @@ public struct Polyline {
 		}
 	}
 	
-	/// This designated init decodes a polyline String to an Array<CLLocation>
+	/// This designated init decodes a polyline String to an [CLLocation]
 	///
 	/// :param: encodedPolyline The polyline that you want to decode
 	/// :param: encodedLevels The levels that you want to decode
@@ -90,11 +91,11 @@ public struct Polyline {
 		}
 	}
 	
-	/// This init encodes an Array<CLLocation> to a String
+	/// This init encodes an [CLLocation] to a String
 	///
 	/// :param: locations The array of CLLocation that you want to encode
 	/// :param: levels The optional array of levels  that you want to encode
-	public init(locations: Array<CLLocation>, levels: Array<UInt32>? = nil) {
+	public init(locations: [CLLocation], levels: [UInt32]? = nil) {
 		
 		let coordinates = toCoordinates(locations)
 		self.init(coordinates: coordinates, levels: levels)
@@ -103,12 +104,12 @@ public struct Polyline {
 
 // MARK: - Public Functions -
 
-/// This function encodes an Array<CLLocationCoordinate2D> to a String
+/// This function encodes an [CLLocationCoordinate2D] to a String
 ///
 /// :param: coordinates The array of CLLocationCoordinate2D that you want to encode
 ///
 /// :returns: A String representing the encoded Polyline
-public func encodeCoordinates(coordinates: Array<CLLocationCoordinate2D>) -> String {
+public func encodeCoordinates(coordinates: [CLLocationCoordinate2D]) -> String {
     
     var previousCoordinate = IntegerCoordinates(0, 0)
     var encodedPolyline = ""
@@ -127,22 +128,22 @@ public func encodeCoordinates(coordinates: Array<CLLocationCoordinate2D>) -> Str
     return encodedPolyline
 }
 
-/// This function encodes an Array<CLLocationCoordinate2D> to a String
+/// This function encodes an [CLLocationCoordinate2D] to a String
 ///
 /// :param: coordinates The array of CLLocationCoordinate2D that you want to encode
 ///
 /// :returns: A String representing the encoded Polyline
-public func encodeLocations(locations: Array<CLLocation>) -> String {
+public func encodeLocations(locations: [CLLocation]) -> String {
     
     return encodeCoordinates(toCoordinates(locations))
 }
 
-/// This function encodes an Array<UInt32> to a String
+/// This function encodes an [UInt32] to a String
 ///
 /// :param: levels The array of UInt32 levels that you want to encode
 ///
 /// :returns: A String representing the encoded Levels
-public func encodeLevels(levels: Array<UInt32>) -> String {
+public func encodeLevels(levels: [UInt32]) -> String {
     return levels.reduce("") {
         $0 + encodeLevel($1)
     }
@@ -192,7 +193,7 @@ public func decodePolyline(encodedPolyline: String) -> [CLLocation]? {
     return decodePolyline(encodedPolyline).map(toLocations)
 }
 
-/// This function decodes a String to an Array<UInt32>
+/// This function decodes a String to an [UInt32]
 ///
 /// :param: encodedLevels The String representing the levels to decode
 ///
