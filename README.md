@@ -4,7 +4,7 @@
 
 [![Build Status](https://travis-ci.org/raphaelmor/Polyline.svg?branch=master)](https://travis-ci.org/raphaelmor/Polyline)
 [![CocoaPods](https://img.shields.io/cocoapods/v/Polyline.svg)](http://cocoadocs.org/docsets/Polyline)
-[![Licence](http://img.shields.io/badge/Licence-MIT-lightgrey.svg)](https://github.com/raphaelmor/Polyline/blob/master/LICENCE.txt)
+[![Licence](http://img.shields.io/badge/Licence-MIT-lightgrey.svg)](https://github.com/raphaelmor/Polyline/blob/master/LICENSE.txt)
 
 Polyline encoder / decoder in Swift
 
@@ -155,5 +155,4 @@ This codes tries to adhere to the [GitHub Swift Style Guide](https://github.com/
 - [Raphael Mor](http://github.com/raphaelmor) ([@raphaelmor](https://twitter.com/raphaelmor))
 
 ## License
-
-Polyline is released under an MIT license. See `LICENSE.txt` for more information.
+Polyline is released under an MIT license. See [LICENSE.txt](https://github.com/raphaelmor/Polyline/blob/master/LICENSE.txt) for more information.
