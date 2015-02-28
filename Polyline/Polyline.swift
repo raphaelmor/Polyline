@@ -26,14 +26,17 @@ import CoreLocation
 // MARK: - Public Classes -
 
 /// This class can be used for :
-/// * Encoding an [CLLocation] or a [CLLocationCoordinate2D] to a polyline String
-/// * Decoding a polyline String to an [CLLocation] or a [CLLocationCoordinate2D] 
-/// * Encoding / Decoding associated levels
 ///
-/// it is based on google's algorithm that can be found here :
-/// https://developers.google.com/maps/documentation/utilities/polylinealgorithm
+/// - Encoding an [CLLocation] or a [CLLocationCoordinate2D] to a polyline String
+/// - Decoding a polyline String to an [CLLocation] or a [CLLocationCoordinate2D]
+/// - Encoding / Decoding associated levels
+///
 /// it is aims to produce the same results as google's iOS sdk not as the online
 /// tool which is fuzzy when it comes to rounding values
+///
+/// it is based on google's algorithm that can be found here :
+///
+/// :see: https://developers.google.com/maps/documentation/utilities/polylinealgorithm
 public struct Polyline {
 	
 	/// The array of coordinates
@@ -43,10 +46,10 @@ public struct Polyline {
 	
 	/// The array of levels
 	public let levels: [UInt32]?
-	// The encoded levels
+	/// The encoded levels
 	public let encodedLevels: String = ""
 	
-	/// The array of location
+	/// The array of location (computed from coordinates)
 	public var locations: [CLLocation] {
 		return toLocations(coordinates)
 	}
