@@ -60,12 +60,12 @@ public struct Polyline {
 	///
 	/// :param: coordinates The array of CLLocationCoordinate2D that you want to encode
 	/// :param: levels The optional array of levels  that you want to encode
-	public init(coordinates: [CLLocationCoordinate2D], levels: [UInt32]? = nil) {
+    public init(coordinates: [CLLocationCoordinate2D], levels: [UInt32]? = nil, precision: Double = 1e5) {
 		
 		self.coordinates = coordinates
 		self.levels = levels
 		
-		encodedPolyline = encodeCoordinates(coordinates)
+		encodedPolyline = encodeCoordinates(coordinates, precision: precision)
 		
 		if let levelsToEncode = levels {
 			encodedLevels = encodeLevels(levelsToEncode)
@@ -76,12 +76,12 @@ public struct Polyline {
 	///
 	/// :param: encodedPolyline The polyline that you want to decode
 	/// :param: encodedLevels The levels that you want to decode
-	public init(encodedPolyline: String, encodedLevels: String? = nil) {
+	public init(encodedPolyline: String, encodedLevels: String? = nil, precision: Double = 1e5) {
 		
 		self.encodedPolyline = encodedPolyline
 		coordinates = []
 		
-        if let decodedCoordinates: [CLLocationCoordinate2D] = decodePolyline(encodedPolyline) {
+        if let decodedCoordinates: [CLLocationCoordinate2D] = decodePolyline(encodedPolyline, precision: precision) {
 			coordinates = decodedCoordinates
 		}
 		
@@ -98,10 +98,10 @@ public struct Polyline {
 	///
 	/// :param: locations The array of CLLocation that you want to encode
 	/// :param: levels The optional array of levels  that you want to encode
-	public init(locations: [CLLocation], levels: [UInt32]? = nil) {
+	public init(locations: [CLLocation], levels: [UInt32]? = nil, precision: Double = 1e5) {
 		
 		let coordinates = toCoordinates(locations)
-		self.init(coordinates: coordinates, levels: levels)
+        self.init(coordinates: coordinates, levels: levels, precision:precision)
 	}
 }
 
@@ -112,14 +112,14 @@ public struct Polyline {
 /// :param: coordinates The array of CLLocationCoordinate2D that you want to encode
 ///
 /// :returns: A String representing the encoded Polyline
-public func encodeCoordinates(coordinates: [CLLocationCoordinate2D]) -> String {
+public func encodeCoordinates(coordinates: [CLLocationCoordinate2D], precision: Double = 1e5) -> String {
     
     var previousCoordinate = IntegerCoordinates(0, 0)
     var encodedPolyline = ""
     
     for coordinate in coordinates {
-        let intLatitude  = Int(round(coordinate.latitude * 1e5))
-        let intLongitude = Int(round(coordinate.longitude * 1e5))
+        let intLatitude  = Int(round(coordinate.latitude * precision))
+        let intLongitude = Int(round(coordinate.longitude * precision))
         
         let coordinatesDifference = (intLatitude - previousCoordinate.latitude, intLongitude - previousCoordinate.longitude)
         
@@ -136,9 +136,9 @@ public func encodeCoordinates(coordinates: [CLLocationCoordinate2D]) -> String {
 /// :param: coordinates The array of CLLocationCoordinate2D that you want to encode
 ///
 /// :returns: A String representing the encoded Polyline
-public func encodeLocations(locations: [CLLocation]) -> String {
+public func encodeLocations(locations: [CLLocation], precision: Double = 1e5) -> String {
     
-    return encodeCoordinates(toCoordinates(locations))
+    return encodeCoordinates(toCoordinates(locations), precision: precision)
 }
 
 /// This function encodes an [UInt32] to a String
@@ -157,7 +157,7 @@ public func encodeLevels(levels: [UInt32]) -> String {
 /// :param: encodedPolyline String representing the encoded Polyline
 ///
 /// :returns: A [CLLocationCoordinate2D] representing the decoded polyline if valid, nil otherwise
-public func decodePolyline(encodedPolyline: String) -> [CLLocationCoordinate2D]? {
+public func decodePolyline(encodedPolyline: String, precision: Double = 1e5) -> [CLLocationCoordinate2D]? {
     
     let data = encodedPolyline.dataUsingEncoding(NSUTF8StringEncoding)!
     
@@ -172,11 +172,11 @@ public func decodePolyline(encodedPolyline: String) -> [CLLocationCoordinate2D]?
     
     while position < length {
         
-        let resultingLat = decodeSingleCoordinate(byteArray: byteArray, length: length, position: &position)
+        let resultingLat = decodeSingleCoordinate(byteArray: byteArray, length: length, position: &position, precision: precision)
         if resultingLat.failed { return nil }
         lat += resultingLat.value!
         
-        let resultingLon = decodeSingleCoordinate(byteArray: byteArray, length: length, position: &position)
+        let resultingLon = decodeSingleCoordinate(byteArray: byteArray, length: length, position: &position, precision: precision)
         if resultingLat.failed { return nil }
         lon += resultingLon.value!
         
@@ -191,9 +191,9 @@ public func decodePolyline(encodedPolyline: String) -> [CLLocationCoordinate2D]?
 /// :param: encodedPolyline String representing the encoded Polyline
 ///
 /// :returns: A [CLLocation] representing the decoded polyline if valid, nil otherwise
-public func decodePolyline(encodedPolyline: String) -> [CLLocation]? {
+public func decodePolyline(encodedPolyline: String, precision: Double = 1e5) -> [CLLocation]? {
     
-    return decodePolyline(encodedPolyline).map(toLocations)
+    return decodePolyline(encodedPolyline, precision: precision).map(toLocations)
 }
 
 /// This function decodes a String to an [UInt32]
@@ -277,7 +277,7 @@ private func encodeFiveBitComponents(value: Int) -> String {
 
 // We use a byte array (UnsafePointer<Int8>) here for performance reasons. Check with swift 1.2 if we can 
 // go back to using [Int8]
-private func decodeSingleCoordinate(#byteArray: UnsafePointer<Int8>, #length: Int, inout #position: Int ) -> Result<Double> {
+private func decodeSingleCoordinate(#byteArray: UnsafePointer<Int8>, #length: Int, inout #position: Int, precision: Double = 1e5) -> Result<Double> {
     
     if position >= length {
         return Result.Failure
@@ -309,7 +309,7 @@ private func decodeSingleCoordinate(#byteArray: UnsafePointer<Int8>, #length: In
         coordinate = coordinate >> 1
     }
     
-    return Result.Success(Double(coordinate) / 100000.0)
+    return Result.Success(Double(coordinate) / precision)
 }
 
 // MARK: Decode Levels
