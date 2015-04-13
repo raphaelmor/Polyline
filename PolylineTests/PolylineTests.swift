@@ -25,7 +25,8 @@ import XCTest
 
 import Polyline
 
-private let COORD_EPSILON: Double = 0.00001
+private let COORD_EPSILON_1e5: Double = 0.00001
+private let COORD_EPSILON_1e6: Double = 0.000001
 
 class PolylineTests:XCTestCase {
 	
@@ -114,6 +115,19 @@ class PolylineTests:XCTestCase {
 		let sut = Polyline(coordinates: coordinates)
 		XCTAssertEqual(sut.encodedPolyline, "AA@@")
 	}
+    
+    func testPrecisionShouldBeUsedProperlyInEncoding() {
+        let coordinates = [CLLocationCoordinate2D(latitude: 10.1234567, longitude:10.1234567)]
+        
+        var sut = Polyline(coordinates: coordinates)
+        XCTAssertEqual(sut.encodedPolyline, "sfx|@sfx|@")
+        
+        sut = Polyline(coordinates: coordinates, precision: 1e5)
+        XCTAssertEqual(sut.encodedPolyline, "sfx|@sfx|@")
+        
+        sut = Polyline(coordinates: coordinates, precision: 1e6)
+        XCTAssertEqual(sut.encodedPolyline, "ak{hRak{hR")
+    }
 	
 	// MARK:- Decoding Coordinates
 	
@@ -131,25 +145,44 @@ class PolylineTests:XCTestCase {
 		let sut = Polyline(encodedPolyline: "_p~iF~ps|U_ulLnnqC_mqNvxq`@")
 		
 		XCTAssertEqual(countElements(sut.coordinates), 3)
-		XCTAssertEqualWithAccuracy(sut.coordinates[0].latitude, 38.5, COORD_EPSILON)
-		XCTAssertEqualWithAccuracy(sut.coordinates[0].longitude, -120.2, COORD_EPSILON)
-		XCTAssertEqualWithAccuracy(sut.coordinates[1].latitude, 40.7, COORD_EPSILON)
-		XCTAssertEqualWithAccuracy(sut.coordinates[1].longitude, -120.95, COORD_EPSILON)
-		XCTAssertEqualWithAccuracy(sut.coordinates[2].latitude, 43.252, COORD_EPSILON)
-		XCTAssertEqualWithAccuracy(sut.coordinates[2].longitude, -126.453, COORD_EPSILON)
+		XCTAssertEqualWithAccuracy(sut.coordinates[0].latitude, 38.5, COORD_EPSILON_1e5)
+		XCTAssertEqualWithAccuracy(sut.coordinates[0].longitude, -120.2, COORD_EPSILON_1e5)
+		XCTAssertEqualWithAccuracy(sut.coordinates[1].latitude, 40.7, COORD_EPSILON_1e5)
+		XCTAssertEqualWithAccuracy(sut.coordinates[1].longitude, -120.95, COORD_EPSILON_1e5)
+		XCTAssertEqualWithAccuracy(sut.coordinates[2].latitude, 43.252, COORD_EPSILON_1e5)
+		XCTAssertEqualWithAccuracy(sut.coordinates[2].longitude, -126.453, COORD_EPSILON_1e5)
 	}
 	
 	func testAnotherValidPolylineShouldReturnValidLocationArray() {
 		let sut = Polyline(encodedPolyline: "_ojiHa`tLh{IdCw{Gwc_@")
 		
 		XCTAssertEqual(countElements(sut.coordinates), 3)
-		XCTAssertEqualWithAccuracy(sut.coordinates[0].latitude, 48.8832,  COORD_EPSILON)
-		XCTAssertEqualWithAccuracy(sut.coordinates[0].longitude, 2.23761, COORD_EPSILON)
-		XCTAssertEqualWithAccuracy(sut.coordinates[1].latitude, 48.82747, COORD_EPSILON)
-		XCTAssertEqualWithAccuracy(sut.coordinates[1].longitude, 2.23694, COORD_EPSILON)
-		XCTAssertEqualWithAccuracy(sut.coordinates[2].latitude, 48.87303, COORD_EPSILON)
-		XCTAssertEqualWithAccuracy(sut.coordinates[2].longitude, 2.40154, COORD_EPSILON)
+		XCTAssertEqualWithAccuracy(sut.coordinates[0].latitude, 48.8832,  COORD_EPSILON_1e5)
+		XCTAssertEqualWithAccuracy(sut.coordinates[0].longitude, 2.23761, COORD_EPSILON_1e5)
+		XCTAssertEqualWithAccuracy(sut.coordinates[1].latitude, 48.82747, COORD_EPSILON_1e5)
+		XCTAssertEqualWithAccuracy(sut.coordinates[1].longitude, 2.23694, COORD_EPSILON_1e5)
+		XCTAssertEqualWithAccuracy(sut.coordinates[2].latitude, 48.87303, COORD_EPSILON_1e5)
+		XCTAssertEqualWithAccuracy(sut.coordinates[2].longitude, 2.40154, COORD_EPSILON_1e5)
 	}
+    
+    func testPrecisionShouldBeUsedProperlyInDecoding() {
+        
+        var sut = Polyline(encodedPolyline: "sfx|@sfx|@")
+        
+        XCTAssertEqual(countElements(sut.coordinates), 1)
+        XCTAssertEqualWithAccuracy(sut.coordinates[0].latitude, 10.1234567,  COORD_EPSILON_1e5)
+        
+        sut = Polyline(encodedPolyline: "sfx|@sfx|@", precision: 1e5)
+        
+        XCTAssertEqual(countElements(sut.coordinates), 1)
+        XCTAssertEqualWithAccuracy(sut.coordinates[0].latitude, 10.1234567,  COORD_EPSILON_1e5)
+        
+        sut = Polyline(encodedPolyline: "ak{hRak{hR", precision: 1e6)
+        
+        XCTAssertEqual(countElements(sut.coordinates), 1)
+        XCTAssertEqualWithAccuracy(sut.coordinates[0].latitude, 10.1234567,  COORD_EPSILON_1e6)
+
+    }
 	
 	// MARK:- Encoding levels
 	
@@ -238,6 +271,16 @@ class PolylineTests:XCTestCase {
 		XCTAssertEqual(sut.encodedPolyline, "_@~@")
 	}
     
+    // Github issue 4
+    func testPrecisionIsUsedProperly() {
+        let encoded = "}gqefAridwgFrYEAhfA{@jDsAxBoBzBaDtB{iAX{c@EsU]uf@?_WR~@tPlTFfg@?jUNj|@eBtu@K?z]cAjLkDlJuFjGyG`IyCjIsAlM?|k@v@|dArQbv@k@jIpA?"
+        let sut : [CLLocationCoordinate2D] = decodePolyline(encoded, precision: 1e6)!
+        
+        XCTAssertEqual(sut.count, 30)
+        XCTAssertEqualWithAccuracy(sut[0].latitude, 37.332111, COORD_EPSILON_1e6)
+        XCTAssertEqualWithAccuracy(sut[0].longitude, -122.030762, COORD_EPSILON_1e6)
+    }
+    
     // Github Issue 8
     func testPerformances() {
         self.measureBlock {
@@ -295,4 +338,9 @@ class PolylineTests:XCTestCase {
 		
 		XCTAssertEqual(2, decodedLevels!.count)
 	}
+    
+    func testPrecision() {
+        // OSRM uses a 6 digit precision
+        let polyline = Polyline(encodedPolyline: "ak{hRak{hR", precision: 1e6)
+    }
 }
