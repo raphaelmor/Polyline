@@ -42,12 +42,12 @@ public struct Polyline {
 	/// The array of coordinates
 	public let coordinates: [CLLocationCoordinate2D]
 	/// The encoded polyline
-	public let encodedPolyline: String = ""
+	public let encodedPolyline: String
 	
 	/// The array of levels
 	public let levels: [UInt32]?
 	/// The encoded levels
-	public let encodedLevels: String = ""
+	public let encodedLevels: String
 	
 	/// The array of location (computed from coordinates)
 	public var locations: [CLLocation] {
@@ -69,7 +69,9 @@ public struct Polyline {
 		
 		if let levelsToEncode = levels {
 			encodedLevels = encodeLevels(levelsToEncode)
-		}
+        } else {
+            encodedLevels = ""
+        }
 	}
 	
 	/// This designated init decodes a polyline String to an [CLLocation]
@@ -77,21 +79,26 @@ public struct Polyline {
 	/// :param: encodedPolyline The polyline that you want to decode
 	/// :param: encodedLevels The levels that you want to decode
 	public init(encodedPolyline: String, encodedLevels: String? = nil, precision: Double = 1e5) {
-		
+        
 		self.encodedPolyline = encodedPolyline
-		coordinates = []
-		
+    
         if let decodedCoordinates: [CLLocationCoordinate2D] = decodePolyline(encodedPolyline, precision: precision) {
-			coordinates = decodedCoordinates
-		}
-		
+			self.coordinates = decodedCoordinates
+        } else {
+            self.coordinates = []
+        }
+    
 		if let levelsToDecode = encodedLevels {
 			self.encodedLevels = levelsToDecode
-			
             if let decodedLevels = decodeLevels(levelsToDecode) {
 				levels = decodedLevels
+			} else {
+				self.levels = []
 			}
-		}
+        } else {
+            self.encodedLevels = ""
+            self.levels = []
+        }
 	}
 	
 	/// This init encodes an [CLLocation] to a String
@@ -205,7 +212,7 @@ public func decodeLevels(encodedLevels: String) -> [UInt32]? {
     var remainingLevels = encodedLevels.unicodeScalars
     var decodedLevels   = [UInt32]()
     
-    while countElements(remainingLevels) > 0 {
+    while count(remainingLevels) > 0 {
         var result = extractNextChunk(&remainingLevels)
         if result.failed {
             return nil
