@@ -96,7 +96,7 @@ class FunctionalPolylineTests : XCTestCase {
     
     func testEmptyPolylineShouldBeEmptyLocationArray() {
         let coordinates: [CLLocationCoordinate2D] = decodePolyline("")!
-
+        
         XCTAssertEqual(countElements(coordinates), 0)
     }
     

@@ -38,78 +38,78 @@ import CoreLocation
 ///
 /// :see: https://developers.google.com/maps/documentation/utilities/polylinealgorithm
 public struct Polyline {
-	
-	/// The array of coordinates
-	public let coordinates: [CLLocationCoordinate2D]
-	/// The encoded polyline
-	public let encodedPolyline: String
-	
-	/// The array of levels
-	public let levels: [UInt32]?
-	/// The encoded levels
-	public let encodedLevels: String
-	
-	/// The array of location (computed from coordinates)
-	public var locations: [CLLocation] {
-		return toLocations(coordinates)
-	}
-	
+    
+    /// The array of coordinates
+    public let coordinates: [CLLocationCoordinate2D]
+    /// The encoded polyline
+    public let encodedPolyline: String
+    
+    /// The array of levels
+    public let levels: [UInt32]?
+    /// The encoded levels
+    public let encodedLevels: String
+    
+    /// The array of location (computed from coordinates)
+    public var locations: [CLLocation] {
+        return toLocations(coordinates)
+    }
+    
     // MARK: - Public Methods -
     
-	/// This designated init encodes an [CLLocationCoordinate2D] to a String
-	///
-	/// :param: coordinates The array of CLLocationCoordinate2D that you want to encode
-	/// :param: levels The optional array of levels  that you want to encode
+    /// This designated init encodes an [CLLocationCoordinate2D] to a String
+    ///
+    /// :param: coordinates The array of CLLocationCoordinate2D that you want to encode
+    /// :param: levels The optional array of levels  that you want to encode
     public init(coordinates: [CLLocationCoordinate2D], levels: [UInt32]? = nil, precision: Double = 1e5) {
-		
-		self.coordinates = coordinates
-		self.levels = levels
-		
-		encodedPolyline = encodeCoordinates(coordinates, precision: precision)
-		
-		if let levelsToEncode = levels {
-			encodedLevels = encodeLevels(levelsToEncode)
+        
+        self.coordinates = coordinates
+        self.levels = levels
+        
+        encodedPolyline = encodeCoordinates(coordinates, precision: precision)
+        
+        if let levelsToEncode = levels {
+            encodedLevels = encodeLevels(levelsToEncode)
         } else {
             encodedLevels = ""
         }
-	}
-	
-	/// This designated init decodes a polyline String to an [CLLocation]
-	///
-	/// :param: encodedPolyline The polyline that you want to decode
-	/// :param: encodedLevels The levels that you want to decode
-	public init(encodedPolyline: String, encodedLevels: String? = nil, precision: Double = 1e5) {
-        
-		self.encodedPolyline = encodedPolyline
+    }
     
+    /// This designated init decodes a polyline String to an [CLLocation]
+    ///
+    /// :param: encodedPolyline The polyline that you want to decode
+    /// :param: encodedLevels The levels that you want to decode
+    public init(encodedPolyline: String, encodedLevels: String? = nil, precision: Double = 1e5) {
+        
+        self.encodedPolyline = encodedPolyline
+        
         if let decodedCoordinates: [CLLocationCoordinate2D] = decodePolyline(encodedPolyline, precision: precision) {
-			self.coordinates = decodedCoordinates
+            self.coordinates = decodedCoordinates
         } else {
             self.coordinates = []
         }
-    
-		if let levelsToDecode = encodedLevels {
-			self.encodedLevels = levelsToDecode
+        
+        if let levelsToDecode = encodedLevels {
+            self.encodedLevels = levelsToDecode
             if let decodedLevels = decodeLevels(levelsToDecode) {
-				levels = decodedLevels
-			} else {
-				self.levels = []
-			}
+                levels = decodedLevels
+            } else {
+                self.levels = []
+            }
         } else {
             self.encodedLevels = ""
             self.levels = []
         }
-	}
-	
-	/// This init encodes an [CLLocation] to a String
-	///
-	/// :param: locations The array of CLLocation that you want to encode
-	/// :param: levels The optional array of levels  that you want to encode
-	public init(locations: [CLLocation], levels: [UInt32]? = nil, precision: Double = 1e5) {
-		
-		let coordinates = toCoordinates(locations)
+    }
+    
+    /// This init encodes an [CLLocation] to a String
+    ///
+    /// :param: locations The array of CLLocation that you want to encode
+    /// :param: levels The optional array of levels  that you want to encode
+    public init(locations: [CLLocation], levels: [UInt32]? = nil, precision: Double = 1e5) {
+        
+        let coordinates = toCoordinates(locations)
         self.init(coordinates: coordinates, levels: levels, precision:precision)
-	}
+    }
 }
 
 // MARK: - Public Functions -
@@ -282,7 +282,7 @@ private func encodeFiveBitComponents(value: Int) -> String {
 
 // MARK: Decode Coordinate
 
-// We use a byte array (UnsafePointer<Int8>) here for performance reasons. Check with swift 1.2 if we can 
+// We use a byte array (UnsafePointer<Int8>) here for performance reasons. Check with swift 1.2 if we can
 // go back to using [Int8]
 private func decodeSingleCoordinate(#byteArray: UnsafePointer<Int8>, #length: Int, inout #position: Int, precision: Double = 1e5) -> Result<Double> {
     
