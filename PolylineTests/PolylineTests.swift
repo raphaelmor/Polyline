@@ -133,18 +133,18 @@ class PolylineTests:XCTestCase {
     
     func testEmptyPolylineShouldBeEmptyLocationArray() {
         let sut = Polyline(encodedPolyline: "")
-        XCTAssertEqual(countElements(sut.coordinates), 0)
+        XCTAssertEqual(count(sut.coordinates), 0)
     }
     
     func testInvalidPolylineShouldReturnEmptyLocationArray() {
         let sut = Polyline(encodedPolyline: "invalidPolylineString")
-        XCTAssertEqual(countElements(sut.coordinates), 0)
+        XCTAssertEqual(count(sut.coordinates), 0)
     }
     
     func testValidPolylineShouldReturnValidLocationArray() {
         let sut = Polyline(encodedPolyline: "_p~iF~ps|U_ulLnnqC_mqNvxq`@")
         
-        XCTAssertEqual(countElements(sut.coordinates), 3)
+        XCTAssertEqual(count(sut.coordinates), 3)
         XCTAssertEqualWithAccuracy(sut.coordinates[0].latitude, 38.5, COORD_EPSILON_1e5)
         XCTAssertEqualWithAccuracy(sut.coordinates[0].longitude, -120.2, COORD_EPSILON_1e5)
         XCTAssertEqualWithAccuracy(sut.coordinates[1].latitude, 40.7, COORD_EPSILON_1e5)
@@ -156,7 +156,7 @@ class PolylineTests:XCTestCase {
     func testAnotherValidPolylineShouldReturnValidLocationArray() {
         let sut = Polyline(encodedPolyline: "_ojiHa`tLh{IdCw{Gwc_@")
         
-        XCTAssertEqual(countElements(sut.coordinates), 3)
+        XCTAssertEqual(count(sut.coordinates), 3)
         XCTAssertEqualWithAccuracy(sut.coordinates[0].latitude, 48.8832,  COORD_EPSILON_1e5)
         XCTAssertEqualWithAccuracy(sut.coordinates[0].longitude, 2.23761, COORD_EPSILON_1e5)
         XCTAssertEqualWithAccuracy(sut.coordinates[1].latitude, 48.82747, COORD_EPSILON_1e5)
@@ -169,17 +169,17 @@ class PolylineTests:XCTestCase {
         
         var sut = Polyline(encodedPolyline: "sfx|@sfx|@")
         
-        XCTAssertEqual(countElements(sut.coordinates), 1)
+        XCTAssertEqual(count(sut.coordinates), 1)
         XCTAssertEqualWithAccuracy(sut.coordinates[0].latitude, 10.1234567,  COORD_EPSILON_1e5)
         
         sut = Polyline(encodedPolyline: "sfx|@sfx|@", precision: 1e5)
         
-        XCTAssertEqual(countElements(sut.coordinates), 1)
+        XCTAssertEqual(count(sut.coordinates), 1)
         XCTAssertEqualWithAccuracy(sut.coordinates[0].latitude, 10.1234567,  COORD_EPSILON_1e5)
         
         sut = Polyline(encodedPolyline: "ak{hRak{hR", precision: 1e6)
         
-        XCTAssertEqual(countElements(sut.coordinates), 1)
+        XCTAssertEqual(count(sut.coordinates), 1)
         XCTAssertEqualWithAccuracy(sut.coordinates[0].latitude, 10.1234567,  COORD_EPSILON_1e6)
         
     }
@@ -210,7 +210,7 @@ class PolylineTests:XCTestCase {
         let sut = Polyline(encodedPolyline: "", encodedLevels: "")
         
         if let resultArray = sut.levels {
-            XCTAssertEqual(countElements(resultArray), 0)
+            XCTAssertEqual(count(resultArray), 0)
         } else {
             XCTFail("Level array should not be nil for empty string")
         }
@@ -230,7 +230,7 @@ class PolylineTests:XCTestCase {
         let sut = Polyline(encodedPolyline: "", encodedLevels: "?@AB~F")
         
         if let resultArray = sut.levels {
-            XCTAssertEqual(countElements(resultArray), 5)
+            XCTAssertEqual(count(resultArray), 5)
             XCTAssertEqual(resultArray[0], UInt32(0))
             XCTAssertEqual(resultArray[1], UInt32(1))
             XCTAssertEqual(resultArray[2], UInt32(2))
