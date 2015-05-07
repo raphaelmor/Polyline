@@ -96,8 +96,8 @@ class FunctionalPolylineTests : XCTestCase {
     
     func testEmptyPolylineShouldBeEmptyLocationArray() {
         let coordinates: [CLLocationCoordinate2D] = decodePolyline("")!
-
-        XCTAssertEqual(countElements(coordinates), 0)
+        
+        XCTAssertEqual(count(coordinates), 0)
     }
     
     func testInvalidPolylineShouldReturnEmptyLocationArray() {
@@ -107,7 +107,7 @@ class FunctionalPolylineTests : XCTestCase {
     func testValidPolylineShouldReturnValidLocationArray() {
         let coordinates: [CLLocationCoordinate2D] = decodePolyline("_p~iF~ps|U_ulLnnqC_mqNvxq`@")!
         
-        XCTAssertEqual(countElements(coordinates), 3)
+        XCTAssertEqual(count(coordinates), 3)
         XCTAssertEqualWithAccuracy(coordinates[0].latitude, 38.5, COORD_EPSILON)
         XCTAssertEqualWithAccuracy(coordinates[0].longitude, -120.2, COORD_EPSILON)
         XCTAssertEqualWithAccuracy(coordinates[1].latitude, 40.7, COORD_EPSILON)
@@ -119,7 +119,7 @@ class FunctionalPolylineTests : XCTestCase {
     func testAnotherValidPolylineShouldReturnValidLocationArray() {
         let coordinates: [CLLocationCoordinate2D] = decodePolyline("_ojiHa`tLh{IdCw{Gwc_@")!
         
-        XCTAssertEqual(countElements(coordinates), 3)
+        XCTAssertEqual(count(coordinates), 3)
         XCTAssertEqualWithAccuracy(coordinates[0].latitude, 48.8832,  COORD_EPSILON)
         XCTAssertEqualWithAccuracy(coordinates[0].longitude, 2.23761, COORD_EPSILON)
         XCTAssertEqualWithAccuracy(coordinates[1].latitude, 48.82747, COORD_EPSILON)
@@ -142,7 +142,7 @@ class FunctionalPolylineTests : XCTestCase {
     
     func testEmptyLevelsShouldBeEmptyLevelArray() {
         if let resultArray = decodeLevels("") {
-            XCTAssertEqual(countElements(resultArray), 0)
+            XCTAssertEqual(count(resultArray), 0)
         } else {
             XCTFail("Level array should not be nil for empty string")
         }
@@ -158,7 +158,7 @@ class FunctionalPolylineTests : XCTestCase {
     
     func testValidLevelsShouldReturnValidLevelArray() {
         if let resultArray = decodeLevels("?@AB~F") {
-            XCTAssertEqual(countElements(resultArray), 5)
+            XCTAssertEqual(count(resultArray), 5)
             XCTAssertEqual(resultArray[0], UInt32(0))
             XCTAssertEqual(resultArray[1], UInt32(1))
             XCTAssertEqual(resultArray[2], UInt32(2))

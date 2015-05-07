@@ -41,7 +41,7 @@ Polyline encoder / decoder in Swift
 
 ## Requirements
 
-- Xcode 6.0.1
+- Xcode 6.3
 - iOS 7.0+ / Mac OS X 10.9+
 
 ---
@@ -54,14 +54,14 @@ To use this library in your project you can use CocoaPods, Carthage, and/or inte
 You can integrate Polyline in your `Podfile` like this:
 
 ```
-pod 'Polyline', '~> 1.0'
+pod 'Polyline', '~> 2.0'
 ```
 
 ### Carthage
 You can integrate Polyline in your `Cartfile` like this:
 
 ```
-github "raphaelmor/Polyline" ~> 1.0.0
+github "raphaelmor/Polyline" ~> 2.0
 ```
 
 ### Manual
@@ -104,7 +104,7 @@ You can encode levels too :
 let levels: [UInt32] = [0,1,2,255]
 
 let polyline = Polyline(coordinates: coordinates, levels: levels)
-let encodedLevels: String = polyline.encodedLevels
+let encodedLevels: String? = polyline.encodedLevels
 
 // Or for a functional approach :
 let encodedLevels: String = encodedLevels(levels)
@@ -117,7 +117,7 @@ You can decode to `[CLLocationCoordinate2D]` (recommended) :
 
 ```swift
 let polyline = Polyline(encodedPolyline: "qkqtFbn_Vui`Xu`l]")
-let decodedCoordinates: [CLLocationCoordinate2D] = polyline.coordinates
+let decodedCoordinates: [CLLocationCoordinate2D]? = polyline.coordinates
 
 // Or for a functional approach :
 let coordinates: [CLLocationCoordinate2D]? = decodePolyline("qkqtFbn_Vui`Xu`l]")
@@ -127,7 +127,7 @@ You can also decode to `[CLLocation]` :
 
 ```swift
 let polyline = Polyline(encodedPolyline: "qkqtFbn_Vui`Xu`l]")
-let decodedLocations: [CLLocation] = polyline.locations
+let decodedLocations: [CLLocation]? = polyline.locations
 
 // Or for a functional approach :
 let locations: [CLLocation]? = decodePolyline("qkqtFbn_Vui`Xu`l]")
