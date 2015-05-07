@@ -4,6 +4,7 @@
 
 [![Build Status](https://travis-ci.org/raphaelmor/Polyline.svg?branch=master)](https://travis-ci.org/raphaelmor/Polyline)
 [![CocoaPods](https://img.shields.io/cocoapods/v/Polyline.svg)](http://cocoadocs.org/docsets/Polyline)
+![](https://img.shields.io/badge/Swift-1.2-green.svg)
 [![Licence](http://img.shields.io/badge/Licence-MIT-lightgrey.svg)](https://github.com/raphaelmor/Polyline/blob/master/LICENSE.txt)
 
 Polyline encoder / decoder in Swift
