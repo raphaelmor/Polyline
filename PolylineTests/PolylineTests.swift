@@ -66,7 +66,7 @@ class PolylineTests:XCTestCase {
     }
     
     func testHighRoundedValuesShouldBeEncodedProperly() {
-        var coordinates = [CLLocationCoordinate2D(latitude: 0.000016, longitude: 0.000016)]
+        let coordinates = [CLLocationCoordinate2D(latitude: 0.000016, longitude: 0.000016)]
         
         let sut = Polyline(coordinates: coordinates)
         XCTAssertEqual(sut.encodedPolyline, "CC")
@@ -134,7 +134,7 @@ class PolylineTests:XCTestCase {
     func testEmptyPolylineShouldBeEmptyLocationArray() {
         let sut = Polyline(encodedPolyline: "")
         XCTAssertTrue(sut.coordinates != nil)
-        XCTAssertEqual(count(sut.coordinates!), 0)
+        XCTAssertEqual((sut.coordinates!).count, 0)
     }
     
     func testInvalidPolylineShouldReturnNil() {
@@ -147,13 +147,13 @@ class PolylineTests:XCTestCase {
         
         let coordinates = sut.coordinates!
         
-        XCTAssertEqual(count(coordinates), 3)
-        XCTAssertEqualWithAccuracy(coordinates[0].latitude, 38.5, COORD_EPSILON_1e5)
-        XCTAssertEqualWithAccuracy(coordinates[0].longitude, -120.2, COORD_EPSILON_1e5)
-        XCTAssertEqualWithAccuracy(coordinates[1].latitude, 40.7, COORD_EPSILON_1e5)
-        XCTAssertEqualWithAccuracy(coordinates[1].longitude, -120.95, COORD_EPSILON_1e5)
-        XCTAssertEqualWithAccuracy(coordinates[2].latitude, 43.252, COORD_EPSILON_1e5)
-        XCTAssertEqualWithAccuracy(coordinates[2].longitude, -126.453, COORD_EPSILON_1e5)
+        XCTAssertEqual(coordinates.count, 3)
+        XCTAssertEqualWithAccuracy(coordinates[0].latitude, 38.5, accuracy: COORD_EPSILON_1e5)
+        XCTAssertEqualWithAccuracy(coordinates[0].longitude, -120.2, accuracy: COORD_EPSILON_1e5)
+        XCTAssertEqualWithAccuracy(coordinates[1].latitude, 40.7, accuracy: COORD_EPSILON_1e5)
+        XCTAssertEqualWithAccuracy(coordinates[1].longitude, -120.95, accuracy: COORD_EPSILON_1e5)
+        XCTAssertEqualWithAccuracy(coordinates[2].latitude, 43.252, accuracy: COORD_EPSILON_1e5)
+        XCTAssertEqualWithAccuracy(coordinates[2].longitude, -126.453, accuracy: COORD_EPSILON_1e5)
     }
 
     func testAnotherValidPolylineShouldReturnValidLocationArray() {
@@ -161,13 +161,13 @@ class PolylineTests:XCTestCase {
         
         let coordinates = sut.coordinates!
         
-        XCTAssertEqual(count(coordinates), 3)
-        XCTAssertEqualWithAccuracy(coordinates[0].latitude, 48.8832,  COORD_EPSILON_1e5)
-        XCTAssertEqualWithAccuracy(coordinates[0].longitude, 2.23761, COORD_EPSILON_1e5)
-        XCTAssertEqualWithAccuracy(coordinates[1].latitude, 48.82747, COORD_EPSILON_1e5)
-        XCTAssertEqualWithAccuracy(coordinates[1].longitude, 2.23694, COORD_EPSILON_1e5)
-        XCTAssertEqualWithAccuracy(coordinates[2].latitude, 48.87303, COORD_EPSILON_1e5)
-        XCTAssertEqualWithAccuracy(coordinates[2].longitude, 2.40154, COORD_EPSILON_1e5)
+        XCTAssertEqual(coordinates.count, 3)
+        XCTAssertEqualWithAccuracy(coordinates[0].latitude, 48.8832,  accuracy: COORD_EPSILON_1e5)
+        XCTAssertEqualWithAccuracy(coordinates[0].longitude, 2.23761, accuracy: COORD_EPSILON_1e5)
+        XCTAssertEqualWithAccuracy(coordinates[1].latitude, 48.82747, accuracy: COORD_EPSILON_1e5)
+        XCTAssertEqualWithAccuracy(coordinates[1].longitude, 2.23694, accuracy: COORD_EPSILON_1e5)
+        XCTAssertEqualWithAccuracy(coordinates[2].latitude, 48.87303, accuracy: COORD_EPSILON_1e5)
+        XCTAssertEqualWithAccuracy(coordinates[2].longitude, 2.40154, accuracy: COORD_EPSILON_1e5)
     }
 
     func testPrecisionShouldBeUsedProperlyInDecoding() {
@@ -176,22 +176,22 @@ class PolylineTests:XCTestCase {
         
         var coordinates = sut.coordinates!
         
-        XCTAssertEqual(count(coordinates), 1)
-        XCTAssertEqualWithAccuracy(coordinates[0].latitude, 10.1234567,  COORD_EPSILON_1e5)
+        XCTAssertEqual(coordinates.count, 1)
+        XCTAssertEqualWithAccuracy(coordinates[0].latitude, 10.1234567,  accuracy: COORD_EPSILON_1e5)
         
         sut = Polyline(encodedPolyline: "sfx|@sfx|@", precision: 1e5)
         
         coordinates = sut.coordinates!
         
-        XCTAssertEqual(count(coordinates), 1)
-        XCTAssertEqualWithAccuracy(coordinates[0].latitude, 10.1234567,  COORD_EPSILON_1e5)
+        XCTAssertEqual(coordinates.count, 1)
+        XCTAssertEqualWithAccuracy(coordinates[0].latitude, 10.1234567, accuracy: COORD_EPSILON_1e5)
         
         sut = Polyline(encodedPolyline: "ak{hRak{hR", precision: 1e6)
 
         coordinates = sut.coordinates!
         
-        XCTAssertEqual(count(coordinates), 1)
-        XCTAssertEqualWithAccuracy(coordinates[0].latitude, 10.1234567,  COORD_EPSILON_1e6)
+        XCTAssertEqual(coordinates.count, 1)
+        XCTAssertEqualWithAccuracy(coordinates[0].latitude, 10.1234567, accuracy: COORD_EPSILON_1e6)
         
     }
 
@@ -222,7 +222,7 @@ class PolylineTests:XCTestCase {
         let sut = Polyline(encodedPolyline: "", encodedLevels: "")
         
         XCTAssertTrue(sut.levels != nil,"Level array should not be nil for empty string")
-        XCTAssertEqual(count(sut.levels!), 0)
+        XCTAssertEqual((sut.levels!).count, 0)
     }
 
     func testInvalidLevelsShouldReturnNilLevelArray() {
@@ -235,7 +235,7 @@ class PolylineTests:XCTestCase {
         let sut = Polyline(encodedPolyline: "", encodedLevels: "?@AB~F")
         
         if let resultArray = sut.levels {
-            XCTAssertEqual(count(resultArray), 5)
+            XCTAssertEqual(resultArray.count, 5)
             XCTAssertEqual(resultArray[0], UInt32(0))
             XCTAssertEqual(resultArray[1], UInt32(1))
             XCTAssertEqual(resultArray[2], UInt32(2))
@@ -249,8 +249,8 @@ class PolylineTests:XCTestCase {
 
     // MARK:- Encoding Locations
     func testLocationsArrayShouldBeEncodedProperly() {
-        let locations = [CLLocation(latitude: 0.00001, longitude: 0.00001)!,
-            CLLocation(latitude: 0.00000, longitude: 0.00000)!]
+        let locations = [CLLocation(latitude: 0.00001, longitude: 0.00001),
+            CLLocation(latitude: 0.00000, longitude: 0.00000)]
         
         let sut = Polyline(locations: locations)
         XCTAssertEqual(sut.encodedPolyline, "AA@@")
@@ -282,14 +282,14 @@ class PolylineTests:XCTestCase {
         let sut : [CLLocationCoordinate2D] = decodePolyline(encoded, precision: 1e6)!
         
         XCTAssertEqual(sut.count, 30)
-        XCTAssertEqualWithAccuracy(sut[0].latitude, 37.332111, COORD_EPSILON_1e6)
-        XCTAssertEqualWithAccuracy(sut[0].longitude, -122.030762, COORD_EPSILON_1e6)
+        XCTAssertEqualWithAccuracy(sut[0].latitude, 37.332111, accuracy: COORD_EPSILON_1e6)
+        XCTAssertEqualWithAccuracy(sut[0].longitude, -122.030762, accuracy: COORD_EPSILON_1e6)
     }
     
     // Github Issue 8
     func testPerformances() {
         self.measureBlock {
-            let sut = Polyline(encodedPolyline:"wamrIo{gnAnG_CVIm@{NEsDFgAHu@^{C`@sC@_As@eWEoBIw@?QDYd@oB@Uv@eDHOViAPwB@_ACUGQIcDYiIsA{a@EcB?iBD]JyBV}C@GJKDOCUMOO@MLy@@}ATI@McEQsLCcC?}@De@BQNe@gDcEgBsCSa@Yy@QiAS{D?gAJ_APmAt@wD`@eDDq@?aCk@uTcBif@KiBSkBa@wBUu@u@yB}CmHo@oAw@kA_@g@y@s@w@i@eJiF}BcB_BwAoCsDaB_DwLsWaBaDyB}Dm@qA_AcDEOIq@Sy@AuBBu@LgAR}@|@kCt@}Ab@s@^g@hAoAb@]jBkAdHqDt@[~@QxABNEHEdA}@TYbAyATQXKdC[n@Sr@c@r@}@|BwE~@eBjAyAvAaAlCaBlCoAjC_A|Cu@lLeBnDcAxBy@xDmBlEkCvDcCrFaEHGxAg@nAYf@Cz@@hCd@zAHj@MTIf@c@T]Zo@b@iBFo@DgA?k@CgAEa@Y_BoBeHo@sC{@iFg@qBk@aDqBeJaBcG}E_P{AsFq@kCk@eCwAmIm@yEk@cFg@eHU{FAiBMaIIiHImDSwF_@gGc@wFq@_G]aCc@yCcAsFiAeFCQ}FgUcEaRmBsJ_C}M_BaK{A{KsC_V_Gil@WqDy@kJk@eHyAeSu@mL]{Ha@kNI_GEkKFcV?mHKeHK}Cg@eKa@cFWmCm@}Ea@uCcCqMm@mCmAoEq@wBuA{DuAmD_BiDeDkG]u@{AwC{BaFiA_Dy@gCiA_Em@cCeAyEo@oDs@yEq@wFm@iHIyA]qIQiJIiBAkBDg@Ru@DOJSFc@Bc@AUIg@M[]aDIsAWyUs@cx@MqJ[wL_@gLg@uLo@oLiAkRo@_Iy@kH_@uCy@}Ey@mDaBcGkDsIgBkDgAaBiDiEkBqB}AkAmCaBaImDkAs@{BeBaBkBmBqCaCoEy@sBw@}Bq@aCoA{EeA_Fg@qCsAaJ_@sC]}CUqC_@qFIuAUkGQeIG}QCsRFuD?_CDgIAoJMyMUaLq@mO[wF}@uMe@oFc@kDu@wF{@{E_BwH[wAmDkL{HaToC}HwA{DiAkD_AuDyA_Ig@}Dg@wCyCiTi@cDy@qGcAeGkHyi@oAcJwBoPwAyJs@yFy@kFoFy_@wBeNkA}HcEuZeBqKOyAs@kEk@qEq@qE[cBWkBoAmHsBeOCQCuD\\{Bd@_Cz@aAbDuC~HuH|BsCjBqCdAgBrAgC~AwDjA{ClA}DrAmFf@_Cz@yE^aCh@_EVaCl@eHPcCp@qNbAuPf@_HtA}Nr@gG|@}GfAmHbB_JrAqG~AoItFkX`@_Cd@uDb@iEb@mFTiEXmJDyDAkDGeD]sIe@oG_A_Ko@gGaA{HwAyJi@eDqAoHiCiMmByH_EmOoCkIaGyR]_A}AcF_AiD}@_DwAiHc@oCa@kDa@gGQaEEwJFoD^}Ib@gF^kCZeCT}@x@oE\\yAtCaOb@iCv@qGV{CXwEJwE\\gh@RaMZsIv@iMX}CXyBnAeIj@qCx@cDrCkJrIeWdAmDp@mC`AsE\\gC~AeJTqBJq@VeDd@yH`@qMZaNx@c\\DaCDiAjAmc@f@iOjDwy@RqC|AcR|@}HtAiK~@oGn@oD|Hoa@vAwJ\\oCl@sGb@cF`@kHF_C`@iKJiH?gJIiDCoBo@yRsBga@[cREsFBeU`@sOTwGFeC~@cWf@wK~@_WbAu[vEmuAfAoXHiLHmTKe]GiCYoHY_Ew@aH}CmSwBkQgBcPw@uKScFCwCHeHZcIx@iOf@cMF}Bn@s^v@k\\n@i[j@aRNwGf@aPNsHb@kP|@yWp@wPLiFLqCbBej@?m@f@sQnAi_@b@mNlAg[VqE\\yELaCLuAdAmKXqB`@{D~BcTn@aGDm@NiATqC@i@F_BCeBOqDK}@e@yCAUDYBQFKn@Er@Bt@Jb@ApBS`CHfFIpEo@lFgB`FwC|@u@vCoCxA}AdEsG`CgFr@kBnAcE`BcHd@uCb@{Dj@kHNsCrAq`@T}ZFSFkAR_BBQDIrBwB|Ca@fGKhADbLfBlD`AhCz@pExBtBpAxCtBt@b@dBr@|@TjBTnBCbAK^IxCeAp@]xC}Bv@u@rCuDxSo\\jBsCfnAgnB|TiZjD}Df@a@bD{BpDsBfIyCvh@yXzB}@pAYnEi@tGArD}@nOsFxJuFjLeIvF}C`GkEtBmA|AUn@AdQP~Fo@zBNtO~B`CV`@@b@I~@o@d@i@|@gB`IeT|C{Ib@aB^iB~DmS`AsD~@eCb@_AXe@lBmCjd@m`@rJcIxKgKbEcDzQmS|CyCfDiCbDmBjBy@tEaBfIqAnQmBbA[|AY|EgBdF_CxH_GtAmAbDsDd@o@|e@mt@vCaEhHqIbL{KvF}DrNmJl@El@c@v@g@\\s@~@o@tG_E\\AbEiCZe@dB}@hGsA^EdCBfC[zNy@`Di@fAM`@Mz@_@~UcIdHcB~CWdACx]nAnFl@pBh@fEvBjRfKrP~IvGlCfB\\rF^n@@~AKpC]fYeH`@EfECrDZ`Ej@xFp@rBFtBErAKnCe@~Ae@lBu@~HcEjF{BpJkDzJaDpCmAtDiC|BqBhEaFbCeCXChBuApBcAb@EJ@RBPEFQh@a@pBq@R@RJL@H?Jd@Xf@TFNATONSDKz@o@XMp@OTMpBUfAQjDoA|BwAv@o@j@]~A_BtIyJtEcGpC_EHKLNNEDKBOC[tDqFtAaBt@u@jAeAfBuALKfA_BjDoEfDiC~@a@BCYyDYsBCQz@aAHIP~@")
+            let _ = Polyline(encodedPolyline:"wamrIo{gnAnG_CVIm@{NEsDFgAHu@^{C`@sC@_As@eWEoBIw@?QDYd@oB@Uv@eDHOViAPwB@_ACUGQIcDYiIsA{a@EcB?iBD]JyBV}C@GJKDOCUMOO@MLy@@}ATI@McEQsLCcC?}@De@BQNe@gDcEgBsCSa@Yy@QiAS{D?gAJ_APmAt@wD`@eDDq@?aCk@uTcBif@KiBSkBa@wBUu@u@yB}CmHo@oAw@kA_@g@y@s@w@i@eJiF}BcB_BwAoCsDaB_DwLsWaBaDyB}Dm@qA_AcDEOIq@Sy@AuBBu@LgAR}@|@kCt@}Ab@s@^g@hAoAb@]jBkAdHqDt@[~@QxABNEHEdA}@TYbAyATQXKdC[n@Sr@c@r@}@|BwE~@eBjAyAvAaAlCaBlCoAjC_A|Cu@lLeBnDcAxBy@xDmBlEkCvDcCrFaEHGxAg@nAYf@Cz@@hCd@zAHj@MTIf@c@T]Zo@b@iBFo@DgA?k@CgAEa@Y_BoBeHo@sC{@iFg@qBk@aDqBeJaBcG}E_P{AsFq@kCk@eCwAmIm@yEk@cFg@eHU{FAiBMaIIiHImDSwF_@gGc@wFq@_G]aCc@yCcAsFiAeFCQ}FgUcEaRmBsJ_C}M_BaK{A{KsC_V_Gil@WqDy@kJk@eHyAeSu@mL]{Ha@kNI_GEkKFcV?mHKeHK}Cg@eKa@cFWmCm@}Ea@uCcCqMm@mCmAoEq@wBuA{DuAmD_BiDeDkG]u@{AwC{BaFiA_Dy@gCiA_Em@cCeAyEo@oDs@yEq@wFm@iHIyA]qIQiJIiBAkBDg@Ru@DOJSFc@Bc@AUIg@M[]aDIsAWyUs@cx@MqJ[wL_@gLg@uLo@oLiAkRo@_Iy@kH_@uCy@}Ey@mDaBcGkDsIgBkDgAaBiDiEkBqB}AkAmCaBaImDkAs@{BeBaBkBmBqCaCoEy@sBw@}Bq@aCoA{EeA_Fg@qCsAaJ_@sC]}CUqC_@qFIuAUkGQeIG}QCsRFuD?_CDgIAoJMyMUaLq@mO[wF}@uMe@oFc@kDu@wF{@{E_BwH[wAmDkL{HaToC}HwA{DiAkD_AuDyA_Ig@}Dg@wCyCiTi@cDy@qGcAeGkHyi@oAcJwBoPwAyJs@yFy@kFoFy_@wBeNkA}HcEuZeBqKOyAs@kEk@qEq@qE[cBWkBoAmHsBeOCQCuD\\{Bd@_Cz@aAbDuC~HuH|BsCjBqCdAgBrAgC~AwDjA{ClA}DrAmFf@_Cz@yE^aCh@_EVaCl@eHPcCp@qNbAuPf@_HtA}Nr@gG|@}GfAmHbB_JrAqG~AoItFkX`@_Cd@uDb@iEb@mFTiEXmJDyDAkDGeD]sIe@oG_A_Ko@gGaA{HwAyJi@eDqAoHiCiMmByH_EmOoCkIaGyR]_A}AcF_AiD}@_DwAiHc@oCa@kDa@gGQaEEwJFoD^}Ib@gF^kCZeCT}@x@oE\\yAtCaOb@iCv@qGV{CXwEJwE\\gh@RaMZsIv@iMX}CXyBnAeIj@qCx@cDrCkJrIeWdAmDp@mC`AsE\\gC~AeJTqBJq@VeDd@yH`@qMZaNx@c\\DaCDiAjAmc@f@iOjDwy@RqC|AcR|@}HtAiK~@oGn@oD|Hoa@vAwJ\\oCl@sGb@cF`@kHF_C`@iKJiH?gJIiDCoBo@yRsBga@[cREsFBeU`@sOTwGFeC~@cWf@wK~@_WbAu[vEmuAfAoXHiLHmTKe]GiCYoHY_Ew@aH}CmSwBkQgBcPw@uKScFCwCHeHZcIx@iOf@cMF}Bn@s^v@k\\n@i[j@aRNwGf@aPNsHb@kP|@yWp@wPLiFLqCbBej@?m@f@sQnAi_@b@mNlAg[VqE\\yELaCLuAdAmKXqB`@{D~BcTn@aGDm@NiATqC@i@F_BCeBOqDK}@e@yCAUDYBQFKn@Er@Bt@Jb@ApBS`CHfFIpEo@lFgB`FwC|@u@vCoCxA}AdEsG`CgFr@kBnAcE`BcHd@uCb@{Dj@kHNsCrAq`@T}ZFSFkAR_BBQDIrBwB|Ca@fGKhADbLfBlD`AhCz@pExBtBpAxCtBt@b@dBr@|@TjBTnBCbAK^IxCeAp@]xC}Bv@u@rCuDxSo\\jBsCfnAgnB|TiZjD}Df@a@bD{BpDsBfIyCvh@yXzB}@pAYnEi@tGArD}@nOsFxJuFjLeIvF}C`GkEtBmA|AUn@AdQP~Fo@zBNtO~B`CV`@@b@I~@o@d@i@|@gB`IeT|C{Ib@aB^iB~DmS`AsD~@eCb@_AXe@lBmCjd@m`@rJcIxKgKbEcDzQmS|CyCfDiCbDmBjBy@tEaBfIqAnQmBbA[|AY|EgBdF_CxH_GtAmAbDsDd@o@|e@mt@vCaEhHqIbL{KvF}DrNmJl@El@c@v@g@\\s@~@o@tG_E\\AbEiCZe@dB}@hGsA^EdCBfC[zNy@`Di@fAM`@Mz@_@~UcIdHcB~CWdACx]nAnFl@pBh@fEvBjRfKrP~IvGlCfB\\rF^n@@~AKpC]fYeH`@EfECrDZ`Ej@xFp@rBFtBErAKnCe@~Ae@lBu@~HcEjF{BpJkDzJaDpCmAtDiC|BqBhEaFbCeCXChBuApBcAb@EJ@RBPEFQh@a@pBq@R@RJL@H?Jd@Xf@TFNATONSDKz@o@XMp@OTMpBUfAQjDoA|BwAv@o@j@]~A_BtIyJtEcGpC_EHKLNNEDKBOC[tDqFtAaBt@u@jAeAfBuALKfA_BjDoEfDiC~@a@BCYyDYsBCQz@aAHIP~@")
         }
     }
 
@@ -300,16 +300,14 @@ class PolylineTests:XCTestCase {
             CLLocationCoordinate2D(latitude: 44.3377999, longitude: 1.2112933)]
         
         let polyline = Polyline(coordinates: coordinates)
-        let encodedPolyline: String = polyline.encodedPolyline
         XCTAssertEqual(polyline.encodedPolyline, "qkqtFbn_Vui`Xu`l]")
     }
     
     func testLocationsEncoding() {
-        let locations = [CLLocation(latitude: 40.2349727, longitude: -3.7707443)!,
-            CLLocation(latitude: 44.3377999, longitude: 1.2112933)!]
+        let locations = [CLLocation(latitude: 40.2349727, longitude: -3.7707443),
+            CLLocation(latitude: 44.3377999, longitude: 1.2112933)]
         
         let polyline = Polyline(locations: locations)
-        let encodedPolyline: String = polyline.encodedPolyline
         XCTAssertEqual(polyline.encodedPolyline, "qkqtFbn_Vui`Xu`l]")
     }
     
@@ -320,7 +318,7 @@ class PolylineTests:XCTestCase {
         let levels: [UInt32] = [0,1,2,255]
         
         let polyline = Polyline(coordinates: coordinates, levels: levels)
-        let encodedLevels: String? = polyline.encodedLevels
+        let _ : String? = polyline.encodedLevels
     }
     
     func testPolylineDecodingToCoordinate() {
@@ -346,6 +344,6 @@ class PolylineTests:XCTestCase {
     
     func testPrecision() {
         // OSRM uses a 6 digit precision
-        let polyline = Polyline(encodedPolyline: "ak{hRak{hR", precision: 1e6)
+        let _ = Polyline(encodedPolyline: "ak{hRak{hR", precision: 1e6)
     }
 }

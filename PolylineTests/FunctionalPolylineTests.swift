@@ -56,7 +56,7 @@ class FunctionalPolylineTests : XCTestCase {
     }
     
     func testHighRoundedValuesShouldBeEncodedProperly() {
-        var coordinates = [CLLocationCoordinate2D(latitude: 0.000016, longitude: 0.000016)]
+        let coordinates = [CLLocationCoordinate2D(latitude: 0.000016, longitude: 0.000016)]
         XCTAssertEqual(encodeCoordinates(coordinates), "CC")
     }
     
@@ -97,7 +97,7 @@ class FunctionalPolylineTests : XCTestCase {
     func testEmptyPolylineShouldBeEmptyLocationArray() {
         let coordinates: [CLLocationCoordinate2D] = decodePolyline("")!
         
-        XCTAssertEqual(count(coordinates), 0)
+        XCTAssertEqual(coordinates.count, 0)
     }
     
     func testInvalidPolylineShouldReturnEmptyLocationArray() {
@@ -107,25 +107,25 @@ class FunctionalPolylineTests : XCTestCase {
     func testValidPolylineShouldReturnValidLocationArray() {
         let coordinates: [CLLocationCoordinate2D] = decodePolyline("_p~iF~ps|U_ulLnnqC_mqNvxq`@")!
         
-        XCTAssertEqual(count(coordinates), 3)
-        XCTAssertEqualWithAccuracy(coordinates[0].latitude, 38.5, COORD_EPSILON)
-        XCTAssertEqualWithAccuracy(coordinates[0].longitude, -120.2, COORD_EPSILON)
-        XCTAssertEqualWithAccuracy(coordinates[1].latitude, 40.7, COORD_EPSILON)
-        XCTAssertEqualWithAccuracy(coordinates[1].longitude, -120.95, COORD_EPSILON)
-        XCTAssertEqualWithAccuracy(coordinates[2].latitude, 43.252, COORD_EPSILON)
-        XCTAssertEqualWithAccuracy(coordinates[2].longitude, -126.453, COORD_EPSILON)
+        XCTAssertEqual(coordinates.count, 3)
+        XCTAssertEqualWithAccuracy(coordinates[0].latitude, 38.5, accuracy: COORD_EPSILON)
+        XCTAssertEqualWithAccuracy(coordinates[0].longitude, -120.2, accuracy: COORD_EPSILON)
+        XCTAssertEqualWithAccuracy(coordinates[1].latitude, 40.7, accuracy: COORD_EPSILON)
+        XCTAssertEqualWithAccuracy(coordinates[1].longitude, -120.95, accuracy: COORD_EPSILON)
+        XCTAssertEqualWithAccuracy(coordinates[2].latitude, 43.252, accuracy: COORD_EPSILON)
+        XCTAssertEqualWithAccuracy(coordinates[2].longitude, -126.453, accuracy: COORD_EPSILON)
     }
     
     func testAnotherValidPolylineShouldReturnValidLocationArray() {
         let coordinates: [CLLocationCoordinate2D] = decodePolyline("_ojiHa`tLh{IdCw{Gwc_@")!
         
-        XCTAssertEqual(count(coordinates), 3)
-        XCTAssertEqualWithAccuracy(coordinates[0].latitude, 48.8832,  COORD_EPSILON)
-        XCTAssertEqualWithAccuracy(coordinates[0].longitude, 2.23761, COORD_EPSILON)
-        XCTAssertEqualWithAccuracy(coordinates[1].latitude, 48.82747, COORD_EPSILON)
-        XCTAssertEqualWithAccuracy(coordinates[1].longitude, 2.23694, COORD_EPSILON)
-        XCTAssertEqualWithAccuracy(coordinates[2].latitude, 48.87303, COORD_EPSILON)
-        XCTAssertEqualWithAccuracy(coordinates[2].longitude, 2.40154, COORD_EPSILON)
+        XCTAssertEqual(coordinates.count, 3)
+        XCTAssertEqualWithAccuracy(coordinates[0].latitude, 48.8832,  accuracy: COORD_EPSILON)
+        XCTAssertEqualWithAccuracy(coordinates[0].longitude, 2.23761, accuracy: COORD_EPSILON)
+        XCTAssertEqualWithAccuracy(coordinates[1].latitude, 48.82747, accuracy: COORD_EPSILON)
+        XCTAssertEqualWithAccuracy(coordinates[1].longitude, 2.23694, accuracy: COORD_EPSILON)
+        XCTAssertEqualWithAccuracy(coordinates[2].latitude, 48.87303, accuracy: COORD_EPSILON)
+        XCTAssertEqualWithAccuracy(coordinates[2].longitude, 2.40154, accuracy: COORD_EPSILON)
     }
     
     // MARK:- Encoding levels
@@ -142,14 +142,14 @@ class FunctionalPolylineTests : XCTestCase {
     
     func testEmptyLevelsShouldBeEmptyLevelArray() {
         if let resultArray = decodeLevels("") {
-            XCTAssertEqual(count(resultArray), 0)
+            XCTAssertEqual(resultArray.count, 0)
         } else {
             XCTFail("Level array should not be nil for empty string")
         }
     }
     
     func testInvalidLevelsShouldReturnNilLevelArray() {
-        if let resultArray = decodeLevels("invalidLevelString") {
+        if let _ = decodeLevels("invalidLevelString") {
             XCTFail("Level array should be nil for invalid string")
         } else {
             //Success
@@ -158,7 +158,7 @@ class FunctionalPolylineTests : XCTestCase {
     
     func testValidLevelsShouldReturnValidLevelArray() {
         if let resultArray = decodeLevels("?@AB~F") {
-            XCTAssertEqual(count(resultArray), 5)
+            XCTAssertEqual(resultArray.count, 5)
             XCTAssertEqual(resultArray[0], UInt32(0))
             XCTAssertEqual(resultArray[1], UInt32(1))
             XCTAssertEqual(resultArray[2], UInt32(2))
@@ -172,8 +172,8 @@ class FunctionalPolylineTests : XCTestCase {
     
     // MARK: - Encoding Locations
     func testLocationsArrayShouldBeEncodedProperly() {
-        let locations = [CLLocation(latitude: 0.00001, longitude: 0.00001)!,
-            CLLocation(latitude: 0.00000, longitude: 0.00000)!]
+        let locations = [CLLocation(latitude: 0.00001, longitude: 0.00001),
+            CLLocation(latitude: 0.00000, longitude: 0.00000)]
         
         XCTAssertEqual(encodeLocations(locations), "AA@@")
     }
