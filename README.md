@@ -51,18 +51,18 @@ Polyline encoder / decoder in Swift
 ## Integration
 To use this library in your project you can use CocoaPods, Carthage, and/or integrate it manually :
 
-### CocoaPods (Beta)
+### CocoaPods
 You can integrate Polyline in your `Podfile` like this:
 
 ```
-pod 'Polyline', '~> 2.0'
+pod 'Polyline', '~> 3.0'
 ```
 
 ### Carthage
 You can integrate Polyline in your `Cartfile` like this:
 
 ```
-github "raphaelmor/Polyline" ~> 2.0
+github "raphaelmor/Polyline" ~> 3.0
 ```
 
 ### Manual
