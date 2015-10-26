@@ -101,7 +101,7 @@ class FunctionalPolylineTests : XCTestCase {
     }
     
     func testInvalidPolylineShouldReturnEmptyLocationArray() {
-        XCTAssertNil(decodePolyline("invalidPolylineString"))
+        XCTAssertNil(decodePolyline("invalidPolylineString") as [CLLocationCoordinate2D]?)
     }
     
     func testValidPolylineShouldReturnValidLocationArray() {
