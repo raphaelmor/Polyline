@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "Polyline"
-  s.version      = "2.0.0"
+  s.version      = "3.0.0"
   s.summary      = "Polyline encoder / decoder in swift"
 
   s.description  = <<-DESC
@@ -68,7 +68,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/raphaelmor/Polyline.git", :tag => "v2.0.0" }
+  s.source       = { :git => "https://github.com/raphaelmor/Polyline.git", :tag => "v3.0.0" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
