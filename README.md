@@ -17,7 +17,7 @@ Polyline encoder / decoder in Swift
 3. [Integration](#integration)
 4. [Usage](#usage)
 5. [Notes](#notes)
-6. [Creator](#creator)
+6. [Contributors](#contributors)
 7. [License](#license)
 
 ## Features
@@ -164,9 +164,10 @@ The online tool for [encoding polylines](https://developers.google.com/maps/docu
 
 This codes tries to adhere to the [GitHub Swift Style Guide](https://github.com/github/swift-style-guide)
 
-## Creator
+## Contributors
 
-- [Raphael Mor](http://github.com/raphaelmor) ([@raphaelmor](https://twitter.com/raphaelmor))
+- [Raphaël Mor](http://github.com/raphaelmor) ([@raphaelmor](https://twitter.com/raphaelmor)) : Creator
+- [Tom Taylor](https://tomtaylor.co.uk) : Maintainer
 
 ## License
 Polyline is released under an MIT license. See [LICENSE.txt](https://github.com/raphaelmor/Polyline/blob/master/LICENSE.txt) for more information.
