@@ -293,8 +293,8 @@ private func decodeSingleCoordinate(byteArray byteArray: UnsafePointer<Int8>, le
         currentChar = byteArray[position] - 63
         component = Int32(currentChar & bitMask)
         coordinate |= (component << (5*componentCounter))
-        position++
-        componentCounter++
+        position += 1
+        componentCounter += 1
     } while ((currentChar & 0x20) == 0x20) && (position < length) && (componentCounter < 6)
     
     if (componentCounter == 6) && ((currentChar & 0x20) == 0x20) {
