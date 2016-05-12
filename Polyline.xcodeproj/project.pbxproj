@@ -12,7 +12,18 @@
 		207F641B19B5E10C005261FA /* Polyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207F641A19B5E10C005261FA /* Polyline.swift */; };
 		28DD887E1AA1280C001CC005 /* FunctionalPolylineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DD887D1AA1280C001CC005 /* FunctionalPolylineTests.swift */; };
 		64E1F8751A285A76002F25D3 /* Polyline.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 207F63FE19B5DF7E005261FA /* Polyline.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		91F783361CE4EB7F004E87E3 /* PolylineMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91F7832C1CE4EB7E004E87E3 /* PolylineMac.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		91F783371CE4EB7F004E87E3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 207F63F519B5DF7E005261FA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 91F7832B1CE4EB7E004E87E3;
+			remoteInfo = PolylineMac;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		64E1F8741A285A66002F25D3 /* Copy Frameworks */ = {
@@ -39,6 +50,8 @@
 		207F641A19B5E10C005261FA /* Polyline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Polyline.swift; sourceTree = "<group>"; };
 		207F641C19B5EDC3005261FA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		28DD887D1AA1280C001CC005 /* FunctionalPolylineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionalPolylineTests.swift; sourceTree = "<group>"; };
+		91F7832C1CE4EB7E004E87E3 /* PolylineMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PolylineMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		91F783351CE4EB7E004E87E3 /* PolylineMacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolylineMacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +66,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91F783281CE4EB7E004E87E3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91F783321CE4EB7E004E87E3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91F783361CE4EB7F004E87E3 /* PolylineMac.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +103,8 @@
 			children = (
 				207F63FE19B5DF7E005261FA /* Polyline.framework */,
 				207F640919B5DF7E005261FA /* PolylineTests.xctest */,
+				91F7832C1CE4EB7E004E87E3 /* PolylineMac.framework */,
+				91F783351CE4EB7E004E87E3 /* PolylineMacTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -126,6 +156,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		91F783291CE4EB7E004E87E3 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -165,6 +202,42 @@
 			productReference = 207F640919B5DF7E005261FA /* PolylineTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		91F7832B1CE4EB7E004E87E3 /* PolylineMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 91F7833D1CE4EB7F004E87E3 /* Build configuration list for PBXNativeTarget "PolylineMac" */;
+			buildPhases = (
+				91F783271CE4EB7E004E87E3 /* Sources */,
+				91F783281CE4EB7E004E87E3 /* Frameworks */,
+				91F783291CE4EB7E004E87E3 /* Headers */,
+				91F7832A1CE4EB7E004E87E3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PolylineMac;
+			productName = PolylineMac;
+			productReference = 91F7832C1CE4EB7E004E87E3 /* PolylineMac.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		91F783341CE4EB7E004E87E3 /* PolylineMacTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 91F783401CE4EB7F004E87E3 /* Build configuration list for PBXNativeTarget "PolylineMacTests" */;
+			buildPhases = (
+				91F783311CE4EB7E004E87E3 /* Sources */,
+				91F783321CE4EB7E004E87E3 /* Frameworks */,
+				91F783331CE4EB7E004E87E3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				91F783381CE4EB7F004E87E3 /* PBXTargetDependency */,
+			);
+			name = PolylineMacTests;
+			productName = PolylineMacTests;
+			productReference = 91F783351CE4EB7E004E87E3 /* PolylineMacTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -172,7 +245,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftMigration = 0700;
-				LastSwiftUpdateCheck = 0700;
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Raphael MOR";
 				TargetAttributes = {
@@ -181,6 +254,12 @@
 					};
 					207F640819B5DF7E005261FA = {
 						CreatedOnToolsVersion = 6.0;
+					};
+					91F7832B1CE4EB7E004E87E3 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					91F783341CE4EB7E004E87E3 = {
+						CreatedOnToolsVersion = 7.3.1;
 					};
 				};
 			};
@@ -198,6 +277,8 @@
 			targets = (
 				207F63FD19B5DF7E005261FA /* Polyline */,
 				207F640819B5DF7E005261FA /* PolylineTests */,
+				91F7832B1CE4EB7E004E87E3 /* PolylineMac */,
+				91F783341CE4EB7E004E87E3 /* PolylineMacTests */,
 			);
 		};
 /* End PBXProject section */
@@ -211,6 +292,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		207F640719B5DF7E005261FA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91F7832A1CE4EB7E004E87E3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91F783331CE4EB7E004E87E3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -237,7 +332,29 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		91F783271CE4EB7E004E87E3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91F783311CE4EB7E004E87E3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		91F783381CE4EB7F004E87E3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 91F7832B1CE4EB7E004E87E3 /* PolylineMac */;
+			targetProxy = 91F783371CE4EB7F004E87E3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		207F640F19B5DF7E005261FA /* Debug */ = {
@@ -277,6 +394,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -317,6 +435,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -395,6 +514,86 @@
 			};
 			name = Release;
 		};
+		91F7833E1CE4EB7F004E87E3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Polyline/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ramoapps.Polyline;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		91F7833F1CE4EB7F004E87E3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Polyline/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ramoapps.Polyline;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		91F783411CE4EB7F004E87E3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = PolylineTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = mapbox.PolylineMacTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		91F783421CE4EB7F004E87E3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = PolylineTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = mapbox.PolylineMacTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -421,6 +620,24 @@
 			buildConfigurations = (
 				207F641519B5DF7E005261FA /* Debug */,
 				207F641619B5DF7E005261FA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		91F7833D1CE4EB7F004E87E3 /* Build configuration list for PBXNativeTarget "PolylineMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				91F7833E1CE4EB7F004E87E3 /* Debug */,
+				91F7833F1CE4EB7F004E87E3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		91F783401CE4EB7F004E87E3 /* Build configuration list for PBXNativeTarget "PolylineMacTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				91F783411CE4EB7F004E87E3 /* Debug */,
+				91F783421CE4EB7F004E87E3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
