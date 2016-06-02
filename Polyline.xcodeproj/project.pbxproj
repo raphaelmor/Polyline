@@ -12,7 +12,11 @@
 		207F641B19B5E10C005261FA /* Polyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207F641A19B5E10C005261FA /* Polyline.swift */; };
 		28DD887E1AA1280C001CC005 /* FunctionalPolylineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DD887D1AA1280C001CC005 /* FunctionalPolylineTests.swift */; };
 		64E1F8751A285A76002F25D3 /* Polyline.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 207F63FE19B5DF7E005261FA /* Polyline.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		91F783361CE4EB7F004E87E3 /* PolylineMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91F7832C1CE4EB7E004E87E3 /* PolylineMac.framework */; };
+		91F783361CE4EB7F004E87E3 /* Polyline.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91F7832C1CE4EB7E004E87E3 /* Polyline.framework */; };
+		DA1A10661D003CF9009F82FA /* Polyline.h in Headers */ = {isa = PBXBuildFile; fileRef = 207F640319B5DF7E005261FA /* Polyline.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DA1A10691D003DFB009F82FA /* Polyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207F641A19B5E10C005261FA /* Polyline.swift */; };
+		DA1A106A1D003E56009F82FA /* PolylineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207F640D19B5DF7E005261FA /* PolylineTests.swift */; };
+		DA1A106B1D003E56009F82FA /* FunctionalPolylineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DD887D1AA1280C001CC005 /* FunctionalPolylineTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,8 +54,8 @@
 		207F641A19B5E10C005261FA /* Polyline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Polyline.swift; sourceTree = "<group>"; };
 		207F641C19B5EDC3005261FA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		28DD887D1AA1280C001CC005 /* FunctionalPolylineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionalPolylineTests.swift; sourceTree = "<group>"; };
-		91F7832C1CE4EB7E004E87E3 /* PolylineMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PolylineMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		91F783351CE4EB7E004E87E3 /* PolylineMacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolylineMacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		91F7832C1CE4EB7E004E87E3 /* Polyline.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Polyline.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		91F783351CE4EB7E004E87E3 /* PolylineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolylineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				91F783361CE4EB7F004E87E3 /* PolylineMac.framework in Frameworks */,
+				91F783361CE4EB7F004E87E3 /* Polyline.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,8 +107,8 @@
 			children = (
 				207F63FE19B5DF7E005261FA /* Polyline.framework */,
 				207F640919B5DF7E005261FA /* PolylineTests.xctest */,
-				91F7832C1CE4EB7E004E87E3 /* PolylineMac.framework */,
-				91F783351CE4EB7E004E87E3 /* PolylineMacTests.xctest */,
+				91F7832C1CE4EB7E004E87E3 /* Polyline.framework */,
+				91F783351CE4EB7E004E87E3 /* PolylineTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -160,6 +164,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA1A10661D003CF9009F82FA /* Polyline.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,7 +222,7 @@
 			);
 			name = PolylineMac;
 			productName = PolylineMac;
-			productReference = 91F7832C1CE4EB7E004E87E3 /* PolylineMac.framework */;
+			productReference = 91F7832C1CE4EB7E004E87E3 /* Polyline.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		91F783341CE4EB7E004E87E3 /* PolylineMacTests */ = {
@@ -235,7 +240,7 @@
 			);
 			name = PolylineMacTests;
 			productName = PolylineMacTests;
-			productReference = 91F783351CE4EB7E004E87E3 /* PolylineMacTests.xctest */;
+			productReference = 91F783351CE4EB7E004E87E3 /* PolylineTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -336,6 +341,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA1A10691D003DFB009F82FA /* Polyline.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,6 +349,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA1A106B1D003E56009F82FA /* FunctionalPolylineTests.swift in Sources */,
+				DA1A106A1D003E56009F82FA /* PolylineTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,7 +539,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ramoapps.Polyline;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Polyline;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
@@ -555,7 +563,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ramoapps.Polyline;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Polyline;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
@@ -571,8 +579,8 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = PolylineTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = mapbox.PolylineMacTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = mapbox.PolylineTests;
+				PRODUCT_NAME = PolylineTests;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -588,8 +596,8 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = PolylineTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = mapbox.PolylineMacTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = mapbox.PolylineTests;
+				PRODUCT_NAME = PolylineTests;
 				SDKROOT = macosx;
 			};
 			name = Release;

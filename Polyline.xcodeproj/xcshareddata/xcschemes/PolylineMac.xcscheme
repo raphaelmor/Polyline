@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "91F7832B1CE4EB7E004E87E3"
-               BuildableName = "PolylineMac.framework"
+               BuildableName = "Polyline.framework"
                BlueprintName = "PolylineMac"
                ReferencedContainer = "container:Polyline.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "91F783341CE4EB7E004E87E3"
-               BuildableName = "PolylineMacTests.xctest"
+               BuildableName = "PolylineTests.xctest"
                BlueprintName = "PolylineMacTests"
                ReferencedContainer = "container:Polyline.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "91F7832B1CE4EB7E004E87E3"
-            BuildableName = "PolylineMac.framework"
+            BuildableName = "Polyline.framework"
             BlueprintName = "PolylineMac"
             ReferencedContainer = "container:Polyline.xcodeproj">
          </BuildableReference>
@@ -65,7 +65,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "91F7832B1CE4EB7E004E87E3"
-            BuildableName = "PolylineMac.framework"
+            BuildableName = "Polyline.framework"
             BlueprintName = "PolylineMac"
             ReferencedContainer = "container:Polyline.xcodeproj">
          </BuildableReference>
@@ -83,7 +83,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "91F7832B1CE4EB7E004E87E3"
-            BuildableName = "PolylineMac.framework"
+            BuildableName = "Polyline.framework"
             BlueprintName = "PolylineMac"
             ReferencedContainer = "container:Polyline.xcodeproj">
          </BuildableReference>
