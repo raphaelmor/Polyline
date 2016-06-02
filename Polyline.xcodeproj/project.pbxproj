@@ -17,6 +17,11 @@
 		DA1A10691D003DFB009F82FA /* Polyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207F641A19B5E10C005261FA /* Polyline.swift */; };
 		DA1A106A1D003E56009F82FA /* PolylineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207F640D19B5DF7E005261FA /* PolylineTests.swift */; };
 		DA1A106B1D003E56009F82FA /* FunctionalPolylineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DD887D1AA1280C001CC005 /* FunctionalPolylineTests.swift */; };
+		DA1A107B1D003E88009F82FA /* Polyline.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA1A10711D003E88009F82FA /* Polyline.framework */; };
+		DA1A10881D003EA6009F82FA /* Polyline.h in Headers */ = {isa = PBXBuildFile; fileRef = 207F640319B5DF7E005261FA /* Polyline.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DA1A10891D003EA6009F82FA /* Polyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207F641A19B5E10C005261FA /* Polyline.swift */; };
+		DA1A108A1D003EBB009F82FA /* PolylineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207F640D19B5DF7E005261FA /* PolylineTests.swift */; };
+		DA1A108B1D003EBB009F82FA /* FunctionalPolylineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DD887D1AA1280C001CC005 /* FunctionalPolylineTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +31,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 91F7832B1CE4EB7E004E87E3;
 			remoteInfo = PolylineMac;
+		};
+		DA1A107C1D003E88009F82FA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 207F63F519B5DF7E005261FA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA1A10701D003E88009F82FA;
+			remoteInfo = PolylineTV;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -56,6 +68,8 @@
 		28DD887D1AA1280C001CC005 /* FunctionalPolylineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionalPolylineTests.swift; sourceTree = "<group>"; };
 		91F7832C1CE4EB7E004E87E3 /* Polyline.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Polyline.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		91F783351CE4EB7E004E87E3 /* PolylineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolylineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA1A10711D003E88009F82FA /* Polyline.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Polyline.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA1A107A1D003E88009F82FA /* PolylineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolylineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +102,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DA1A106D1D003E88009F82FA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA1A10771D003E88009F82FA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA1A107B1D003E88009F82FA /* Polyline.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -109,6 +138,8 @@
 				207F640919B5DF7E005261FA /* PolylineTests.xctest */,
 				91F7832C1CE4EB7E004E87E3 /* Polyline.framework */,
 				91F783351CE4EB7E004E87E3 /* PolylineTests.xctest */,
+				DA1A10711D003E88009F82FA /* Polyline.framework */,
+				DA1A107A1D003E88009F82FA /* PolylineTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -165,6 +196,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA1A10661D003CF9009F82FA /* Polyline.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA1A106E1D003E88009F82FA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA1A10881D003EA6009F82FA /* Polyline.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,6 +282,42 @@
 			productReference = 91F783351CE4EB7E004E87E3 /* PolylineTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		DA1A10701D003E88009F82FA /* PolylineTV */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA1A10861D003E88009F82FA /* Build configuration list for PBXNativeTarget "PolylineTV" */;
+			buildPhases = (
+				DA1A106C1D003E88009F82FA /* Sources */,
+				DA1A106D1D003E88009F82FA /* Frameworks */,
+				DA1A106E1D003E88009F82FA /* Headers */,
+				DA1A106F1D003E88009F82FA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PolylineTV;
+			productName = PolylineTV;
+			productReference = DA1A10711D003E88009F82FA /* Polyline.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		DA1A10791D003E88009F82FA /* PolylineTVTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA1A10871D003E88009F82FA /* Build configuration list for PBXNativeTarget "PolylineTVTests" */;
+			buildPhases = (
+				DA1A10761D003E88009F82FA /* Sources */,
+				DA1A10771D003E88009F82FA /* Frameworks */,
+				DA1A10781D003E88009F82FA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DA1A107D1D003E88009F82FA /* PBXTargetDependency */,
+			);
+			name = PolylineTVTests;
+			productName = PolylineTVTests;
+			productReference = DA1A107A1D003E88009F82FA /* PolylineTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -266,6 +341,12 @@
 					91F783341CE4EB7E004E87E3 = {
 						CreatedOnToolsVersion = 7.3.1;
 					};
+					DA1A10701D003E88009F82FA = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					DA1A10791D003E88009F82FA = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
 				};
 			};
 			buildConfigurationList = 207F63F819B5DF7E005261FA /* Build configuration list for PBXProject "Polyline" */;
@@ -284,6 +365,8 @@
 				207F640819B5DF7E005261FA /* PolylineTests */,
 				91F7832B1CE4EB7E004E87E3 /* PolylineMac */,
 				91F783341CE4EB7E004E87E3 /* PolylineMacTests */,
+				DA1A10701D003E88009F82FA /* PolylineTV */,
+				DA1A10791D003E88009F82FA /* PolylineTVTests */,
 			);
 		};
 /* End PBXProject section */
@@ -311,6 +394,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		91F783331CE4EB7E004E87E3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA1A106F1D003E88009F82FA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA1A10781D003E88009F82FA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -354,6 +451,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DA1A106C1D003E88009F82FA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA1A10891D003EA6009F82FA /* Polyline.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA1A10761D003E88009F82FA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA1A108B1D003EBB009F82FA /* FunctionalPolylineTests.swift in Sources */,
+				DA1A108A1D003EBB009F82FA /* PolylineTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -361,6 +475,11 @@
 			isa = PBXTargetDependency;
 			target = 91F7832B1CE4EB7E004E87E3 /* PolylineMac */;
 			targetProxy = 91F783371CE4EB7F004E87E3 /* PBXContainerItemProxy */;
+		};
+		DA1A107D1D003E88009F82FA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA1A10701D003E88009F82FA /* PolylineTV */;
+			targetProxy = DA1A107C1D003E88009F82FA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -602,6 +721,82 @@
 			};
 			name = Release;
 		};
+		DA1A10821D003E88009F82FA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = Polyline/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mapbox.Polyline;
+				PRODUCT_NAME = Polyline;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		DA1A10831D003E88009F82FA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = Polyline/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mapbox.Polyline;
+				PRODUCT_NAME = Polyline;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Release;
+		};
+		DA1A10841D003E88009F82FA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = PolylineTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mapbox.PolylineTests;
+				PRODUCT_NAME = PolylineTests;
+				SDKROOT = appletvos;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		DA1A10851D003E88009F82FA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = PolylineTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mapbox.PolylineTests;
+				PRODUCT_NAME = PolylineTests;
+				SDKROOT = appletvos;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -649,6 +844,22 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		DA1A10861D003E88009F82FA /* Build configuration list for PBXNativeTarget "PolylineTV" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA1A10821D003E88009F82FA /* Debug */,
+				DA1A10831D003E88009F82FA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		DA1A10871D003E88009F82FA /* Build configuration list for PBXNativeTarget "PolylineTVTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA1A10841D003E88009F82FA /* Debug */,
+				DA1A10851D003E88009F82FA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

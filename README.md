@@ -45,8 +45,8 @@ Polyline encoder / decoder in Swift
 
 ## Requirements
 
-- Xcode 6.3
-- iOS 7.0+ / Mac OS X 10.9+
+- Xcode 7+
+- iOS 8.0+ / Mac OS X 10.10+ / tvOS 9.0+
 
 ---
 
