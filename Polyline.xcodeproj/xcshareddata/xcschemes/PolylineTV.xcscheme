@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "DA1A10701D003E88009F82FA"
-               BuildableName = "PolylineTV.framework"
+               BuildableName = "Polyline.framework"
                BlueprintName = "PolylineTV"
                ReferencedContainer = "container:Polyline.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "DA1A10791D003E88009F82FA"
-               BuildableName = "PolylineTVTests.xctest"
+               BuildableName = "PolylineTests.xctest"
                BlueprintName = "PolylineTVTests"
                ReferencedContainer = "container:Polyline.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DA1A10701D003E88009F82FA"
-            BuildableName = "PolylineTV.framework"
+            BuildableName = "Polyline.framework"
             BlueprintName = "PolylineTV"
             ReferencedContainer = "container:Polyline.xcodeproj">
          </BuildableReference>
@@ -65,7 +65,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DA1A10701D003E88009F82FA"
-            BuildableName = "PolylineTV.framework"
+            BuildableName = "Polyline.framework"
             BlueprintName = "PolylineTV"
             ReferencedContainer = "container:Polyline.xcodeproj">
          </BuildableReference>
@@ -83,7 +83,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DA1A10701D003E88009F82FA"
-            BuildableName = "PolylineTV.framework"
+            BuildableName = "Polyline.framework"
             BlueprintName = "PolylineTV"
             ReferencedContainer = "container:Polyline.xcodeproj">
          </BuildableReference>
