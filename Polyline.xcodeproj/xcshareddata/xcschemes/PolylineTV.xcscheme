@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "91F7832B1CE4EB7E004E87E3"
+               BlueprintIdentifier = "DA1A10701D003E88009F82FA"
                BuildableName = "Polyline.framework"
-               BlueprintName = "PolylineMac"
+               BlueprintName = "PolylineTV"
                ReferencedContainer = "container:Polyline.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "91F783341CE4EB7E004E87E3"
+               BlueprintIdentifier = "DA1A10791D003E88009F82FA"
                BuildableName = "PolylineTests.xctest"
-               BlueprintName = "PolylineMacTests"
+               BlueprintName = "PolylineTVTests"
                ReferencedContainer = "container:Polyline.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -42,9 +42,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "91F7832B1CE4EB7E004E87E3"
+            BlueprintIdentifier = "DA1A10701D003E88009F82FA"
             BuildableName = "Polyline.framework"
-            BlueprintName = "PolylineMac"
+            BlueprintName = "PolylineTV"
             ReferencedContainer = "container:Polyline.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -64,9 +64,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "91F7832B1CE4EB7E004E87E3"
+            BlueprintIdentifier = "DA1A10701D003E88009F82FA"
             BuildableName = "Polyline.framework"
-            BlueprintName = "PolylineMac"
+            BlueprintName = "PolylineTV"
             ReferencedContainer = "container:Polyline.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -82,9 +82,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "91F7832B1CE4EB7E004E87E3"
+            BlueprintIdentifier = "DA1A10701D003E88009F82FA"
             BuildableName = "Polyline.framework"
-            BlueprintName = "PolylineMac"
+            BlueprintName = "PolylineTV"
             ReferencedContainer = "container:Polyline.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
