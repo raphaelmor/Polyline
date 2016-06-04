@@ -754,7 +754,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = PolylineTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = mapbox.PolylineTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ramoapps.PolylineTests;
 				PRODUCT_NAME = PolylineTests;
 				SDKROOT = macosx;
 			};
@@ -771,7 +771,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = PolylineTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = mapbox.PolylineTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ramoapps.PolylineTests;
 				PRODUCT_NAME = PolylineTests;
 				SDKROOT = macosx;
 			};
@@ -790,7 +790,7 @@
 				INFOPLIST_FILE = Polyline/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mapbox.Polyline;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ramoapps.Polyline;
 				PRODUCT_NAME = Polyline;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
@@ -813,7 +813,7 @@
 				INFOPLIST_FILE = Polyline/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mapbox.Polyline;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ramoapps.Polyline;
 				PRODUCT_NAME = Polyline;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
@@ -830,7 +830,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = PolylineTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mapbox.PolylineTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ramoapps.PolylineTests;
 				PRODUCT_NAME = PolylineTests;
 				SDKROOT = appletvos;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
@@ -846,7 +846,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = PolylineTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mapbox.PolylineTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ramoapps.PolylineTests;
 				PRODUCT_NAME = PolylineTests;
 				SDKROOT = appletvos;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
@@ -867,7 +867,7 @@
 				INFOPLIST_FILE = Polyline/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mapbox.Polyline;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ramoapps.Polyline;
 				PRODUCT_NAME = Polyline;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -891,7 +891,7 @@
 				INFOPLIST_FILE = Polyline/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mapbox.Polyline;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ramoapps.Polyline;
 				PRODUCT_NAME = Polyline;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
