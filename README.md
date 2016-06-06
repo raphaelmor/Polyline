@@ -1,6 +1,3 @@
-###Update : Polyline is looking for a maintener 
-[see here](https://github.com/raphaelmor/Polyline/issues/25) for more info.
-
 <p align="center" >
   <img src="https://raw.githubusercontent.com/raphaelmor/Polyline/assets/polyline.png" title="Polyline logo" float=left>
 </p>
