@@ -374,9 +374,11 @@
 					};
 					91F7832B1CE4EB7E004E87E3 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 					};
 					91F783341CE4EB7E004E87E3 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 					};
 					DA1A10701D003E88009F82FA = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -717,6 +719,7 @@
 				PRODUCT_NAME = Polyline;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -741,6 +744,7 @@
 				PRODUCT_NAME = Polyline;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};
@@ -757,6 +761,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ramoapps.PolylineTests;
 				PRODUCT_NAME = PolylineTests;
 				SDKROOT = macosx;
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -774,6 +779,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ramoapps.PolylineTests;
 				PRODUCT_NAME = PolylineTests;
 				SDKROOT = macosx;
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};
@@ -955,6 +961,7 @@
 				DA1A10831D003E88009F82FA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DA1A10871D003E88009F82FA /* Build configuration list for PBXNativeTarget "PolylineTVTests" */ = {
 			isa = XCConfigurationList;
@@ -963,6 +970,7 @@
 				DA1A10851D003E88009F82FA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DA1A10961D00400D009F82FA /* Build configuration list for PBXNativeTarget "PolylineWatch" */ = {
 			isa = XCConfigurationList;
@@ -971,6 +979,7 @@
 				DA1A10981D00400D009F82FA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
