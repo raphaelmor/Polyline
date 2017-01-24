@@ -22,6 +22,7 @@
 
 import Foundation
 import CoreLocation
+import MapKit
 
 // MARK: - Public Classes -
 
@@ -52,6 +53,13 @@ public struct Polyline {
     /// The array of location (computed from coordinates)
     public var locations: [CLLocation]? {
         return self.coordinates.map(toLocations)
+    }
+    
+    // Convert polyline to MKPolyline to use with MapKit (nil if polyline cannot be decoded)
+    public var mkPolyline: MKPolyline? {
+        guard let coordinates = self.coordinates else { return nil }
+        let mkPolyline = MKPolyline(coordinates: coordinates, count: coordinates.count)
+        return mkPolyline
     }
     
     // MARK: - Public Methods -
