@@ -28,10 +28,10 @@ Polyline encoder / decoder in Swift
 - Complete Documentation
 - Continuous integration with [Travis CI](http://travis-ci.org)
 - CocoaPod available
+- Convert to `MKPolyline`
 
 ### Planned for future releases
 
-- Convert to `MKPolyline`
 - Convert to `GMSPolyline`
 - Example project
 - Filter locations available at a specific level

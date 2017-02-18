@@ -346,4 +346,24 @@ class PolylineTests:XCTestCase {
         // OSRM uses a 6 digit precision
         let _ = Polyline(encodedPolyline: "ak{hRak{hR", precision: 1e6)
     }
+    
+    func testPolylineConvertionToMKPolyline() {
+        let polyline = Polyline(encodedPolyline: "qkqtFbn_Vui`Xu`l]")
+        
+        let mkPolyline = polyline.mkPolyline
+        XCTAssertNotNil(mkPolyline)
+        XCTAssertTrue(polyline.coordinates?.count == mkPolyline?.pointCount)
+    }
+    
+    func testPolylineConvertionToMKPolylineWhenEncodingFailed() {
+        let polyline = Polyline(encodedPolyline: "invalidPolylineString")
+        let mkPolyline = polyline.mkPolyline
+        XCTAssertNil(mkPolyline)
+    }
+    
+    func testEmptyPolylineConvertionShouldBeEmptyMKPolyline() {
+        let polyline = Polyline(encodedPolyline: "")
+        let mkPolyline = polyline.mkPolyline
+        XCTAssertTrue(mkPolyline?.pointCount == 0)
+    }
 }
