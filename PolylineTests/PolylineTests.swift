@@ -347,6 +347,7 @@ class PolylineTests:XCTestCase {
         let _ = Polyline(encodedPolyline: "ak{hRak{hR", precision: 1e6)
     }
     
+    @available(tvOS 9.2, *)
     func testPolylineConvertionToMKPolyline() {
         let polyline = Polyline(encodedPolyline: "qkqtFbn_Vui`Xu`l]")
         
@@ -355,12 +356,14 @@ class PolylineTests:XCTestCase {
         XCTAssertTrue(polyline.coordinates?.count == mkPolyline?.pointCount)
     }
     
+    @available(tvOS 9.2, *)
     func testPolylineConvertionToMKPolylineWhenEncodingFailed() {
         let polyline = Polyline(encodedPolyline: "invalidPolylineString")
         let mkPolyline = polyline.mkPolyline
         XCTAssertNil(mkPolyline)
     }
     
+    @available(tvOS 9.2, *)
     func testEmptyPolylineConvertionShouldBeEmptyMKPolyline() {
         let polyline = Polyline(encodedPolyline: "")
         let mkPolyline = polyline.mkPolyline
