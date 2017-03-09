@@ -55,12 +55,15 @@ public struct Polyline {
         return self.coordinates.map(toLocations)
     }
     
-    // Convert polyline to MKPolyline to use with MapKit (nil if polyline cannot be decoded)
+    #if !os(watchOS)
+    /// Convert polyline to MKPolyline to use with MapKit (nil if polyline cannot be decoded)
+    @available(tvOS 9.2, *)
     public var mkPolyline: MKPolyline? {
         guard let coordinates = self.coordinates else { return nil }
         let mkPolyline = MKPolyline(coordinates: coordinates, count: coordinates.count)
         return mkPolyline
     }
+    #endif
     
     // MARK: - Public Methods -
     
