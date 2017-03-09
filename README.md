@@ -169,6 +169,7 @@ This codes tries to adhere to the [GitHub Swift Style Guide](https://github.com/
 
 - [Raphaël Mor](http://github.com/raphaelmor) ([@raphaelmor](https://twitter.com/raphaelmor)): Creator
 - [Tom Taylor](https://tomtaylor.co.uk): Maintainer
+- [Minh Nguyễn](https://github.com/1ec5): Maintainer
 
 ## License
 Polyline is released under an MIT license. See [LICENSE.txt](https://github.com/raphaelmor/Polyline/blob/master/LICENSE.txt) for more information.
