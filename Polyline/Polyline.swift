@@ -212,7 +212,7 @@ public func decodePolyline(_ encodedPolyline: String, precision: Double = 1e5) -
 ///
 /// - returns: A `[UInt32]` representing the decoded Levels if the `String` is valid, `nil` otherwise
 public func decodeLevels(_ encodedLevels: String) -> [UInt32]? {
-    var remainingLevels = encodedLevels.unicodeScalars
+    var remainingLevels = encodedLevels
     var decodedLevels   = [UInt32]()
     
     while remainingLevels.count > 0 {
@@ -324,14 +324,14 @@ private func decodeSingleCoordinate(byteArray: UnsafePointer<Int8>, length: Int,
 
 // MARK: Decode Levels
 
-private func extractNextChunk(_ encodedString: inout String.UnicodeScalarView) throws -> String {
+private func extractNextChunk(_ encodedString: inout String) throws -> String {
     var currentIndex = encodedString.startIndex
     
     while currentIndex != encodedString.endIndex {
-        let currentCharacterValue = Int32(encodedString[currentIndex].value)
+        let currentCharacterValue = encodedString[currentIndex].unicodeScalarCodePoint()
         if isSeparator(currentCharacterValue) {
             let extractedScalars = encodedString[encodedString.startIndex...currentIndex]
-            encodedString = encodedString[encodedString.index(after: currentIndex)..<encodedString.endIndex]
+            encodedString = String(encodedString[encodedString.index(after: currentIndex)..<encodedString.endIndex])
             
             return String(extractedScalars)
         }
@@ -380,8 +380,19 @@ private func toLocations(_ coordinates: [CLLocationCoordinate2D]) -> [CLLocation
     }
 }
 
-private func isSeparator(_ value: Int32) -> Bool {
+private func isSeparator(_ value: UInt32) -> Bool {
     return (value - 63) & 0x20 != 0x20
 }
 
 private typealias IntegerCoordinates = (latitude: Int, longitude: Int)
+
+extension Character
+{
+  func unicodeScalarCodePoint() -> UInt32
+  {
+    let characterString = String(self)
+    let scalars = characterString.unicodeScalars
+    
+    return scalars[scalars.startIndex].value
+  }
+}
