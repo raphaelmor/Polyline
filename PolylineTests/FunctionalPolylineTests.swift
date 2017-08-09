@@ -108,24 +108,24 @@ class FunctionalPolylineTests : XCTestCase {
         let coordinates: [CLLocationCoordinate2D] = decodePolyline("_p~iF~ps|U_ulLnnqC_mqNvxq`@")!
         
         XCTAssertEqual(coordinates.count, 3)
-        XCTAssertEqualWithAccuracy(coordinates[0].latitude, 38.5, accuracy: COORD_EPSILON)
-        XCTAssertEqualWithAccuracy(coordinates[0].longitude, -120.2, accuracy: COORD_EPSILON)
-        XCTAssertEqualWithAccuracy(coordinates[1].latitude, 40.7, accuracy: COORD_EPSILON)
-        XCTAssertEqualWithAccuracy(coordinates[1].longitude, -120.95, accuracy: COORD_EPSILON)
-        XCTAssertEqualWithAccuracy(coordinates[2].latitude, 43.252, accuracy: COORD_EPSILON)
-        XCTAssertEqualWithAccuracy(coordinates[2].longitude, -126.453, accuracy: COORD_EPSILON)
+        XCTAssertEqual(coordinates[0].latitude, 38.5, accuracy: COORD_EPSILON)
+        XCTAssertEqual(coordinates[0].longitude, -120.2, accuracy: COORD_EPSILON)
+        XCTAssertEqual(coordinates[1].latitude, 40.7, accuracy: COORD_EPSILON)
+        XCTAssertEqual(coordinates[1].longitude, -120.95, accuracy: COORD_EPSILON)
+        XCTAssertEqual(coordinates[2].latitude, 43.252, accuracy: COORD_EPSILON)
+        XCTAssertEqual(coordinates[2].longitude, -126.453, accuracy: COORD_EPSILON)
     }
     
     func testAnotherValidPolylineShouldReturnValidLocationArray() {
         let coordinates: [CLLocationCoordinate2D] = decodePolyline("_ojiHa`tLh{IdCw{Gwc_@")!
         
         XCTAssertEqual(coordinates.count, 3)
-        XCTAssertEqualWithAccuracy(coordinates[0].latitude, 48.8832,  accuracy: COORD_EPSILON)
-        XCTAssertEqualWithAccuracy(coordinates[0].longitude, 2.23761, accuracy: COORD_EPSILON)
-        XCTAssertEqualWithAccuracy(coordinates[1].latitude, 48.82747, accuracy: COORD_EPSILON)
-        XCTAssertEqualWithAccuracy(coordinates[1].longitude, 2.23694, accuracy: COORD_EPSILON)
-        XCTAssertEqualWithAccuracy(coordinates[2].latitude, 48.87303, accuracy: COORD_EPSILON)
-        XCTAssertEqualWithAccuracy(coordinates[2].longitude, 2.40154, accuracy: COORD_EPSILON)
+        XCTAssertEqual(coordinates[0].latitude, 48.8832,  accuracy: COORD_EPSILON)
+        XCTAssertEqual(coordinates[0].longitude, 2.23761, accuracy: COORD_EPSILON)
+        XCTAssertEqual(coordinates[1].latitude, 48.82747, accuracy: COORD_EPSILON)
+        XCTAssertEqual(coordinates[1].longitude, 2.23694, accuracy: COORD_EPSILON)
+        XCTAssertEqual(coordinates[2].latitude, 48.87303, accuracy: COORD_EPSILON)
+        XCTAssertEqual(coordinates[2].longitude, 2.40154, accuracy: COORD_EPSILON)
     }
     
     // MARK:- Encoding levels
