@@ -148,12 +148,12 @@ class PolylineTests:XCTestCase {
         let coordinates = sut.coordinates!
         
         XCTAssertEqual(coordinates.count, 3)
-        XCTAssertEqualWithAccuracy(coordinates[0].latitude, 38.5, accuracy: COORD_EPSILON_1e5)
-        XCTAssertEqualWithAccuracy(coordinates[0].longitude, -120.2, accuracy: COORD_EPSILON_1e5)
-        XCTAssertEqualWithAccuracy(coordinates[1].latitude, 40.7, accuracy: COORD_EPSILON_1e5)
-        XCTAssertEqualWithAccuracy(coordinates[1].longitude, -120.95, accuracy: COORD_EPSILON_1e5)
-        XCTAssertEqualWithAccuracy(coordinates[2].latitude, 43.252, accuracy: COORD_EPSILON_1e5)
-        XCTAssertEqualWithAccuracy(coordinates[2].longitude, -126.453, accuracy: COORD_EPSILON_1e5)
+        XCTAssertEqual(coordinates[0].latitude, 38.5, accuracy: COORD_EPSILON_1e5)
+        XCTAssertEqual(coordinates[0].longitude, -120.2, accuracy: COORD_EPSILON_1e5)
+        XCTAssertEqual(coordinates[1].latitude, 40.7, accuracy: COORD_EPSILON_1e5)
+        XCTAssertEqual(coordinates[1].longitude, -120.95, accuracy: COORD_EPSILON_1e5)
+        XCTAssertEqual(coordinates[2].latitude, 43.252, accuracy: COORD_EPSILON_1e5)
+        XCTAssertEqual(coordinates[2].longitude, -126.453, accuracy: COORD_EPSILON_1e5)
     }
 
     func testAnotherValidPolylineShouldReturnValidLocationArray() {
@@ -162,12 +162,12 @@ class PolylineTests:XCTestCase {
         let coordinates = sut.coordinates!
         
         XCTAssertEqual(coordinates.count, 3)
-        XCTAssertEqualWithAccuracy(coordinates[0].latitude, 48.8832,  accuracy: COORD_EPSILON_1e5)
-        XCTAssertEqualWithAccuracy(coordinates[0].longitude, 2.23761, accuracy: COORD_EPSILON_1e5)
-        XCTAssertEqualWithAccuracy(coordinates[1].latitude, 48.82747, accuracy: COORD_EPSILON_1e5)
-        XCTAssertEqualWithAccuracy(coordinates[1].longitude, 2.23694, accuracy: COORD_EPSILON_1e5)
-        XCTAssertEqualWithAccuracy(coordinates[2].latitude, 48.87303, accuracy: COORD_EPSILON_1e5)
-        XCTAssertEqualWithAccuracy(coordinates[2].longitude, 2.40154, accuracy: COORD_EPSILON_1e5)
+        XCTAssertEqual(coordinates[0].latitude, 48.8832,  accuracy: COORD_EPSILON_1e5)
+        XCTAssertEqual(coordinates[0].longitude, 2.23761, accuracy: COORD_EPSILON_1e5)
+        XCTAssertEqual(coordinates[1].latitude, 48.82747, accuracy: COORD_EPSILON_1e5)
+        XCTAssertEqual(coordinates[1].longitude, 2.23694, accuracy: COORD_EPSILON_1e5)
+        XCTAssertEqual(coordinates[2].latitude, 48.87303, accuracy: COORD_EPSILON_1e5)
+        XCTAssertEqual(coordinates[2].longitude, 2.40154, accuracy: COORD_EPSILON_1e5)
     }
 
     func testPrecisionShouldBeUsedProperlyInDecoding() {
@@ -177,21 +177,21 @@ class PolylineTests:XCTestCase {
         var coordinates = sut.coordinates!
         
         XCTAssertEqual(coordinates.count, 1)
-        XCTAssertEqualWithAccuracy(coordinates[0].latitude, 10.1234567,  accuracy: COORD_EPSILON_1e5)
+        XCTAssertEqual(coordinates[0].latitude, 10.1234567,  accuracy: COORD_EPSILON_1e5)
         
         sut = Polyline(encodedPolyline: "sfx|@sfx|@", precision: 1e5)
         
         coordinates = sut.coordinates!
         
         XCTAssertEqual(coordinates.count, 1)
-        XCTAssertEqualWithAccuracy(coordinates[0].latitude, 10.1234567, accuracy: COORD_EPSILON_1e5)
+        XCTAssertEqual(coordinates[0].latitude, 10.1234567, accuracy: COORD_EPSILON_1e5)
         
         sut = Polyline(encodedPolyline: "ak{hRak{hR", precision: 1e6)
 
         coordinates = sut.coordinates!
         
         XCTAssertEqual(coordinates.count, 1)
-        XCTAssertEqualWithAccuracy(coordinates[0].latitude, 10.1234567, accuracy: COORD_EPSILON_1e6)
+        XCTAssertEqual(coordinates[0].latitude, 10.1234567, accuracy: COORD_EPSILON_1e6)
         
     }
 
@@ -282,8 +282,8 @@ class PolylineTests:XCTestCase {
         let sut : [CLLocationCoordinate2D] = decodePolyline(encoded, precision: 1e6)!
         
         XCTAssertEqual(sut.count, 30)
-        XCTAssertEqualWithAccuracy(sut[0].latitude, 37.332111, accuracy: COORD_EPSILON_1e6)
-        XCTAssertEqualWithAccuracy(sut[0].longitude, -122.030762, accuracy: COORD_EPSILON_1e6)
+        XCTAssertEqual(sut[0].latitude, 37.332111, accuracy: COORD_EPSILON_1e6)
+        XCTAssertEqual(sut[0].longitude, -122.030762, accuracy: COORD_EPSILON_1e6)
     }
     
     // Github Issue 8
