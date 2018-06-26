@@ -59,7 +59,7 @@
 
 /* Begin PBXFileReference section */
 		207F63FE19B5DF7E005261FA /* Polyline.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Polyline.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		207F640219B5DF7E005261FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		207F640219B5DF7E005261FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
 		207F640319B5DF7E005261FA /* Polyline.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Polyline.h; sourceTree = "<group>"; };
 		207F640919B5DF7E005261FA /* PolylineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolylineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		207F640C19B5DF7E005261FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -133,10 +133,10 @@
 		207F63F419B5DF7E005261FA = {
 			isa = PBXGroup;
 			children = (
+				35A28A5720E284B20030D1D9 /* Tests */,
+				35A28A5420E283D10030D1D9 /* Sources */,
 				207F641C19B5EDC3005261FA /* README.md */,
 				207F641819B5E05A005261FA /* LICENSE.txt */,
-				207F640019B5DF7E005261FA /* Polyline */,
-				207F640A19B5DF7E005261FA /* PolylineTests */,
 				207F63FF19B5DF7E005261FA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -155,24 +155,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		207F640019B5DF7E005261FA /* Polyline */ = {
-			isa = PBXGroup;
-			children = (
-				207F640319B5DF7E005261FA /* Polyline.h */,
-				207F641A19B5E10C005261FA /* Polyline.swift */,
-				207F640119B5DF7E005261FA /* Supporting Files */,
-			);
-			path = Polyline;
-			sourceTree = "<group>";
-		};
-		207F640119B5DF7E005261FA /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				207F640219B5DF7E005261FA /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		207F640A19B5DF7E005261FA /* PolylineTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -189,6 +171,40 @@
 				207F640C19B5DF7E005261FA /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		35A28A5420E283D10030D1D9 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				35A28A5520E283EA0030D1D9 /* Polyline */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		35A28A5520E283EA0030D1D9 /* Polyline */ = {
+			isa = PBXGroup;
+			children = (
+				207F640319B5DF7E005261FA /* Polyline.h */,
+				207F641A19B5E10C005261FA /* Polyline.swift */,
+				35A28A5620E283F90030D1D9 /* Supporting Files */,
+			);
+			path = Polyline;
+			sourceTree = "<group>";
+		};
+		35A28A5620E283F90030D1D9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				207F640219B5DF7E005261FA /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		35A28A5720E284B20030D1D9 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				207F640A19B5DF7E005261FA /* PolylineTests */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -663,7 +679,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Polyline/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Polyline/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ramoapps.$(PRODUCT_NAME:rfc1034identifier)";
@@ -684,7 +700,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Polyline/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Polyline/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ramoapps.$(PRODUCT_NAME:rfc1034identifier)";
@@ -702,7 +718,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = PolylineTests/Info.plist;
+				INFOPLIST_FILE = Tests/PolylineTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ramoapps.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -713,7 +729,7 @@
 		207F641619B5DF7E005261FA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = PolylineTests/Info.plist;
+				INFOPLIST_FILE = Tests/PolylineTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ramoapps.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -734,7 +750,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/Polyline/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Polyline/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ramoapps.Polyline;
@@ -759,7 +775,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/Polyline/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Polyline/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ramoapps.Polyline;
@@ -778,7 +794,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = PolylineTests/Info.plist;
+				INFOPLIST_FILE = Tests/PolylineTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ramoapps.PolylineTests;
 				PRODUCT_NAME = PolylineTests;
@@ -796,7 +812,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = PolylineTests/Info.plist;
+				INFOPLIST_FILE = Tests/PolylineTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ramoapps.PolylineTests;
 				PRODUCT_NAME = PolylineTests;
@@ -816,7 +832,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = Polyline/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Polyline/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ramoapps.Polyline;
@@ -841,7 +857,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = Polyline/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Polyline/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ramoapps.Polyline;
@@ -860,7 +876,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = PolylineTests/Info.plist;
+				INFOPLIST_FILE = Tests/PolylineTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ramoapps.PolylineTests;
 				PRODUCT_NAME = PolylineTests;
@@ -877,7 +893,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = PolylineTests/Info.plist;
+				INFOPLIST_FILE = Tests/PolylineTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ramoapps.PolylineTests;
 				PRODUCT_NAME = PolylineTests;
@@ -899,7 +915,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = Polyline/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Polyline/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ramoapps.Polyline;
@@ -925,7 +941,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = Polyline/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Polyline/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ramoapps.Polyline;
