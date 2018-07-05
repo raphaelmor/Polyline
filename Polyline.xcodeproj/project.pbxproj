@@ -59,7 +59,7 @@
 
 /* Begin PBXFileReference section */
 		207F63FE19B5DF7E005261FA /* Polyline.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Polyline.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		207F640219B5DF7E005261FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
+		207F640219B5DF7E005261FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		207F640319B5DF7E005261FA /* Polyline.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Polyline.h; sourceTree = "<group>"; };
 		207F640919B5DF7E005261FA /* PolylineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolylineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		207F640C19B5DF7E005261FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -196,7 +196,7 @@
 			children = (
 				207F640219B5DF7E005261FA /* Info.plist */,
 			);
-			path = "Supporting Files";
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		35A28A5720E284B20030D1D9 /* Tests */ = {
