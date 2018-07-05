@@ -4,8 +4,9 @@ before_script:
   - export LANG=en_US.UTF-8
 script:
   - xcodebuild $ACTION -project Polyline.xcodeproj -scheme "$SCHEME" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO
+  - swift build && swift test
 env:
   - SCHEME=Polyline ACTION=test DESTINATION='platform=iOS Simulator,name=iPhone 7,OS=10.1' ONLY_ACTIVE_ARCH=NO
   - SCHEME=PolylineMac ACTION=test DESTINATION='platform=OS X'
-  - SCHEME=PolylineTV ACTION=test DESTINATION='platform=tvOS Simulator,name=Apple TV 1080p,OS=10.1'
+  - SCHEME=PolylineTV ACTION=test DESTINATION='platform=tvOS Simulator,name=Apple TV 1080p,OS=11.0'
   - SCHEME=PolylineWatch ACTION=build DESTINATION='platform=watchOS Simulator,name=Apple Watch Series 2 - 42mm,OS=3.1'

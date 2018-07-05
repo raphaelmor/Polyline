@@ -68,6 +68,13 @@ You can integrate Polyline in your `Cartfile` like this:
 github "raphaelmor/Polyline" ~> 4.0
 ```
 
+### Swift Package Manager
+You can integrate Polyline using the [Swift Package Manager](https://swift.org/package-manager/), add the following package to the `dependencies` in your Package.swift file:
+
+```swift
+.Package(url: "https://github.com/raphaelmor/Polyline.git", .upToNextMinor(from: "4.0"))
+```
+
 ### Manual
 
 - Drag Polyline.swift inside your project tree.
