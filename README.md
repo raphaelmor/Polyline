@@ -6,6 +6,7 @@
 [![CocoaPods](https://img.shields.io/cocoapods/v/Polyline.svg)](http://cocoadocs.org/docsets/Polyline)
 ![](https://img.shields.io/badge/Swift-3.0-green.svg)
 [![Licence](http://img.shields.io/badge/Licence-MIT-lightgrey.svg)](https://github.com/raphaelmor/Polyline/blob/master/LICENSE.txt)
+<img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/TuxFlat.svg" width="20" alt="Linux">
 
 Polyline encoder / decoder in Swift
 
