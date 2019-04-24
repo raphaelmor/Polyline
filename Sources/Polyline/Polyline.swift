@@ -21,8 +21,10 @@
 // SOFTWARE.
 
 import Foundation
-#if !os(Linux)
+#if canImport(CoreLocation)
 import CoreLocation
+#endif
+#if canImport(MapKit)
 import MapKit
 #endif
 
@@ -57,7 +59,7 @@ public struct Polyline {
         return self.coordinates.map(toLocations)
     }
     
-    #if !os(watchOS) && !os(Linux)
+    #if canImport(MapKit)
     /// Convert polyline to MKPolyline to use with MapKit (nil if polyline cannot be decoded)
     @available(tvOS 9.2, *)
     public var mkPolyline: MKPolyline? {

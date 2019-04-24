@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#if !os(Linux)
+#if canImport(CoreLocation)
 import CoreLocation
 #endif
 import XCTest
@@ -349,7 +349,7 @@ class PolylineTests:XCTestCase {
         let _ = Polyline(encodedPolyline: "ak{hRak{hR", precision: 1e6)
     }
     
-    #if !os(Linux)
+    #if canImport(MapKit)
     @available(tvOS 9.2, *)
     func testPolylineConvertionToMKPolyline() {
         let polyline = Polyline(encodedPolyline: "qkqtFbn_Vui`Xu`l]")
@@ -360,7 +360,7 @@ class PolylineTests:XCTestCase {
     }
     #endif
 
-    #if !os(Linux)    
+    #if canImport(MapKit)
     @available(tvOS 9.2, *)
     func testPolylineConvertionToMKPolylineWhenEncodingFailed() {
         let polyline = Polyline(encodedPolyline: "invalidPolylineString")
@@ -369,7 +369,7 @@ class PolylineTests:XCTestCase {
     }
     #endif
     
-    #if !os(Linux)
+    #if canImport(MapKit)
     @available(tvOS 9.2, *)
     func testEmptyPolylineConvertionShouldBeEmptyMKPolyline() {
         let polyline = Polyline(encodedPolyline: "")
