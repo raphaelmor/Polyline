@@ -42,11 +42,9 @@ Polyline encoder / decoder in Swift
 
 ## Requirements
 
-- Xcode 8+
+- Xcode 11+
 - iOS 10.0+ / Mac OS X 10.12+ / tvOS 10.0+ / watchOS 3.0+
-- Swift 3.0
-
-Note: The last version to support Swift 2.3 is the 3.x series. 4.0 will only support Swift 3.x.
+- Swift 5.0
 
 ---
 
