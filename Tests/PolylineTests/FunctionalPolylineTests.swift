@@ -174,10 +174,12 @@ class FunctionalPolylineTests : XCTestCase {
     
     // MARK: - Encoding Locations
     func testLocationsArrayShouldBeEncodedProperly() {
+        #if canImport(CoreLocation)
         let locations = [CLLocation(latitude: 0.00001, longitude: 0.00001),
             CLLocation(latitude: 0.00000, longitude: 0.00000)]
         
         XCTAssertEqual(encodeLocations(locations), "AA@@")
+        #endif
     }
     
 }
