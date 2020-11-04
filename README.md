@@ -56,21 +56,21 @@ To use this library in your project you can use CocoaPods, Carthage, Swift Packa
 You can integrate Polyline in your `Podfile` like this:
 
 ```
-pod 'Polyline', '~> 4.0'
+pod 'Polyline', '~> 5.0'
 ```
 
 ### Carthage
 You can integrate Polyline in your `Cartfile` like this:
 
 ```
-github "raphaelmor/Polyline" ~> 4.0
+github "raphaelmor/Polyline" ~> 5.0
 ```
 
 ### Swift Package Manager
 You can integrate Polyline using the [Swift Package Manager](https://swift.org/package-manager/), add the following package to the `dependencies` in your Package.swift file:
 
 ```swift
-.package(url: "https://github.com/raphaelmor/Polyline.git", from: "4.2.1")
+.package(url: "https://github.com/raphaelmor/Polyline.git", from: "5.0.0")
 ```
 
 ### Manual

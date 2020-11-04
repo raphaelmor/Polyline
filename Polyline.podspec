@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "Polyline"
-  s.version      = "4.2.1"
+  s.version      = "5.0.0"
   s.summary      = "Polyline encoder / decoder in swift"
 
   s.description  = <<-DESC
