@@ -13,6 +13,10 @@
 		28DD887E1AA1280C001CC005 /* FunctionalPolylineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DD887D1AA1280C001CC005 /* FunctionalPolylineTests.swift */; };
 		64E1F8751A285A76002F25D3 /* Polyline.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 207F63FE19B5DF7E005261FA /* Polyline.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		91F783361CE4EB7F004E87E3 /* Polyline.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91F7832C1CE4EB7E004E87E3 /* Polyline.framework */; };
+		DA01FB6F255361EF00335C7C /* CoreLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA01FB6E255361EF00335C7C /* CoreLocation.swift */; };
+		DA01FB70255361EF00335C7C /* CoreLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA01FB6E255361EF00335C7C /* CoreLocation.swift */; };
+		DA01FB71255361EF00335C7C /* CoreLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA01FB6E255361EF00335C7C /* CoreLocation.swift */; };
+		DA01FB72255361EF00335C7C /* CoreLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA01FB6E255361EF00335C7C /* CoreLocation.swift */; };
 		DA1A10661D003CF9009F82FA /* Polyline.h in Headers */ = {isa = PBXBuildFile; fileRef = 207F640319B5DF7E005261FA /* Polyline.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DA1A10691D003DFB009F82FA /* Polyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207F641A19B5E10C005261FA /* Polyline.swift */; };
 		DA1A106A1D003E56009F82FA /* PolylineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207F640D19B5DF7E005261FA /* PolylineTests.swift */; };
@@ -70,6 +74,7 @@
 		28DD887D1AA1280C001CC005 /* FunctionalPolylineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionalPolylineTests.swift; sourceTree = "<group>"; };
 		91F7832C1CE4EB7E004E87E3 /* Polyline.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Polyline.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		91F783351CE4EB7E004E87E3 /* PolylineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolylineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA01FB6E255361EF00335C7C /* CoreLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreLocation.swift; sourceTree = "<group>"; };
 		DA1A10711D003E88009F82FA /* Polyline.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Polyline.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA1A107A1D003E88009F82FA /* PolylineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolylineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA1A10911D00400D009F82FA /* Polyline.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Polyline.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -186,6 +191,7 @@
 			children = (
 				207F640319B5DF7E005261FA /* Polyline.h */,
 				207F641A19B5E10C005261FA /* Polyline.swift */,
+				DA01FB6E255361EF00335C7C /* CoreLocation.swift */,
 				35A28A5620E283F90030D1D9 /* Supporting Files */,
 			);
 			path = Polyline;
@@ -493,6 +499,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				207F641B19B5E10C005261FA /* Polyline.swift in Sources */,
+				DA01FB6F255361EF00335C7C /* CoreLocation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,6 +517,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA1A10691D003DFB009F82FA /* Polyline.swift in Sources */,
+				DA01FB70255361EF00335C7C /* CoreLocation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,6 +535,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA1A10891D003EA6009F82FA /* Polyline.swift in Sources */,
+				DA01FB71255361EF00335C7C /* CoreLocation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -544,6 +553,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA1A109A1D004035009F82FA /* Polyline.swift in Sources */,
+				DA01FB72255361EF00335C7C /* CoreLocation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
