@@ -3,5 +3,6 @@ import XCTest
 import PolylineTests
 
 var tests = [XCTestCaseEntry]()
-tests += PolylineTests.allTests()
+tests += PolylineTests.__allTests()
+
 XCTMain(tests)

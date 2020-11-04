@@ -1,12 +1,22 @@
-language: objective-c
+language: bash
+os:
+  - linux
+  - osx
 osx_image: xcode12.2
 before_script:
   - export LANG=en_US.UTF-8
+  - export SWIFT_VERSION=5.0
 script:
-  - xcodebuild $ACTION -project Polyline.xcodeproj -scheme "$SCHEME" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO
-  - swift build && swift test
-env:
-  - SCHEME=Polyline ACTION=test DESTINATION='platform=iOS Simulator,name=iPhone 11,OS=14.2' ONLY_ACTIVE_ARCH=NO
-  - SCHEME=PolylineMac ACTION=test DESTINATION='platform=OS X'
-  - SCHEME=PolylineTV ACTION=test DESTINATION='platform=tvOS Simulator,name=Apple TV,OS=14.2'
-  - SCHEME=PolylineWatch ACTION=build DESTINATION='platform=watchOS Simulator,name=Apple Watch Series 6 - 44mm,OS=7.1'
+  - ./.travis/build.sh
+matrix:
+  include:
+    - os: osx
+      env: SCHEME=Polyline ACTION=test DESTINATION='platform=iOS Simulator,name=iPhone 11,OS=14.2' ONLY_ACTIVE_ARCH=NO
+    - os: osx
+      env: SCHEME=PolylineMac ACTION=test DESTINATION='platform=OS X'
+    - os: osx
+      env: SCHEME=PolylineTV ACTION=test DESTINATION='platform=tvOS Simulator,name=Apple TV,OS=14.2'
+    - os: osx
+      env: SCHEME=PolylineWatch ACTION=build DESTINATION='platform=watchOS Simulator,name=Apple Watch Series 6 - 44mm,OS=7.1'
+  exclude:
+    - os: osx

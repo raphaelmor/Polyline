@@ -43,14 +43,14 @@ Polyline encoder / decoder in Swift
 ## Requirements
 
 - Xcode 11+
-- iOS 10.0+ / Mac OS X 10.12+ / tvOS 10.0+ / watchOS 3.0+
+- iOS 10.0+ / Mac OS X 10.12+ / tvOS 10.0+ / watchOS 3.0+ / Linux
 - Swift 5.0
 
 ---
 
 
 ## Integration
-To use this library in your project you can use CocoaPods, Carthage, and/or integrate it manually :
+To use this library in your project you can use CocoaPods, Carthage, Swift Package Manager, and/or integrate it manually :
 
 ### CocoaPods
 You can integrate Polyline in your `Podfile` like this:
@@ -70,7 +70,7 @@ github "raphaelmor/Polyline" ~> 4.0
 You can integrate Polyline using the [Swift Package Manager](https://swift.org/package-manager/), add the following package to the `dependencies` in your Package.swift file:
 
 ```swift
-.Package(url: "https://github.com/raphaelmor/Polyline.git", .upToNextMinor(from: "4.2.1"))
+.package(url: "https://github.com/raphaelmor/Polyline.git", from: "4.2.1")
 ```
 
 ### Manual

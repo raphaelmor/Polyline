@@ -20,7 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#if canImport(CoreLocation)
 import CoreLocation
+#endif
 import XCTest
 
 import Polyline
@@ -198,20 +200,20 @@ class PolylineTests:XCTestCase {
     // MARK:- Encoding levels
     
     func testEmptylevelsShouldBeEmptyString() {
-        let sut = Polyline(locations: [], levels: [])
+        let sut = Polyline(coordinates: [], levels: [])
         
         XCTAssertTrue(sut.encodedLevels != nil)
         XCTAssertEqual(sut.encodedLevels!, "")
     }
 
     func testNillevelsShouldBeNil() {
-        let sut = Polyline(locations: [], levels: nil)
+        let sut = Polyline(coordinates: [], levels: nil)
         
         XCTAssertTrue(sut.encodedLevels == nil)
     }
 
     func testValidlevelsShouldBeEncodedProperly() {
-        let sut = Polyline(locations: [], levels: [0,1,2,3])
+        let sut = Polyline(coordinates: [], levels: [0,1,2,3])
         
         XCTAssertEqual(sut.encodedLevels!, "?@AB")
     }
@@ -249,11 +251,13 @@ class PolylineTests:XCTestCase {
 
     // MARK:- Encoding Locations
     func testLocationsArrayShouldBeEncodedProperly() {
+        #if canImport(CoreLocation)
         let locations = [CLLocation(latitude: 0.00001, longitude: 0.00001),
             CLLocation(latitude: 0.00000, longitude: 0.00000)]
         
         let sut = Polyline(locations: locations)
         XCTAssertEqual(sut.encodedPolyline, "AA@@")
+        #endif
     }
     
     // MARK:- Issues non-regression tests
@@ -304,11 +308,13 @@ class PolylineTests:XCTestCase {
     }
     
     func testLocationsEncoding() {
+        #if canImport(CoreLocation)
         let locations = [CLLocation(latitude: 40.2349727, longitude: -3.7707443),
             CLLocation(latitude: 44.3377999, longitude: 1.2112933)]
         
         let polyline = Polyline(locations: locations)
         XCTAssertEqual(polyline.encodedPolyline, "qkqtFbn_Vui`Xu`l]")
+        #endif
     }
     
     func testLevelEncoding() {
@@ -329,10 +335,12 @@ class PolylineTests:XCTestCase {
     }
     
     func testPolylineDecodingToLocations() {
+        #if canImport(CoreLocation)
         let polyline = Polyline(encodedPolyline: "qkqtFbn_Vui`Xu`l]")
         let decodedLocations: [CLLocation]? = polyline.locations
         
         XCTAssertEqual(2, decodedLocations!.count)
+        #endif
     }
     
     func testLevelDecoding() {
@@ -347,6 +355,7 @@ class PolylineTests:XCTestCase {
         let _ = Polyline(encodedPolyline: "ak{hRak{hR", precision: 1e6)
     }
     
+    #if canImport(MapKit)
     @available(tvOS 9.2, *)
     func testPolylineConvertionToMKPolyline() {
         let polyline = Polyline(encodedPolyline: "qkqtFbn_Vui`Xu`l]")
@@ -355,18 +364,23 @@ class PolylineTests:XCTestCase {
         XCTAssertNotNil(mkPolyline)
         XCTAssertTrue(polyline.coordinates?.count == mkPolyline?.pointCount)
     }
-    
+    #endif
+
+    #if canImport(MapKit)
     @available(tvOS 9.2, *)
     func testPolylineConvertionToMKPolylineWhenEncodingFailed() {
         let polyline = Polyline(encodedPolyline: "invalidPolylineString")
         let mkPolyline = polyline.mkPolyline
         XCTAssertNil(mkPolyline)
     }
+    #endif
     
+    #if canImport(MapKit)
     @available(tvOS 9.2, *)
     func testEmptyPolylineConvertionShouldBeEmptyMKPolyline() {
         let polyline = Polyline(encodedPolyline: "")
         let mkPolyline = polyline.mkPolyline
         XCTAssertTrue(mkPolyline?.pointCount == 0)
     }
+    #endif
 }
