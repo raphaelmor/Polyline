@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 if [[ $TRAVIS_OS_NAME == 'osx' ]]; then
     xcodebuild $ACTION -project Polyline.xcodeproj -scheme "$SCHEME" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO
     swift build
