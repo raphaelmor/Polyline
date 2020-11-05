@@ -37,8 +37,8 @@ public typealias LocationCoordinate2D = CLLocationCoordinate2D
  A geographic coordinate.
  */
 public struct LocationCoordinate2D {
-    let latitude: Double
-    let longitude: Double
+    public let latitude: Double
+    public let longitude: Double
     
     public init(latitude: Double, longitude: Double) {
         self.latitude = latitude
