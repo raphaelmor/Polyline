@@ -70,7 +70,7 @@ github "raphaelmor/Polyline" ~> 5.0
 You can integrate Polyline using the [Swift Package Manager](https://swift.org/package-manager/), add the following package to the `dependencies` in your Package.swift file:
 
 ```swift
-.package(url: "https://github.com/raphaelmor/Polyline.git", from: "5.0.1")
+.package(url: "https://github.com/raphaelmor/Polyline.git", from: "5.0.2")
 ```
 
 ### Manual
