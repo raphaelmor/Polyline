@@ -7,6 +7,7 @@ extension FunctionalPolylineTests {
     // to regenerate.
     static let __allTests__FunctionalPolylineTests = [
         ("testAnotherValidPolylineShouldReturnValidLocationArray", testAnotherValidPolylineShouldReturnValidLocationArray),
+        ("testDecodingPolyline", testDecodingPolyline),
         ("testEmptyArrayShouldBeEmptyString", testEmptyArrayShouldBeEmptyString),
         ("testEmptyLevelsShouldBeEmptyLevelArray", testEmptyLevelsShouldBeEmptyLevelArray),
         ("testEmptylevelsShouldBeEmptyString", testEmptylevelsShouldBeEmptyString),

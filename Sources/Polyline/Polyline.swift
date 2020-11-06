@@ -175,34 +175,32 @@ public func encodeLevels(_ levels: [UInt32]) -> String {
 ///
 /// - returns: A `[CLLocationCoordinate2D]` representing the decoded polyline if valid, `nil` otherwise
 public func decodePolyline(_ encodedPolyline: String, precision: Double = 1e5) -> [LocationCoordinate2D]? {
-    
-    let data = encodedPolyline.data(using: String.Encoding.utf8)!
-    
-    let byteArray = (data as NSData).bytes.assumingMemoryBound(to: Int8.self)
-    let length = Int(data.count)
-    var position = Int(0)
-    
-    var decodedCoordinates = [LocationCoordinate2D]()
-    
-    var lat = 0.0
-    var lon = 0.0
-    
-    while position < length {
-      
-        do {
-            let resultingLat = try decodeSingleCoordinate(byteArray: byteArray, length: length, position: &position, precision: precision)
-            lat += resultingLat
+    let data = encodedPolyline.data(using: .utf8)!
+    return data.withUnsafeBytes { byteArray -> [LocationCoordinate2D]? in
+        let length = data.count
+        var position = 0
+        
+        var decodedCoordinates = [LocationCoordinate2D]()
+        
+        var lat = 0.0
+        var lon = 0.0
+        
+        while position < length {
+            do {
+                let resultingLat = try decodeSingleCoordinate(byteArray: byteArray, length: length, position: &position, precision: precision)
+                lat += resultingLat
+                
+                let resultingLon = try decodeSingleCoordinate(byteArray: byteArray, length: length, position: &position, precision: precision)
+                lon += resultingLon
+            } catch {
+                return nil
+            }
             
-            let resultingLon = try decodeSingleCoordinate(byteArray: byteArray, length: length, position: &position, precision: precision)
-            lon += resultingLon
-        } catch {
-            return nil
+            decodedCoordinates.append(LocationCoordinate2D(latitude: lat, longitude: lon))
         }
-
-        decodedCoordinates.append(LocationCoordinate2D(latitude: lat, longitude: lon))
+        
+        return decodedCoordinates
     }
-    
-    return decodedCoordinates
 }
 
 #if canImport(CoreLocation)
@@ -301,7 +299,7 @@ private func encodeFiveBitComponents(_ value: Int) -> String {
 
 // We use a byte array (UnsafePointer<Int8>) here for performance reasons. Check with swift 2 if we can
 // go back to using [Int8]
-private func decodeSingleCoordinate(byteArray: UnsafePointer<Int8>, length: Int, position: inout Int, precision: Double = 1e5) throws -> Double {
+private func decodeSingleCoordinate(byteArray: UnsafeRawBufferPointer, length: Int, position: inout Int, precision: Double = 1e5) throws -> Double {
     
     guard position < length else { throw PolylineError.singleCoordinateDecodingError }
     
@@ -314,7 +312,7 @@ private func decodeSingleCoordinate(byteArray: UnsafePointer<Int8>, length: Int,
     var component: Int32 = 0
     
     repeat {
-        currentChar = byteArray[position] - 63
+        currentChar = Int8(byteArray[position]) - 63
         component = Int32(currentChar & bitMask)
         coordinate |= (component << (5*componentCounter))
         position += 1
