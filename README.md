@@ -67,7 +67,13 @@ github "raphaelmor/Polyline" ~> 5.0
 ```
 
 ### Swift Package Manager
-You can integrate Polyline using the [Swift Package Manager](https://swift.org/package-manager/), add the following package to the `dependencies` in your Package.swift file:
+To integrate Polyline into an application using [Swift Package Manager](https://swift.org/package-manager/) within Xcode:
+
+1. Go to File ‣ Swift Packages ‣ Add Package Dependency.
+2. Enter `https://github.com/raphaelmor/Polyline.git` as the package repository and click Next.
+3. Set Rules to Version, Up to Next Major, and enter `5.0.2` as the minimum version requirement. Click Next.
+
+Or to integrate Polyline into another Swift package, add the following package to the `dependencies` in your Package.swift file:
 
 ```swift
 .package(url: "https://github.com/raphaelmor/Polyline.git", from: "5.0.2")
@@ -75,8 +81,9 @@ You can integrate Polyline using the [Swift Package Manager](https://swift.org/p
 
 ### Manual
 
-- Drag Polyline.swift inside your project tree.
-- For Workspaces you may include the whole Polyline.xcodeproj
+To install Polyline manually, add Polyline.xcodeproj to an Xcode workspace, then link your application to Polyline.framework.
+
+It is technically possible to install Polyline by adding Polyline.swift and CoreLocation.swift directly to your project, but this approach is not recommended as it may omit important files in the future.
 
 ## Usage
 
