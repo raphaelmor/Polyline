@@ -43,7 +43,7 @@ Polyline encoder / decoder in Swift
 ## Requirements
 
 - Xcode 11+
-- iOS 10.0+ / Mac OS X 10.12+ / tvOS 10.0+ / watchOS 3.0+ / Linux
+- iOS 12.0+ / Mac OS X 10.14+ / tvOS 12.0+ / watchOS 5.0+ / Linux
 - Swift 5.0
 
 ---
